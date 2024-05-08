@@ -101,7 +101,7 @@ h1 {
   background-color: white;
   color: #878787;
   font-size: 14px;
-
+  overflow: scroll;
   > li:hover {
     background-color: #f7f7f7 !important;
     color: $base-color !important;
@@ -193,7 +193,7 @@ h1 {
   min-width: 320px;
   padding: 16px 50px;
   color: #da2a35;
-  font-weight:600;
+  font-weight: 600;
 }
 
 .ant-layout .ant-layout-sider {
