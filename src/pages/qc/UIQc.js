@@ -21,7 +21,7 @@ import { delay, getDefaultValue } from "utils/utils";
 import { qcOption } from "context/constant";
 import TagQc from "component/tag/TagQc";
 
-const UIProduct = () => {
+const UIQc = () => {
   const [itemList, setItemList] = useState([]);
   const [qcProduct, setQcProduct] = useState();
 
@@ -859,4 +859,4 @@ const UIProduct = () => {
   );
 };
 
-export default UIProduct;
+export default UIQc;
