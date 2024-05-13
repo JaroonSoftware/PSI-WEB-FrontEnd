@@ -10,9 +10,7 @@ import {
   Col,
   message,
 } from "antd";
-import SettingService from "services/SettingService";
 import dayjs from "dayjs";
-import ProductService from "services/ProductService";
 import { REPORT_TYPE } from "context/constant";
 
 const ModalProductReport = ({ isOpen, onClose, getReportData }) => {

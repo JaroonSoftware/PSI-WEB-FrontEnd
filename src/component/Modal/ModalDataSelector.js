@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Table, Button, Input } from "antd";
 import { COLUMN } from "context/column";
-import SettingService from "services/SettingService";
 import dayjs from "dayjs";
 import {
   SELECTOR_CUSTOMER,

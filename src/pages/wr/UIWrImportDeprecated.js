@@ -26,7 +26,6 @@ import $ from "jquery";
 
 // SERVICE
 import WireRodService from "services/WireRodService";
-import SettingService from "services/SettingService";
 import { COLUMN } from "context/column";
 
 const UIWrImportDeprecated = () => {

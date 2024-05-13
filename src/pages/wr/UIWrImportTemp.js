@@ -22,7 +22,6 @@ import Swal from "sweetalert2";
 
 // SERVICE
 import WireRodService from "services/WireRodService";
-import SettingService from "services/SettingService";
 
 const UIWrImportTemp = () => {
   const [lcList, setLcList] = useState([]);
