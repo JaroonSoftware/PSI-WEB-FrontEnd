@@ -50,7 +50,7 @@ export const nav = [
     label: "รายงานอายุ",
     path: "service-life",
   },
-  { label: "ผลิต", key: "sub2", type: "sub" },
+  { label: "รายงานภาพรวม", key: "sub2", type: "sub" },
   {
     key: "7",
     icon: <FileSearchOutlined className="icon-menubar" />,

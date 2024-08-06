@@ -45,7 +45,7 @@ const NavHeader = ({ collapsed, setCollapsed }) => {
           style={{
             textTransform: "uppercase",
             fontWeight: "bold",
-            color: "#da2a35",
+            color: "#0fa0d5",
           }}
         >
           {process.env.NODE_ENV}

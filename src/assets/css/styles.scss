@@ -1,4 +1,4 @@
-$base-color: #da2a35;
+$base-color: #0fa0d5;
 
 .container {
   width: 100%;
@@ -192,7 +192,7 @@ h1 {
   color: $base-color;
   min-width: 320px;
   padding: 16px 50px;
-  color: #da2a35;
+  color: $base-color;
   font-weight: 600;
 }
 
@@ -243,10 +243,10 @@ h1 {
 }
 @media (min-width: 501px) {
   .ant-layout .ant-layout-sider {
-    flex: 0 0 220px;
-    max-width: 220px;
-    min-width: 220px;
-    width: 220px;
+    flex: 0 0 210px !important;
+    max-width: 210px !important;
+    min-width: 210px !important;
+    width: 210px !important;
   }
 }
 

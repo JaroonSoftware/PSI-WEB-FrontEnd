@@ -35,12 +35,12 @@ const NavBar = ({ collapsed }) => {
             textAlign: "center",
             margin: "0",
             padding: "10px 10px",
-            backgroundColor: "#b11c25",
+            backgroundColor: "#0fa0d5",
             fontSize: "22px",
             color: "white",
           }}
         >
-          PSI
+          PSI (Report)
         </h1>
         <Menu className="navbar-custom">
           <div
@@ -73,7 +73,7 @@ const NavBar = ({ collapsed }) => {
             <div style={{ marginTop: "25px", textAlign: "center" }}>
               <span
                 style={{
-                  color: "#da2a35",
+                  color: "#0fa0d5",
                   fontSize: "12px",
                   fontWeight: "bold",
                   textTransform: "uppercase",
