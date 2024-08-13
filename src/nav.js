@@ -55,19 +55,19 @@ export const nav = [
     key: "7",
     icon: <FileSearchOutlined className="icon-menubar" />,
     label: "Factory Report",
-    path: "",
+    path: "factory-report",
   },
   {
     key: "8",
     icon: <FileSearchOutlined className="icon-menubar" />,
     label: "Weekly Report",
-    path: "",
+    path: "weekly-report",
   },
   {
     key: "9",
     icon: <FileSearchOutlined className="icon-menubar" />,
     label: "Monthly Report",
-    path: "",
+    path: "monthly-report",
   },
   {
     key: "10",
@@ -98,7 +98,7 @@ export const nav = [
     key: "14",
     icon: <FileTextOutlined className="icon-menubar" />,
     label: "รายงานยอดขาย - Monthly",
-    path: "",
+    path: "sale/report-monthly",
   },
   {
     key: "15",

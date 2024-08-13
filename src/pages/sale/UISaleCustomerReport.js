@@ -4,7 +4,7 @@ import { PrinterFilled } from "@ant-design/icons";
 import { COLUMN } from "context/column";
 import { Tabs } from "antd";
 
-const UIReportCustomer = () => {
+const UISaleCustomerReport = () => {
   const [productList, setProductList] = useState([]);
 
   // === PAGE CONFIG === //
@@ -160,4 +160,4 @@ const UIReportCustomer = () => {
   );
 };
 
-export default UIReportCustomer;
+export default UISaleCustomerReport;
