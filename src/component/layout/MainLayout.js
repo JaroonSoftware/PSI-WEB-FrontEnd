@@ -22,7 +22,7 @@ const MainLayout = () => {
           <a
             href="https://www.facebook.com/jaroonsoft/"
             target="_blank"
-            style={{ color: "#da2a35" }}
+            style={{ color: "#0ea2d2" }}
           >
             Jaroon Software Co., Ltd.
           </a>
