@@ -73,7 +73,11 @@ const NavBar = ({ collapsed }) => {
             <div style={{ marginTop: "25px", textAlign: "center" }}>
               <span
                 style={{
+<<<<<<< HEAD
                   color: "#0ea2d2",
+=======
+                  color: "#0ea2d2",
+>>>>>>> d9509d8ba9dfda7dbabf6dcdabcc9b5aecbc478f
                   fontSize: "12px",
                   fontWeight: "bold",
                   textTransform: "uppercase",

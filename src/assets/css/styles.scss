@@ -243,10 +243,10 @@ h1 {
 }
 @media (min-width: 501px) {
   .ant-layout .ant-layout-sider {
-    flex: 0 0 220px;
-    max-width: 220px;
-    min-width: 220px;
-    width: 220px;
+    flex: 0 0 210px !important;
+    max-width: 210px !important;
+    min-width: 210px !important;
+    width: 210px !important;
   }
 }
 
