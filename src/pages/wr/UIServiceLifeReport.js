@@ -3,7 +3,7 @@ import { Card, Table, Pagination, Button, Space, Input, Form } from "antd";
 import { PrinterFilled } from "@ant-design/icons";
 import { COLUMN } from "context/column";
 
-const UIServiceLifeReport = () => {
+const UILifeTimeReport = () => {
   const [productList, setProductList] = useState([]);
 
   // === PAGE CONFIG === //
@@ -83,4 +83,4 @@ const UIServiceLifeReport = () => {
   );
 };
 
-export default UIServiceLifeReport;
+export default UILifeTimeReport;

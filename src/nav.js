@@ -24,31 +24,31 @@ export const nav = [
     key: "2",
     icon: <FileDoneOutlined className="icon-menubar" />,
     label: "ข้อมูลการรับ",
-    path: "income",
+    path: "wirerod/import",
   },
   {
     key: "3",
     icon: <FileDoneOutlined className="icon-menubar" />,
     label: "ข้อมูลการจ่าย",
-    path: "expense",
+    path: "wirerod/export",
   },
   {
     key: "4",
     icon: <StockOutlined className="icon-menubar" />,
     label: "สต๊อคคงเหลือ",
-    path: "stock",
+    path: "wirerod/stock",
   },
   {
     key: "5",
     icon: <FileTextOutlined className="icon-menubar" />,
-    label: "รายงานการรับ",
-    path: "income-report",
+    label: "รายงาน - การรับ",
+    path: "wirerod/import-report",
   },
   {
     key: "6",
     icon: <FileTextOutlined className="icon-menubar" />,
-    label: "รายงานอายุ",
-    path: "service-life",
+    label: "รายงาน - อายุ",
+    path: "wirerod/life-time-report",
   },
   { label: "รายงานภาพรวม", key: "sub2", type: "sub" },
   {
@@ -85,7 +85,7 @@ export const nav = [
   {
     key: "12",
     icon: <FileTextOutlined className="icon-menubar" />,
-    label: "Daily",
+    label: "รายวัน",
     path: "",
   },
   {
@@ -97,20 +97,20 @@ export const nav = [
   {
     key: "14",
     icon: <FileTextOutlined className="icon-menubar" />,
-    label: "รายงานยอดขาย - Monthly",
+    label: "รายเดือน",
     path: "sale/report-monthly",
   },
   {
     key: "15",
     icon: <UserOutlined className="icon-menubar" />,
     label: "ลูกค้า 1",
-    path: "sale/report-customer",
+    path: "sale/report-customer-1",
   },
   {
     key: "15",
     icon: <UserOutlined className="icon-menubar" />,
     label: "ลูกค้า 2",
-    path: "sale/report-customer",
+    path: "sale/report-customer-2",
   },
   {
     key: "16",

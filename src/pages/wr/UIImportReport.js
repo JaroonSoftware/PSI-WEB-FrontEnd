@@ -3,7 +3,7 @@ import { Card, Table, Pagination, Button, Space, Input, Form } from "antd";
 import { PrinterFilled } from "@ant-design/icons";
 import { COLUMN } from "context/column";
 
-const UIIncomeReport = () => {
+const UIImportReport = () => {
   const [productList, setProductList] = useState([]);
 
   // === PAGE CONFIG === //
@@ -83,4 +83,4 @@ const UIIncomeReport = () => {
   );
 };
 
-export default UIIncomeReport;
+export default UIImportReport;

@@ -14,7 +14,7 @@ import { dateFormat } from "utils/utils";
 import { COLUMN } from "context/column";
 const { RangePicker } = DatePicker;
 
-const UIIncomeInfo = () => {
+const UIImportInfo = () => {
   const [productList, setProductList] = useState([]);
 
   // === PAGE CONFIG === //
@@ -159,4 +159,4 @@ const UIIncomeInfo = () => {
   );
 };
 
-export default UIIncomeInfo;
+export default UIImportInfo;

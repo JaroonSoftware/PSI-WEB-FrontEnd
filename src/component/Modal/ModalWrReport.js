@@ -10,7 +10,7 @@ import {
   message,
 } from "antd";
 import dayjs from "dayjs";
-import WireRodService from "services/WireRodService";
+import WireRodService from "services/RwiService";
 import { REPORT_TYPE } from "context/constant";
 
 const ModalWrReport = ({ isOpen, onClose, getReportData, from }) => {

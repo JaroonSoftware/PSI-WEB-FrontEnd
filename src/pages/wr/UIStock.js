@@ -2,81 +2,135 @@ import React, { useEffect, useState } from "react";
 import { Card, Table, Button, DatePicker, Space } from "antd";
 import { dateFormat } from "utils/utils";
 import { PrinterFilled } from "@ant-design/icons";
+import RwiService from "services/RwiService";
 
 const UIStock = () => {
-  const [productList, setProductList] = useState([]);
+  const [data, setData] = useState([]);
 
-  // === PAGE CONFIG === //
-  const [page, setPage] = useState(1);
-  const [pageLimit, setPageLimit] = useState(10);
-  const [totalItems, setTotalItems] = useState(0);
+  useEffect(() => {
+    fetchStock();
+  }, []);
 
-  useEffect(() => {}, []);
+  const fetchStock = () => {
+    RwiService.getStock()
+      .then(({ data }) => {
+        let { items } = data;
 
-  const onChange = (date, dateString) => {
-    console.log(date, dateString);
+        let obj = {};
+
+        for (let i of items) {
+          let key = i.vendor;
+
+          if (!obj[key]) {
+            obj[key] = {
+              items: [],
+              venCode: key,
+              venName: i.ven_name,
+              totalWeight: 0,
+              totalQuantity: 0,
+            };
+          }
+          obj[key]["items"].push({ key: i.lc_no + "@" + i.charge_no, ...i });
+          obj[key]["totalWeight"] += i.total_weight;
+          obj[key]["totalQuantity"] += i.quantity;
+        }
+
+        let arrayItem = [];
+        let totalKeys = Object.keys(obj);
+
+        for (let k of totalKeys) {
+          arrayItem = [...arrayItem, ...obj[k].items];
+          arrayItem.push({
+            key: k + "#SUM",
+            venCode: obj[k].venCode,
+            venName: obj[k].venName,
+            total_weight: obj[k].totalWeight,
+            quantity: obj[k].totalQuantity,
+          });
+        }
+
+        // console.log(arrayItem);
+        setData(arrayItem);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const dataSource = [
-    {
-      key: "1",
-      get_date: "Test",
-      supp_name: "1",
-      lc_no: "2",
-      charge_no: "3",
-      size: "4",
-      grade: "5",
-      amount: "6",
-      weight: "7",
-    },
-  ];
+  const onChange = (date, dateString) => {
+    console.log(date);
+  };
 
   const columns = [
     {
       title: "ลำดับ",
       key: "index",
       align: "center",
-      render: (text, record, idx) => (page - 1) * pageLimit + (idx + 1),
+      render: (text, record, idx) => (record?.vendor ? idx + 1 : <b>รวม</b>),
     },
     {
       title: "วันที่รับ",
-      dataIndex: "get_date",
-      key: "get_date",
+      dataIndex: "rcv_date",
+      key: "rcv_date",
+      align: "center",
+      render: (rcv_date, record) =>
+        record?.vendor ? rcv_date : <b>[{record?.venCode}]</b>,
     },
     {
       title: "ชื่อ Supplier",
-      dataIndex: "supp_name",
-      key: "supp_name",
+      dataIndex: "ven_name",
+      key: "ven_name",
+      align: "center",
+      render: (ven_name, record) =>
+        record?.vendor ? ven_name : <b>{record?.venName}</b>,
     },
     {
       title: "L/C No.",
       dataIndex: "lc_no",
       key: "lc_no",
+      align: "center",
     },
     {
       title: "Charge No.",
       dataIndex: "charge_no",
       key: "charge_no",
+      align: "center",
     },
     {
       title: "ขนาด",
       dataIndex: "size",
       key: "size",
+      align: "center",
     },
     {
       title: "เกรด",
       dataIndex: "grade",
       key: "grade",
+      align: "center",
     },
     {
       title: "จำนวน",
-      dataIndex: "amount",
-      key: "amount",
+      dataIndex: "quantity",
+      key: "quantity",
+      align: "center",
+      render: (quantity, record) =>
+        record?.vendor ? (
+          quantity?.toLocaleString()
+        ) : (
+          <b>{quantity?.toLocaleString()}</b>
+        ),
     },
     {
       title: "น้ำหนัก",
-      dataIndex: "weight",
-      key: "weight",
+      dataIndex: "total_weight",
+      key: "total_weight",
+      align: "center",
+      render: (total_weight, record) =>
+        record?.vendor ? (
+          total_weight?.toLocaleString()
+        ) : (
+          <b>{total_weight?.toLocaleString()}</b>
+        ),
     },
   ];
 
@@ -92,7 +146,7 @@ const UIStock = () => {
         >
           <h1 style={{ fontSize: "18px" }}>Remaining Stock</h1>
           <Space>
-            <DatePicker onChange={onChange} format={dateFormat} />
+            <DatePicker onChange={onChange} format={"DD/MM/YYYY"} />
 
             <Button
               type="primary"
@@ -110,12 +164,13 @@ const UIStock = () => {
         </div>
 
         <Table
-          dataSource={dataSource}
+          dataSource={data}
           columns={columns}
           style={{ marginTop: "1rem" }}
           pagination={false}
           scroll={{ x: 800 }}
           size="small"
+          bordered
         />
       </Card>
     </>
