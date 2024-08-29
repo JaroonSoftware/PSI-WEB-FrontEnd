@@ -36,6 +36,9 @@ const App = () => {
           <Route path="factory-report" element={<UIFactoryReport />} />
           <Route path="weekly-report" element={<UIWeeklyReport />} />
           <Route path="monthly-report" element={<UIMonthlyReport />} />
+          <Route path="yearly-report" element={<UIMonthlyReport />} />
+          <Route path="qc-report" element={<UIMonthlyReport />} />
+
           <Route path="sale/report-monthly" element={<UIReportSaleMonthly />} />
           <Route
             path="sale/report-customer"

@@ -7,10 +7,11 @@ const ENDPOINT = {
 };
 
 const RwiService = {
-  getStock: () => {
+  getStock: (dateQuery) => {
     return axios({
-      method: METHOD.GET,
+      method: METHOD.POST,
       url: ENDPOINT.GET_STOCK,
+      data: { dateQuery },
     });
   },
 };

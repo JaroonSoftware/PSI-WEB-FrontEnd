@@ -6,34 +6,43 @@ import RwiService from "services/RwiService";
 
 const UIStock = () => {
   const [data, setData] = useState([]);
+  const [dateQuery, setDateQuery] = useState();
 
   useEffect(() => {
-    fetchStock();
-  }, []);
+    if (dateQuery) {
+      fetchStock();
+    } else {
+      setData([]);
+    }
+  }, [dateQuery]);
 
   const fetchStock = () => {
-    RwiService.getStock()
+    RwiService.getStock(dateQuery)
       .then(({ data }) => {
         let { items } = data;
 
         let obj = {};
 
         for (let i of items) {
-          let key = i.vendor;
+          let key = i.vendor + "@" + i.productcode;
 
           if (!obj[key]) {
             obj[key] = {
               items: [],
-              venCode: key,
+              venCode: i.vendor,
               venName: i.ven_name,
               totalWeight: 0,
               totalQuantity: 0,
+              remaining: 0,
+              productCode: i.productcode,
             };
           }
           obj[key]["items"].push({ key: i.lc_no + "@" + i.charge_no, ...i });
           obj[key]["totalWeight"] += i.total_weight;
           obj[key]["totalQuantity"] += i.quantity;
+          obj[key]["remaining"] += i.remaining;
         }
+        console.log(obj);
 
         let arrayItem = [];
         let totalKeys = Object.keys(obj);
@@ -46,10 +55,13 @@ const UIStock = () => {
             venName: obj[k].venName,
             total_weight: obj[k].totalWeight,
             quantity: obj[k].totalQuantity,
+            productCode: obj[k].productCode,
+            remaining: obj[k].remaining,
           });
         }
 
         // console.log(arrayItem);
+
         setData(arrayItem);
       })
       .catch((err) => {
@@ -58,7 +70,7 @@ const UIStock = () => {
   };
 
   const onChange = (date, dateString) => {
-    console.log(date);
+    setDateQuery(dateString);
   };
 
   const columns = [
@@ -74,7 +86,7 @@ const UIStock = () => {
       key: "rcv_date",
       align: "center",
       render: (rcv_date, record) =>
-        record?.vendor ? rcv_date : <b>[{record?.venCode}]</b>,
+        record?.vendor ? rcv_date : <b>{record?.productCode}</b>,
     },
     {
       title: "ชื่อ Supplier",
@@ -82,7 +94,11 @@ const UIStock = () => {
       key: "ven_name",
       align: "center",
       render: (ven_name, record) =>
-        record?.vendor ? ven_name : <b>{record?.venName}</b>,
+        record?.vendor && (
+          <>
+            <b style={{ color: "#0ea2d2" }}>[{record?.vendor}] </b> {ven_name}
+          </>
+        ),
     },
     {
       title: "L/C No.",
@@ -121,6 +137,18 @@ const UIStock = () => {
         ),
     },
     {
+      title: "คงเหลือ",
+      dataIndex: "remaining",
+      key: "remaining",
+      align: "center",
+      render: (remaining, record) =>
+        record?.vendor ? (
+          remaining?.toLocaleString()
+        ) : (
+          <b>{remaining?.toLocaleString()}</b>
+        ),
+    },
+    {
       title: "น้ำหนัก",
       dataIndex: "total_weight",
       key: "total_weight",
@@ -146,7 +174,7 @@ const UIStock = () => {
         >
           <h1 style={{ fontSize: "18px" }}>Remaining Stock</h1>
           <Space>
-            <DatePicker onChange={onChange} format={"DD/MM/YYYY"} />
+            <DatePicker onChange={onChange} format={"YYYY/MM/DD"} />
 
             <Button
               type="primary"
@@ -171,6 +199,41 @@ const UIStock = () => {
           scroll={{ x: 800 }}
           size="small"
           bordered
+          summary={(pageData) => {
+            let totalQuantity = 0;
+            let totalWeight = 0;
+            let totalRemaining = 0;
+            pageData.forEach(({ quantity, total_weight, remaining }) => {
+              totalQuantity += quantity;
+              totalWeight += total_weight;
+              totalRemaining += remaining;
+            });
+            return (
+              <>
+                <Table.Summary.Row
+                  align={"center"}
+                  style={{ backgroundColor: "#fafafa" }}
+                >
+                  <Table.Summary.Cell index={0}>
+                    <b>สุทธิ</b>
+                  </Table.Summary.Cell>
+                  <Table.Summary.Cell
+                    index={1}
+                    colSpan={6}
+                  ></Table.Summary.Cell>
+                  <Table.Summary.Cell index={2} colSpan={1}>
+                    <b>{totalQuantity?.toLocaleString()}</b>
+                  </Table.Summary.Cell>
+                  <Table.Summary.Cell index={3} colSpan={1}>
+                    <b>{totalRemaining?.toLocaleString()}</b>
+                  </Table.Summary.Cell>
+                  <Table.Summary.Cell index={4} colSpan={1}>
+                    <b>{totalWeight?.toLocaleString()}</b>
+                  </Table.Summary.Cell>
+                </Table.Summary.Row>
+              </>
+            );
+          }}
         />
       </Card>
     </>
