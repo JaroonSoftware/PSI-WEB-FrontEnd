@@ -152,7 +152,7 @@ const UIStock = () => {
       title: "น้ำหนัก",
       dataIndex: "total_weight",
       key: "total_weight",
-      align: "center",
+      align: "right",
       render: (total_weight, record) =>
         record?.vendor ? (
           total_weight?.toLocaleString()
@@ -227,7 +227,7 @@ const UIStock = () => {
                   <Table.Summary.Cell index={3} colSpan={1}>
                     <b>{totalRemaining?.toLocaleString()}</b>
                   </Table.Summary.Cell>
-                  <Table.Summary.Cell index={4} colSpan={1}>
+                  <Table.Summary.Cell align="right" index={4} colSpan={1}>
                     <b>{totalWeight?.toLocaleString()}</b>
                   </Table.Summary.Cell>
                 </Table.Summary.Row>
