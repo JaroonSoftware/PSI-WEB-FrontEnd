@@ -96,6 +96,7 @@ const NavBar = ({ collapsed }) => {
           )}
 
           {nav.map((item) => {
+            let { disabled } = item;
             if (item.type === "sub") {
               return (
                 <>
@@ -115,10 +116,23 @@ const NavBar = ({ collapsed }) => {
                   icon={item.icon}
                   className="ant-menu-item-selected"
                 >
-                  <NavLink to={item.path}>{item.label}</NavLink>
+                  <NavLink
+                    to={item.path}
+                    style={{
+                      textDecoration: disabled && "line-through",
+                    }}
+                  >
+                    {item.label}
+                  </NavLink>
                 </Menu.Item>
               ) : (
-                <Menu.Item key={item.key} icon={item.icon}>
+                <Menu.Item
+                  key={item.key}
+                  icon={item.icon}
+                  style={{
+                    textDecoration: disabled && "line-through",
+                  }}
+                >
                   <NavLink to={item.path}>{item.label}</NavLink>
                 </Menu.Item>
               );

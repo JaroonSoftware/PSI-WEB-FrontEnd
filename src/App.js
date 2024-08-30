@@ -21,8 +21,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/psi" element={<Navigate to="/psi/wirerod" />} />
-        <Route path="/psi" element={<MainLayout />}>
+        <Route path="/webpsi" element={<Navigate to="/webpsi/wirerod" />} />
+        <Route path="/webpsi" element={<MainLayout />}>
           <Route path="wirerod" element={<UIWireRod />} />
           <Route path="wirerod/import" element={<UIImportInfo />} />
           <Route path="wirerod/export" element={<UIExportInfo />} />

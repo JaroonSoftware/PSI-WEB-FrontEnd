@@ -1,5 +1,5 @@
 {
-  "name": "psi",
+  "name": "webpsi",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -54,5 +54,5 @@
     "env-cmd": "^10.1.0"
   },
   "proxy": "http://localhost:5001",
-  "homepage": "/psi"
+  "homepage": "/WEBPSI"
 }
