@@ -496,3 +496,37 @@ h1 {
   size: auto;
   margin: 8mm 0;
 }
+.print-table{
+  border-left:1px solid black !important;
+  border-right:1px solid black !important;
+  border-bottom:1px solid black !important;
+  margin:20px;
+}
+.print-table .ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >thead>tr>th:not(:last-child){
+  border-inline-end: 1px solid #000 !important;
+}
+.print-table .ant-table-wrapper .ant-table-thead >tr>th{
+  border-bottom: 1px solid #000000 !important;
+}
+.print-table .ant-table-wrapper .ant-table-container table>thead>tr:first-child >*:last-child {
+  border-start-end-radius: 0px !important;  
+}
+.print-table .ant-table-wrapper .ant-table-container table>thead>tr:first-child >*:first-child {
+  border-start-start-radius: 0px !important;
+}
+.print-table [data-row-key*="SUM"] td{
+ border-top:1px solid black !important;
+ border-bottom:1px solid black !important;
+}
+.print-table .ant-table-wrapper .ant-table.ant-table-bordered > .ant-table-container > .ant-table-content > table > tbody > tr > td:not(:last-child) {
+  border-inline-end: 1px solid #000000 !important;
+}
+.print-table th{
+  border-top:1px solid black !important;
+}
+@media print {
+  .print-table .ant-table-summary {
+      page-break-inside: auto !important;
+  }
+}
+

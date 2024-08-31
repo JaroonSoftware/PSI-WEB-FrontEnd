@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Card, Table, Button, DatePicker, Space } from "antd";
 import { dateFormat } from "utils/utils";
 import { PrinterFilled } from "@ant-design/icons";
 import RwiService from "services/RwiService";
+import { useReactToPrint } from "react-to-print";
+import DocRemainingStock from "component/print/DocRemainingStock";
 
 const UIStock = () => {
   const [data, setData] = useState([]);
   const [dateQuery, setDateQuery] = useState();
+  const printRef = useRef();
 
   useEffect(() => {
     if (dateQuery) {
@@ -72,6 +75,10 @@ const UIStock = () => {
   const onChange = (date, dateString) => {
     setDateQuery(dateString);
   };
+
+  const printProcess = useReactToPrint({
+    content: () => printRef.current,
+  });
 
   const columns = [
     {
@@ -174,6 +181,17 @@ const UIStock = () => {
         >
           <h1 style={{ fontSize: "18px" }}>Remaining Stock</h1>
           <Space>
+            <Button
+              type="primary"
+              key="print"
+              onClick={printProcess}
+              icon={
+                <PrinterFilled />
+              }
+            >
+              พิมพ์
+            </Button>
+
             <DatePicker onChange={onChange} format={"YYYY/MM/DD"} />
 
             <Button
@@ -184,7 +202,7 @@ const UIStock = () => {
                 margin: "0",
                 backgroundColor: "#ffc107",
               }}
-              onClick={() => {}}
+              onClick={() => { }}
             >
               แสดงรายงาน
             </Button>
@@ -209,32 +227,31 @@ const UIStock = () => {
               totalRemaining += remaining;
             });
             return (
-              <>
-                <Table.Summary.Row
-                  align={"center"}
-                  style={{ backgroundColor: "#fafafa" }}
-                >
-                  <Table.Summary.Cell index={0}>
-                    <b>สุทธิ</b>
-                  </Table.Summary.Cell>
-                  <Table.Summary.Cell
-                    index={1}
-                    colSpan={6}
-                  ></Table.Summary.Cell>
-                  <Table.Summary.Cell index={2} colSpan={1}>
-                    <b>{totalQuantity?.toLocaleString()}</b>
-                  </Table.Summary.Cell>
-                  <Table.Summary.Cell index={3} colSpan={1}>
-                    <b>{totalRemaining?.toLocaleString()}</b>
-                  </Table.Summary.Cell>
-                  <Table.Summary.Cell align="right" index={4} colSpan={1}>
-                    <b>{totalWeight?.toLocaleString()}</b>
-                  </Table.Summary.Cell>
-                </Table.Summary.Row>
-              </>
+              <Table.Summary.Row align="center" style={{ backgroundColor: "#fafafa" }}>
+                <Table.Summary.Cell index={0}>
+                  <b>สุทธิ</b>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={1} colSpan={6}></Table.Summary.Cell>
+                <Table.Summary.Cell index={2} colSpan={1}>
+                  <b>{totalQuantity?.toLocaleString()}</b>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={3} colSpan={1}>
+                  <b>{totalRemaining?.toLocaleString()}</b>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell align="right" index={4} colSpan={1}>
+                  <b>{totalWeight?.toLocaleString()}</b>
+                </Table.Summary.Cell>
+              </Table.Summary.Row>
             );
           }}
         />
+
+        {data && (
+          <div>
+            <DocRemainingStock ref={printRef} printData={data} columns={columns} />
+          </div>
+        )}
+
       </Card>
     </>
   );
