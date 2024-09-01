@@ -37,6 +37,11 @@ const UIImportReport = () => {
     content: () => printRef.current,
   });
 
+  const handlePrint = () => {
+    if (dateQuery && dataList && dateQuery.length > 0 && dataList.length > 0) {
+      printProcess();
+    } 
+  };
   const fetchWireRod = () => {
     let startDate = dateQuery[0];
     let endDate = dateQuery[1];
@@ -194,6 +199,95 @@ const UIImportReport = () => {
     },
   ];
 
+  const columnsPrint = [
+    {
+      title: "ลำดับ",
+      key: "index",
+      align: "center",
+      render: (text, record, idx) => (record?.vendor ? idx + 1 : <b>รวม</b>),
+    },
+    {
+      title: "วันที่รับ",
+      dataIndex: "rcv_date",
+      key: "rcv_date",
+      align: "center",
+      render: (rcv_date, record) =>
+        record?.vendor ? rcv_date : <b>{record?.productCode}</b>,
+    },
+    {
+      title: "ชื่อ Supplier",
+      dataIndex: "ven_name",
+      key: "ven_name",
+      align: "center",
+      render: (ven_name, record) =>
+        record?.vendor && (
+          <>
+            <b style={{ color: "#0ea2d2" }}>[{record?.vendor}] </b>
+          </>
+        ),
+    },
+    {
+      title: "L/C No.",
+      dataIndex: "lc_no",
+      key: "lc_no",
+      align: "center",
+    },
+    {
+      title: "Charge No.",
+      dataIndex: "charge_no",
+      key: "charge_no",
+      align: "center",
+    },
+    {
+      title: "ขนาด",
+      dataIndex: "size",
+      key: "size",
+      align: "center",
+    },
+    {
+      title: "เกรด",
+      dataIndex: "grade",
+      key: "grade",
+      align: "center",
+    },
+    {
+      title: "จำนวน",
+      dataIndex: "quantity",
+      key: "quantity",
+      align: "center",
+      render: (quantity, record) =>
+        record?.vendor ? (
+          quantity?.toLocaleString()
+        ) : (
+          <b>{quantity?.toLocaleString()}</b>
+        ),
+    },
+    {
+      title: "คงเหลือ",
+      dataIndex: "remaining",
+      key: "remaining",
+      align: "center",
+      render: (remaining, record) =>
+        record?.vendor ? (
+          remaining?.toLocaleString()
+        ) : (
+          <b>{remaining?.toLocaleString()}</b>
+        ),
+    },
+    {
+      title: "น้ำหนัก",
+      dataIndex: "total_weight",
+      key: "total_weight",
+      align: "right",
+      render: (total_weight, record) =>
+        record?.vendor ? (
+          total_weight?.toLocaleString()
+        ) : (
+          <b>{total_weight?.toLocaleString()}</b>
+        ),
+    },
+  ];
+
   return (
     <>
       <Card className="card-dashboard">
@@ -209,7 +303,7 @@ const UIImportReport = () => {
             <Button
               type="primary"
               key="print"
-              onClick={printProcess}
+              onClick={handlePrint}
               icon={
                 <PrinterFilled />
               }
@@ -307,7 +401,7 @@ const UIImportReport = () => {
         />
         {dataList && (
           <div style={{ display: "none" }}>
-            <DocImport ref={printRef} printData={dataList} columns={columns} />
+            <DocImport ref={printRef} printData={dataList} columns={columnsPrint} />
           </div>
         )}
       </Card>
