@@ -68,7 +68,6 @@ const UIImportReport = () => {
           obj[key]["totalQuantity"] += i.quantity;
           obj[key]["remaining"] += i.remaining;
         }
-        console.log(obj);
 
         let arrayItem = [];
         let totalKeys = Object.keys(obj);
@@ -103,7 +102,6 @@ const UIImportReport = () => {
       })
       .catch((err) => console.log(err));
   };
-
 
   const columns = [
     {
@@ -210,9 +208,7 @@ const UIImportReport = () => {
               type="primary"
               key="print"
               onClick={printProcess}
-              icon={
-                <PrinterFilled />
-              }
+              icon={<PrinterFilled />}
             >
               พิมพ์
             </Button>
@@ -245,19 +241,6 @@ const UIImportReport = () => {
               style={{ width: "230px" }}
               format={"DD/MM/YYYY"}
             />
-
-            <Button
-              type="primary"
-              style={{
-                width: "100%",
-                maxWidth: "138px",
-                margin: "0",
-                backgroundColor: "#ffc107",
-              }}
-              onClick={() => { }}
-            >
-              แสดงรายงาน
-            </Button>
           </Space>
         </div>
 

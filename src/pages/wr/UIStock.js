@@ -185,27 +185,12 @@ const UIStock = () => {
               type="primary"
               key="print"
               onClick={printProcess}
-              icon={
-                <PrinterFilled />
-              }
+              icon={<PrinterFilled />}
             >
               พิมพ์
             </Button>
 
             <DatePicker onChange={onChange} format={"YYYY/MM/DD"} />
-
-            <Button
-              type="primary"
-              style={{
-                width: "100%",
-                maxWidth: "138px",
-                margin: "0",
-                backgroundColor: "#ffc107",
-              }}
-              onClick={() => { }}
-            >
-              แสดงรายงาน
-            </Button>
           </Space>
         </div>
 
@@ -227,7 +212,10 @@ const UIStock = () => {
               totalRemaining += remaining;
             });
             return (
-              <Table.Summary.Row align="center" style={{ backgroundColor: "#fafafa" }}>
+              <Table.Summary.Row
+                align="center"
+                style={{ backgroundColor: "#fafafa" }}
+              >
                 <Table.Summary.Cell index={0}>
                   <b>สุทธิ</b>
                 </Table.Summary.Cell>
@@ -247,11 +235,14 @@ const UIStock = () => {
         />
 
         {data && (
-          <div style={{display:"none"}}>
-            <DocRemainingStock ref={printRef} printData={data} columns={columns} />
+          <div style={{ display: "none" }}>
+            <DocRemainingStock
+              ref={printRef}
+              printData={data}
+              columns={columns}
+            />
           </div>
         )}
-
       </Card>
     </>
   );
