@@ -1,16 +1,8 @@
-import React from "react";
-import { Table, Card } from "antd";
+import React, { useState } from "react";
+import { Table, Card, DatePicker, Button, Space } from "antd";
 
 const UIFactoryReport = () => {
-  const dataSource = [
-    {
-      key: "1",
-      product: "Test",
-      report_process: "1",
-      total_pay: "2",
-      procut_remain: "3",
-    },
-  ];
+  const [dataList, setDataList] = useState([]);
 
   const columns = [
     {
@@ -36,19 +28,29 @@ const UIFactoryReport = () => {
   ];
   return (
     <>
-      <Card className="card-dashboard">
-        <div>
+      <Card className="card-dashboard" style={{ minHeight: "800px" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <h1 style={{ fontSize: "18px" }}>Factory - Report</h1>
+          <Space>
+            <DatePicker onChange={() => {}} format={"YYYY/MM/DD"} />
+          </Space>
         </div>
+
         <Table
-          dataSource={dataSource}
+          dataSource={dataList}
           columns={columns}
           style={{ marginTop: "1rem" }}
           pagination={false}
           scroll={{ x: 800 }}
           size="small"
+          bordered
         />
-        ;
       </Card>
     </>
   );

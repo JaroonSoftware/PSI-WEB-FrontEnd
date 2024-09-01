@@ -288,19 +288,6 @@ const UIStock = () => {
             </Button>
 
             <DatePicker onChange={onChange} format={"YYYY/MM/DD"} />
-
-            <Button
-              type="primary"
-              style={{
-                width: "100%",
-                maxWidth: "138px",
-                margin: "0",
-                backgroundColor: "#ffc107",
-              }}
-              onClick={() => { }}
-            >
-              แสดงรายงาน
-            </Button>
           </Space>
         </div>
 
@@ -322,7 +309,10 @@ const UIStock = () => {
               totalRemaining += remaining;
             });
             return (
-              <Table.Summary.Row align="center" style={{ backgroundColor: "#fafafa" }}>
+              <Table.Summary.Row
+                align="center"
+                style={{ backgroundColor: "#fafafa" }}
+              >
                 <Table.Summary.Cell index={0}>
                   <b>สุทธิ</b>
                 </Table.Summary.Cell>
@@ -341,12 +331,21 @@ const UIStock = () => {
           }}
         />
 
+<<<<<<< HEAD
         {data &&  (
           <div style={{display:"none"}}>
             <DocRemainingStock ref={printRef} printData={data} columns={columnsPrint} />
+=======
+        {data && (
+          <div style={{ display: "none" }}>
+            <DocRemainingStock
+              ref={printRef}
+              printData={data}
+              columns={columns}
+            />
+>>>>>>> 09243f6819b09ac2fdcae9f5c2ef82d44fea8c15
           </div>
         )}
-
       </Card>
     </>
   );
