@@ -13,13 +13,15 @@ import { PrinterFilled } from "@ant-design/icons";
 import { dateFormat } from "utils/utils";
 import { COLUMN } from "context/column";
 import RwiService from "services/RwiService";
-const { RangePicker } = DatePicker;
+import { useReactToPrint } from "react-to-print";
+import DocImport from "component/print/DocImport";
 
 const UIImportReport = () => {
   const [dataList, setDataList] = useState([]);
   const [vendorList, setVendorList] = useState([]);
   const [dateQuery, setDateQuery] = useState([]);
   const [currentVendor, setCurrentVendor] = useState();
+  const printRef = useRef();
 
   const { RangePicker } = DatePicker;
 
@@ -30,6 +32,10 @@ const UIImportReport = () => {
   useEffect(() => {
     if (dateQuery) fetchWireRod();
   }, [dateQuery, currentVendor]);
+
+  const printProcess = useReactToPrint({
+    content: () => printRef.current,
+  });
 
   const fetchWireRod = () => {
     let startDate = dateQuery[0];
@@ -97,6 +103,7 @@ const UIImportReport = () => {
       })
       .catch((err) => console.log(err));
   };
+
 
   const columns = [
     {
@@ -199,6 +206,16 @@ const UIImportReport = () => {
         >
           <h1 style={{ fontSize: "18px" }}>ข้อมูลการรับ Wire Rod</h1>
           <Space>
+            <Button
+              type="primary"
+              key="print"
+              onClick={printProcess}
+              icon={
+                <PrinterFilled />
+              }
+            >
+              พิมพ์
+            </Button>
             <Select
               placeholder="ค้นหาแบบ ระบุผู้ขาย"
               style={{ width: 300 }}
@@ -237,7 +254,7 @@ const UIImportReport = () => {
                 margin: "0",
                 backgroundColor: "#ffc107",
               }}
-              onClick={() => {}}
+              onClick={() => { }}
             >
               แสดงรายงาน
             </Button>
@@ -288,6 +305,11 @@ const UIImportReport = () => {
             );
           }}
         />
+        {dataList && (
+          <div style={{ display: "none" }}>
+            <DocImport ref={printRef} printData={dataList} columns={columns} />
+          </div>
+        )}
       </Card>
     </>
   );
