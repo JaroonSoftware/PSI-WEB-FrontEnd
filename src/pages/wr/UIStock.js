@@ -247,7 +247,7 @@ const UIStock = () => {
         />
 
         {data && (
-          <div>
+          <div style={{display:"none"}}>
             <DocRemainingStock ref={printRef} printData={data} columns={columns} />
           </div>
         )}
