@@ -40,7 +40,7 @@ const UIImportReport = () => {
   const handlePrint = () => {
     if (dateQuery && dataList && dateQuery.length > 0 && dataList.length > 0) {
       printProcess();
-    } 
+    }
   };
   const fetchWireRod = () => {
     let startDate = dateQuery[0];
@@ -302,9 +302,7 @@ const UIImportReport = () => {
               type="primary"
               key="print"
               onClick={handlePrint}
-              icon={
-                <PrinterFilled />
-              }
+              icon={<PrinterFilled />}
             >
               พิมพ์
             </Button>
@@ -341,6 +339,7 @@ const UIImportReport = () => {
         </div>
 
         <Table
+          rowClassName={(record) => !record.vendor && "table-row-light"}
           dataSource={dataList}
           columns={columns}
           style={{ marginTop: "1rem" }}
@@ -386,7 +385,11 @@ const UIImportReport = () => {
         />
         {dataList && (
           <div style={{ display: "none" }}>
-            <DocImport ref={printRef} printData={dataList} columns={columnsPrint} />
+            <DocImport
+              ref={printRef}
+              printData={dataList}
+              columns={columnsPrint}
+            />
           </div>
         )}
       </Card>

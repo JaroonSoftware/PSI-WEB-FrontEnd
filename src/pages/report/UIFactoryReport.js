@@ -199,6 +199,9 @@ const UIFactoryReport = () => {
         </div>
 
         <Table
+          rowClassName={(record, idx) =>
+            idx === 5 || idx === 9 || idx === 13 ? "table-row-light" : ""
+          }
           dataSource={data}
           columns={columns}
           style={{ marginTop: "1rem" }}
@@ -206,7 +209,51 @@ const UIFactoryReport = () => {
           scroll={{ x: 800 }}
           size="small"
           bordered
-          footer={footer}
+          summary={(data) => {
+            let totalQuantity = 0;
+            let totalWeight = 0;
+            let totalRemaining = 0;
+            // data.forEach(({ quantity, total_weight, remaining }) => {
+            //   totalQuantity += quantity;
+            //   totalWeight += total_weight;
+            //   totalRemaining += remaining;
+            // });
+            return (
+              <Table.Summary.Row
+                align="center"
+                style={{ backgroundColor: "#fafafa" }}
+              >
+                <Table.Summary.Cell index={0}>
+                  <b>Grand Total</b>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={1} colSpan={1}></Table.Summary.Cell>
+                <Table.Summary.Cell index={2} colSpan={1}>
+                  <b>-</b>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={3} colSpan={1}>
+                  <b>-</b>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={4} colSpan={1}>
+                  <b>-</b>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={5} colSpan={1}>
+                  <b>-</b>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={6} colSpan={1}>
+                  <b>-</b>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={7} colSpan={1}>
+                  <b>-</b>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={8} colSpan={1}>
+                  <b>-</b>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={9} colSpan={1}>
+                  <b>-</b>
+                </Table.Summary.Cell>
+              </Table.Summary.Row>
+            );
+          }}
         />
       </Card>
     </>

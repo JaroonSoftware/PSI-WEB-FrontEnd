@@ -83,7 +83,7 @@ const UIStock = () => {
   const handlePrint = () => {
     if (dateQuery && data && dateQuery.length > 0 && data.length > 0) {
       printProcess();
-    } 
+    }
   };
 
   const columns = [
@@ -198,7 +198,7 @@ const UIStock = () => {
       render: (ven_name, record) =>
         record?.vendor && (
           <>
-            <b style={{ color: "#0ea2d2" }}>[{record?.vendor}] </b> 
+            <b style={{ color: "#0ea2d2" }}>[{record?.vendor}] </b>
           </>
         ),
     },
@@ -280,9 +280,7 @@ const UIStock = () => {
               type="primary"
               key="print"
               onClick={handlePrint}
-              icon={
-                <PrinterFilled />
-              }
+              icon={<PrinterFilled />}
             >
               พิมพ์
             </Button>
@@ -292,6 +290,7 @@ const UIStock = () => {
         </div>
 
         <Table
+          rowClassName={(record) => !record.vendor && "table-row-light"}
           dataSource={data}
           columns={columns}
           style={{ marginTop: "1rem" }}
@@ -331,19 +330,13 @@ const UIStock = () => {
           }}
         />
 
-<<<<<<< HEAD
-        {data &&  (
-          <div style={{display:"none"}}>
-            <DocRemainingStock ref={printRef} printData={data} columns={columnsPrint} />
-=======
         {data && (
           <div style={{ display: "none" }}>
             <DocRemainingStock
               ref={printRef}
               printData={data}
-              columns={columns}
+              columns={columnsPrint}
             />
->>>>>>> 09243f6819b09ac2fdcae9f5c2ef82d44fea8c15
           </div>
         )}
       </Card>
