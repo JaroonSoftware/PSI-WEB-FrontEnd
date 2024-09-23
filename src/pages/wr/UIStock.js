@@ -45,7 +45,6 @@ const UIStock = () => {
           obj[key]["totalQuantity"] += i.quantity;
           obj[key]["remaining"] += i.remaining;
         }
-        console.log(obj);
 
         let arrayItem = [];
         let totalKeys = Object.keys(obj);
