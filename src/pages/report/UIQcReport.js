@@ -246,6 +246,7 @@ const UIQcReport = () => {
             bordered
             rowKey="procode"
             loading={isLoading}
+            scroll={{ x: 800 }}
           />
         )}
 
@@ -288,6 +289,7 @@ const UIQcReport = () => {
                 size="small"
                 bordered
                 rowKey="procode"
+                scroll={{ x: 800 }}
               />
             </Card>
           );
@@ -295,7 +297,10 @@ const UIQcReport = () => {
 
         {Object.keys(noQcList).map((key) => {
           return (
-            <Card key={key} style={{ marginTop: "1.5rem", borderColor: "#da2a35" }}>
+            <Card
+              key={key}
+              style={{ marginTop: "1.5rem", borderColor: "#da2a35" }}
+            >
               <div style={{ textAlign: "center", marginBottom: "25px" }}>
                 <h3>
                   FINISHED PRODUCT P.C. WIRE{" "}
@@ -329,6 +334,7 @@ const UIQcReport = () => {
                 size="small"
                 bordered
                 rowKey="procode"
+                scroll={{ x: 800 }}
               />
             </Card>
           );

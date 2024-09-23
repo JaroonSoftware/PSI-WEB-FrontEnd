@@ -70,8 +70,6 @@ const UIImportReport = () => {
             };
           }
 
-          console.log(i);
-
           obj[key]["items"].push({ key: i.lc_no + "@" + i.charge_no, ...i });
           obj[key]["totalWeight"] += i.total_weight;
           obj[key]["totalQuantity"] += i.quantity;
