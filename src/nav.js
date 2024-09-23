@@ -87,7 +87,6 @@ export const nav = [
     icon: <FileSearchOutlined className="icon-menubar" />,
     label: "QC Report",
     path: "/webpsi/qc-report",
-    disabled: true,
   },
   { label: "รายงานยอดขาย", key: "sub3", type: "sub" },
   {
@@ -114,15 +113,8 @@ export const nav = [
   {
     key: "15",
     icon: <UserOutlined className="icon-menubar" />,
-    label: "ลูกค้า 1",
+    label: "ลูกค้า",
     path: "/webpsi/sale/report-customer-1",
-    disabled: true,
-  },
-  {
-    key: "15",
-    icon: <UserOutlined className="icon-menubar" />,
-    label: "ลูกค้า 2",
-    path: "/webpsi/sale/report-customer-2",
     disabled: true,
   },
   {
