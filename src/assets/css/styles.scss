@@ -571,3 +571,52 @@ h1 {
   background-color: #f1fcff;
   font-weight: bold;
 }
+
+.antd-custom-border-table {
+  border-top: 1px solid #1f1f1f !important ;
+  border-left: 1px solid #1f1f1f !important ;
+  border-radius: 0px !important;
+
+  .ant-table-container {
+    border: 0px !important;
+  }
+
+  thead {
+    tr > th:last-child {
+      border-start-end-radius: 0px !important;
+    }
+
+    tr > th {
+      border-bottom: 1px solid #1f1f1f !important;
+      border-inline-end: 1px solid #1f1f1f !important;
+    }
+
+    tr > th:before {
+      content: none !important;
+    }
+  }
+
+  tbody {
+    tr > td {
+      border-bottom: 1px solid #1f1f1f !important;
+      border-inline-end: 1px solid #1f1f1f !important;
+    }
+  }
+
+  tfoot {
+    tr > td {
+      border-bottom: 1px solid #1f1f1f !important;
+      border-inline-end: 1px solid #1f1f1f !important;
+    }
+  }
+}
+
+.table-less-font {
+  th {
+    font-size: 10px !important;
+  }
+
+  td {
+    font-size: 8px !important;
+  }
+}

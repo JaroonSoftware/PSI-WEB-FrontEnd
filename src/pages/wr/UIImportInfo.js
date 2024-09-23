@@ -56,6 +56,7 @@ const UIImportReport = () => {
 
         for (let i of items) {
           let key = i.vendor + "@" + i.productcode;
+          // let key = i.pdate
 
           if (!obj[key]) {
             obj[key] = {
@@ -70,7 +71,7 @@ const UIImportReport = () => {
           }
 
           console.log(i);
-          
+
           obj[key]["items"].push({ key: i.lc_no + "@" + i.charge_no, ...i });
           obj[key]["totalWeight"] += i.total_weight;
           obj[key]["totalQuantity"] += i.quantity;
@@ -124,7 +125,7 @@ const UIImportReport = () => {
       key: "rcv_date",
       align: "center",
       render: (rcv_date, record) =>
-        record?.vendor ? rcv_date : <b>{record?.productCode}</b>,
+        record?.vendor ? dateFormat(rcv_date) : <b>{record?.productCode}</b>,
     },
     {
       title: "ชื่อ Supplier",
@@ -213,7 +214,7 @@ const UIImportReport = () => {
       key: "rcv_date",
       align: "center",
       render: (rcv_date, record) =>
-        record?.vendor ? rcv_date : <b>{record?.productCode}</b>,
+        record?.vendor ? dateFormat(rcv_date) : <b>{record?.productCode}</b>,
     },
     {
       title: "ชื่อ Supplier",
@@ -223,7 +224,7 @@ const UIImportReport = () => {
       render: (ven_name, record) =>
         record?.vendor && (
           <>
-            <b style={{ color: "#0ea2d2" }}>[{record?.vendor}] </b>
+            <b style={{ color: "#0ea2d2" }}>{ven_name} </b>
           </>
         ),
     },
@@ -392,6 +393,7 @@ const UIImportReport = () => {
               ref={printRef}
               printData={dataList}
               columns={columnsPrint}
+              date={dateQuery}
             />
           </div>
         )}

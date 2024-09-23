@@ -27,7 +27,7 @@ const UIStock = () => {
         let obj = {};
 
         for (let i of items) {
-          let key = i.vendor + "@" + i.productcode;
+          let key = i.productcode;
 
           if (!obj[key]) {
             obj[key] = {
@@ -91,6 +91,7 @@ const UIStock = () => {
       title: "ลำดับ",
       key: "index",
       align: "center",
+      width: "5%",
       render: (text, record, idx) => (record?.vendor ? idx + 1 : <b>รวม</b>),
     },
     {
@@ -99,7 +100,7 @@ const UIStock = () => {
       key: "rcv_date",
       align: "center",
       render: (rcv_date, record) =>
-        record?.vendor ? rcv_date : <b>{record?.productCode}</b>,
+        record?.vendor ? dateFormat(rcv_date) : <b>{record?.productCode}</b>,
     },
     {
       title: "ชื่อ Supplier",
@@ -180,6 +181,7 @@ const UIStock = () => {
       title: "ลำดับ",
       key: "index",
       align: "center",
+      width: "5%",
       render: (text, record, idx) => (record?.vendor ? idx + 1 : <b>รวม</b>),
     },
     {
@@ -188,14 +190,13 @@ const UIStock = () => {
       key: "rcv_date",
       align: "center",
       render: (rcv_date, record) =>
-        record?.vendor ? rcv_date : <b>{record?.productCode}</b>,
+        record?.vendor ? dateFormat(rcv_date) : <b>{record?.productCode}</b>,
     },
     {
       title: "ชื่อ Supplier",
       dataIndex: "ven_name",
       key: "ven_name",
       align: "center",
-      width: "50%",
       render: (ven_name, record) =>
         record?.vendor && <b style={{ color: "#0ea2d2" }}>{ven_name}</b>,
     },
@@ -333,6 +334,7 @@ const UIStock = () => {
               ref={printRef}
               printData={data}
               columns={columnsPrint}
+              date={dateQuery}
             />
           </div>
         )}
