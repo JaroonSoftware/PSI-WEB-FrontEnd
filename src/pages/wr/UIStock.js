@@ -195,12 +195,9 @@ const UIStock = () => {
       dataIndex: "ven_name",
       key: "ven_name",
       align: "center",
+      width: "50%",
       render: (ven_name, record) =>
-        record?.vendor && (
-          <>
-            <b style={{ color: "#0ea2d2" }}>[{record?.vendor}] </b>
-          </>
-        ),
+        record?.vendor && <b style={{ color: "#0ea2d2" }}>{ven_name}</b>,
     },
     {
       title: "L/C No.",

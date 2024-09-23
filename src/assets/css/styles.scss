@@ -366,8 +366,11 @@ h1 {
   }
 }
 
-.table-less-pd > .ant-table-cell {
-  padding: 12px 12px !important;
+.table-less-pd {
+  td {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+  }
 }
 
 .ant-pagination {
