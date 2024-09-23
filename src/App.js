@@ -1,17 +1,22 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 // === PAGE === //
-import UIWireRod from "pages/wr/UIWireRod";
 import UISaleCustomerReport from "pages/sale/UISaleCustomerReport";
-import UIImportInfo from "pages/wr/UIImportInfo";
-import UIExportInfo from "pages/wr/UIExportInfo";
-import UIStock from "pages/wr/UIStock";
 import UIImportReport from "pages/wr/UIImportReport";
 import UIServiceLifeReport from "pages/wr/UIServiceLifeReport";
 import UIReportSaleMonthly from "pages/sale/UISaleMonthlyReport";
+
+// === WIREROD === //
+import UIWireRod from "pages/wr/UIWireRod";
+import UIImportInfo from "pages/wr/UIImportInfo";
+import UIExportInfo from "pages/wr/UIExportInfo";
+import UIStock from "pages/wr/UIStock";
+
+// === SUMMARY === //
 import UIMonthlyReport from "pages/report/UIMonthlyReport";
 import UIWeeklyReport from "pages/report/UIWeeklyReport";
 import UIFactoryReport from "pages/report/UIFactoryReport";
+import UIQcReport from "pages/report/UIQcReport";
 
 // === COMPONENT === //
 import MainLayout from "component/layout/MainLayout";
@@ -37,7 +42,7 @@ const App = () => {
           <Route path="weekly-report" element={<UIWeeklyReport />} />
           <Route path="monthly-report" element={<UIMonthlyReport />} />
           <Route path="yearly-report" element={<UIMonthlyReport />} />
-          <Route path="qc-report" element={<UIMonthlyReport />} />
+          <Route path="qc-report" element={<UIQcReport />} />
 
           <Route path="sale/report-monthly" element={<UIReportSaleMonthly />} />
           <Route
