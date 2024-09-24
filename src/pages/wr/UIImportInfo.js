@@ -40,7 +40,7 @@ const UIImportReport = () => {
   const handlePrint = () => {
     if (dateQuery && dataList && dateQuery.length > 0 && dataList.length > 0) {
       printProcess();
-    } 
+    }
   };
   const fetchWireRod = () => {
     let startDate = dateQuery[0];
@@ -56,6 +56,7 @@ const UIImportReport = () => {
 
         for (let i of items) {
           let key = i.vendor + "@" + i.productcode;
+          // let key = i.pdate
 
           if (!obj[key]) {
             obj[key] = {
@@ -68,6 +69,7 @@ const UIImportReport = () => {
               productCode: i.productcode,
             };
           }
+
           obj[key]["items"].push({ key: i.lc_no + "@" + i.charge_no, ...i });
           obj[key]["totalWeight"] += i.total_weight;
           obj[key]["totalQuantity"] += i.quantity;
@@ -121,7 +123,7 @@ const UIImportReport = () => {
       key: "rcv_date",
       align: "center",
       render: (rcv_date, record) =>
-        record?.vendor ? rcv_date : <b>{record?.productCode}</b>,
+        record?.vendor ? dateFormat(rcv_date) : <b>{record?.productCode}</b>,
     },
     {
       title: "ชื่อ Supplier",
@@ -210,7 +212,7 @@ const UIImportReport = () => {
       key: "rcv_date",
       align: "center",
       render: (rcv_date, record) =>
-        record?.vendor ? rcv_date : <b>{record?.productCode}</b>,
+        record?.vendor ? dateFormat(rcv_date) : <b>{record?.productCode}</b>,
     },
     {
       title: "ชื่อ Supplier",
@@ -220,7 +222,7 @@ const UIImportReport = () => {
       render: (ven_name, record) =>
         record?.vendor && (
           <>
-            <b style={{ color: "#0ea2d2" }}>[{record?.vendor}] </b>
+            <b style={{ color: "#0ea2d2" }}>{ven_name} </b>
           </>
         ),
     },
@@ -302,9 +304,7 @@ const UIImportReport = () => {
               type="primary"
               key="print"
               onClick={handlePrint}
-              icon={
-                <PrinterFilled />
-              }
+              icon={<PrinterFilled />}
             >
               พิมพ์
             </Button>
@@ -341,6 +341,7 @@ const UIImportReport = () => {
         </div>
 
         <Table
+          rowClassName={(record) => !record.vendor && "table-row-light"}
           dataSource={dataList}
           columns={columns}
           style={{ marginTop: "1rem" }}
@@ -386,7 +387,12 @@ const UIImportReport = () => {
         />
         {dataList && (
           <div style={{ display: "none" }}>
-            <DocImport ref={printRef} printData={dataList} columns={columnsPrint} />
+            <DocImport
+              ref={printRef}
+              printData={dataList}
+              columns={columnsPrint}
+              date={dateQuery}
+            />
           </div>
         )}
       </Card>

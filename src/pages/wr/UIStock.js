@@ -27,7 +27,7 @@ const UIStock = () => {
         let obj = {};
 
         for (let i of items) {
-          let key = i.vendor + "@" + i.productcode;
+          let key = i.productcode;
 
           if (!obj[key]) {
             obj[key] = {
@@ -45,7 +45,6 @@ const UIStock = () => {
           obj[key]["totalQuantity"] += i.quantity;
           obj[key]["remaining"] += i.remaining;
         }
-        console.log(obj);
 
         let arrayItem = [];
         let totalKeys = Object.keys(obj);
@@ -83,7 +82,7 @@ const UIStock = () => {
   const handlePrint = () => {
     if (dateQuery && data && dateQuery.length > 0 && data.length > 0) {
       printProcess();
-    } 
+    }
   };
 
   const columns = [
@@ -91,6 +90,7 @@ const UIStock = () => {
       title: "ลำดับ",
       key: "index",
       align: "center",
+      width: "5%",
       render: (text, record, idx) => (record?.vendor ? idx + 1 : <b>รวม</b>),
     },
     {
@@ -99,7 +99,7 @@ const UIStock = () => {
       key: "rcv_date",
       align: "center",
       render: (rcv_date, record) =>
-        record?.vendor ? rcv_date : <b>{record?.productCode}</b>,
+        record?.vendor ? dateFormat(rcv_date) : <b>{record?.productCode}</b>,
     },
     {
       title: "ชื่อ Supplier",
@@ -180,6 +180,7 @@ const UIStock = () => {
       title: "ลำดับ",
       key: "index",
       align: "center",
+      width: "5%",
       render: (text, record, idx) => (record?.vendor ? idx + 1 : <b>รวม</b>),
     },
     {
@@ -188,7 +189,7 @@ const UIStock = () => {
       key: "rcv_date",
       align: "center",
       render: (rcv_date, record) =>
-        record?.vendor ? rcv_date : <b>{record?.productCode}</b>,
+        record?.vendor ? dateFormat(rcv_date) : <b>{record?.productCode}</b>,
     },
     {
       title: "ชื่อ Supplier",
@@ -196,11 +197,7 @@ const UIStock = () => {
       key: "ven_name",
       align: "center",
       render: (ven_name, record) =>
-        record?.vendor && (
-          <>
-            <b style={{ color: "#0ea2d2" }}>[{record?.vendor}] </b> 
-          </>
-        ),
+        record?.vendor && <b style={{ color: "#0ea2d2" }}>{ven_name}</b>,
     },
     {
       title: "L/C No.",
@@ -280,9 +277,7 @@ const UIStock = () => {
               type="primary"
               key="print"
               onClick={handlePrint}
-              icon={
-                <PrinterFilled />
-              }
+              icon={<PrinterFilled />}
             >
               พิมพ์
             </Button>
@@ -292,6 +287,7 @@ const UIStock = () => {
         </div>
 
         <Table
+          rowClassName={(record) => !record.vendor && "table-row-light"}
           dataSource={data}
           columns={columns}
           style={{ marginTop: "1rem" }}
@@ -331,19 +327,14 @@ const UIStock = () => {
           }}
         />
 
-<<<<<<< HEAD
-        {data &&  (
-          <div style={{display:"none"}}>
-            <DocRemainingStock ref={printRef} printData={data} columns={columnsPrint} />
-=======
         {data && (
           <div style={{ display: "none" }}>
             <DocRemainingStock
               ref={printRef}
               printData={data}
-              columns={columns}
+              columns={columnsPrint}
+              date={dateQuery}
             />
->>>>>>> 09243f6819b09ac2fdcae9f5c2ef82d44fea8c15
           </div>
         )}
       </Card>

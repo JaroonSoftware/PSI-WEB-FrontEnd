@@ -19,13 +19,13 @@ export const padingZero = (num, totalLength) => {
   return String(num).padStart(totalLength, "0");
 };
 
-export const getDefaultValue = (value) => {
-  let val = parseFloat(value).toFixed(3);
+export const getDefaultValue = (value, digit) => {
+  let val = parseFloat(value).toFixed(digit || 2);
   let temp = val.split(".");
-  let itg = parseInt(temp[0]).toLocaleString();
-  let digit = temp[1];
+  let itgVal = parseInt(temp[0]).toLocaleString();
+  let digitVal = temp[1];
 
-  return value ? `${itg}.${digit}` : "0.00";
+  return value ? `${itgVal}.${digitVal}` : "0.00";
 };
 
 export const dateFormat = (date) => {
