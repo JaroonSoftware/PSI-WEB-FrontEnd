@@ -17,6 +17,7 @@ import UIMonthlyReport from "pages/report/UIMonthlyReport";
 import UIWeeklyReport from "pages/report/UIWeeklyReport";
 import UIFactoryReport from "pages/report/UIFactoryReport";
 import UIQcReport from "pages/report/UIQcReport";
+import UICustomerReport from "pages/report/UICustomerReport";
 
 // === COMPONENT === //
 import MainLayout from "component/layout/MainLayout";
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="monthly-report" element={<UIMonthlyReport />} />
           <Route path="yearly-report" element={<UIMonthlyReport />} />
           <Route path="qc-report" element={<UIQcReport />} />
+          <Route path="customer-report" element={<UICustomerReport />} />
 
           <Route path="sale/report-monthly" element={<UIReportSaleMonthly />} />
           <Route

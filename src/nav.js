@@ -146,7 +146,12 @@ export const nav = [
     label: "QC Report",
     path: "/webpsi/qc-report",
   },
-
+  {
+    key: "17",
+    icon: <FileTextOutlined className="icon-menubar" />,
+    label: "รายงาน - ลูกค้า",
+    path: "/webpsi/customer-report",
+  },
   { label: "ยังไม่เปิดใช้งาน", key: "sub3", type: "sub" },
   {
     key: "1",

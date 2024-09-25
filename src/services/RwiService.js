@@ -7,6 +7,7 @@ const ENDPOINT = {
   GET_IMPORT_WIREROD: `${API_URL}/rwi/get-import`,
   GET_VENDOR: `${API_URL}/setting/vendor?getAll=${true}`,
   GET_QC_REPORT: `${API_URL}/rwi/qc-report`,
+  GET_CUSTOMER_REPORT: `${API_URL}/rwi/product/export`,
 };
 
 const RwiService = {
@@ -38,6 +39,13 @@ const RwiService = {
     return axios({
       method: METHOD.POST,
       url: ENDPOINT.GET_QC_REPORT,
+      data: reqData,
+    });
+  },
+  getCustomerReport: (reqData) => {
+    return axios({
+      method: METHOD.POST,
+      url: ENDPOINT.GET_CUSTOMER_REPORT,
       data: reqData,
     });
   },

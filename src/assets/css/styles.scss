@@ -571,6 +571,10 @@ h1 {
   background-color: #f1fcff;
   font-weight: bold;
 }
+.table-row-light-remove {
+  background-color: #f1fcff;
+  font-weight: bold;
+}
 
 .antd-custom-border-table {
   border-top: 1px solid #1f1f1f !important ;
@@ -619,4 +623,10 @@ h1 {
   td {
     font-size: 10px !important;
   }
+}
+.text-right{
+  text-align: right;
+}
+.text-center{
+  text-align: center;
 }
