@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Card, Space, Table, DatePicker, Radio, Tabs, message } from "antd";
 import RwiService from "services/RwiService";
-import $ from 'jquery';
+import $ from "jquery";
 
 const { RangePicker } = DatePicker;
 const { TabPane } = Tabs;
 
-$(function() {
-  $('.table-row-light-remove').each(function() {
-    $(this).find('td').first().attr('colspan', '5');
-    $(this).find('td').slice(1, 5).remove();
+$(function () {
+  $(".table-row-light-remove").each(function () {
+    $(this).find("td").first().attr("colspan", "5");
+    $(this).find("td").slice(1, 5).remove();
   });
 });
-
 
 const UICustomerReport = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,23 +21,34 @@ const UICustomerReport = () => {
   const [reportData2, setReportData2] = useState([]);
   const [tabType, setTabType] = useState(1);
 
+  useEffect(() => {
+    setDateRange([]);
+    setProduct("");
+    if (tabType === 1) setReportData1([]);
+    else if (tabType === 2) setReportData2([]);
+  }, [tabType]);
+
   const handleTabChange = (key) => {
     setTabType(Number(key));
   };
 
   const fetchCustomer = (product, dateRange) => {
     let reqData = {
-      PdCodeQuery: product,
+      pdCodeQuery: product,
       dateQuery: dateRange,
-      type: tabType
+      type: tabType,
     };
 
-    if (dateRange && dateRange.length > 0 && product) {
+    if (dateRange && dateRange.length > 0) {
       if (tabType == 1) {
         setIsLoading(true);
         RwiService.getCustomerReport(reqData)
           .then(({ data }) => {
             setReportData1(data.items);
+            if (data.items.length <= 0)
+              return message.error(
+                "[404] : ไม่มีข้อมูลสินค้าตามเงื่อนไขที่เลือก"
+              );
           })
           .catch((err) => {
             message.error(
@@ -46,12 +56,15 @@ const UICustomerReport = () => {
             );
           })
           .finally(() => setIsLoading(false));
-      }
-      else {
+      } else {
         setIsLoading(true);
         RwiService.getCustomerReport(reqData)
           .then(({ data }) => {
             setReportData2(data.items);
+            if (data.items.length <= 0)
+              return message.error(
+                "[404] : ไม่มีข้อมูลสินค้าตามเงื่อนไขที่เลือก"
+              );
           })
           .catch((err) => {
             message.error(
@@ -70,8 +83,13 @@ const UICustomerReport = () => {
   };
 
   const onDateChange = (value) => {
-    setDateRange(value);
-    fetchCustomer(product, value);
+    if (!value) {
+      tabType === 1 ? setReportData1([]) : setReportData2([]);
+      setDateRange([]);
+    } else {
+      setDateRange(value);
+      fetchCustomer(product, value);
+    }
   };
 
   const tab1Columns = [
@@ -98,20 +116,23 @@ const UICustomerReport = () => {
       dataIndex: "total_credit",
       key: "total_credit",
       align: "right",
+      render: (total_credit) => total_credit?.toLocaleString(),
     },
     {
       title: "ปริมาณ(ตัน)",
       dataIndex: "total_unit",
       key: "total_unit",
       align: "right",
-      render: (value) => (value / 1000).toLocaleString("en-US", { minimumFractionDigits: 3 }),
+      render: (value) =>
+        (value / 1000).toLocaleString("en-US", { minimumFractionDigits: 3 }),
     },
     {
       title: "จำนวนเงิน(บาท)",
       dataIndex: "total_price",
       key: "total_price",
       align: "right",
-      render: (value) => value.toLocaleString("en-US", { minimumFractionDigits: 2 }),
+      render: (value) =>
+        value.toLocaleString("en-US", { minimumFractionDigits: 2 }),
     },
   ];
 
@@ -130,61 +151,66 @@ const UICustomerReport = () => {
       align: "center",
       render: (value) => {
         const numValue = Number(value);
-        return numValue.toLocaleString("en-US", { minimumFractionDigits: 2 });
+        return value
+          ? numValue.toLocaleString("en-US", { minimumFractionDigits: 2 })
+          : "";
       },
     },
     {
       title: "ชื่อลูกค้า",
       dataIndex: "name",
-      key: "name"
+      key: "name",
     },
     {
       title: "วันที่ขาย",
       dataIndex: "gdsdate",
-      key: "gdsdate"
+      key: "gdsdate",
     },
     {
       title: "Invoice No.",
       dataIndex: "invno",
-      key: "invno"
+      key: "invno",
     },
     {
       title: "น้ำหนัก",
       dataIndex: "total_unit",
       key: "total_unit",
-      render: (value) => {
-        const numValue = Number(value);
-        return numValue.toLocaleString("en-US")
+      align: "right",
+      render: (total_unit) => {
+        return total_unit ? total_unit.toLocaleString() : 0;
       },
     },
     {
       title: "ราคา",
       dataIndex: "u_price",
       key: "u_price",
+      align: "right",
       render: (value) => {
         const numValue = Number(value);
-        return numValue.toLocaleString("en-US", { minimumFractionDigits: 2 })
+        return numValue.toLocaleString("en-US", { minimumFractionDigits: 2 });
       },
     },
     {
-      title: "จำนวนเงิน(บาท)",
+      title: "จำนวนเงิน (บาท)",
       dataIndex: "total_price",
       key: "total_price",
+      align: "right",
       render: (value) => {
         const numValue = Number(value);
-        return numValue.toLocaleString("en-US", { minimumFractionDigits: 2 })
+        return numValue.toLocaleString("en-US", { minimumFractionDigits: 2 });
       },
     },
 
     {
       title: "เครดิต",
       dataIndex: "credit",
-      key: "credit"
+      key: "credit",
+      align: "center",
     },
     {
       title: "ชื่อ Sale",
       dataIndex: "sale_name",
-      key: "sale_name"
+      key: "sale_name",
     },
   ];
 
@@ -208,7 +234,10 @@ const UICustomerReport = () => {
         });
       });
       const totalWeight = items.reduce((sum, item) => sum + item.total_unit, 0);
-      const totalAmountThb = items.reduce((sum, item) => sum + item.total_price, 0);
+      const totalAmountThb = items.reduce(
+        (sum, item) => sum + item.total_price,
+        0
+      );
 
       preparedData.push({
         isSummary: true,
@@ -226,15 +255,21 @@ const UICustomerReport = () => {
 
   const AllReportData2 = addSummaryRow(reportData2);
 
-
   return (
     <Card className="card-dashboard">
-      <Tabs defaultActiveKey="1" onChange={handleTabChange}>
-        <TabPane tab="รายงานยอดขาย ลูกค้า1" key="1">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <Tabs defaultActiveKey={1} onChange={handleTabChange}>
+        <TabPane tab="รายงานยอดขาย ลูกค้า1" key={1}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <h1 style={{ fontSize: "18px" }}>รายงานสรุปยอดขาย (ลูกค้า)</h1>
             <Space>
               <Radio.Group onChange={onProductChange} value={product}>
+                <Radio value="">ทั้งหมด</Radio>
                 <Radio value="pcw">PCW</Radio>
                 <Radio value="pcs">PCS</Radio>
               </Radio.Group>
@@ -243,6 +278,7 @@ const UICustomerReport = () => {
                 style={{ width: "230px" }}
                 format={"DD/MM/YYYY"}
                 onChange={onDateChange}
+                value={dateRange}
               />
             </Space>
           </div>
@@ -257,7 +293,6 @@ const UICustomerReport = () => {
             rowKey="cusno"
             loading={isLoading}
             summary={() => {
-
               let totalUnit = 0;
               let totalPrice = 0;
 
@@ -268,24 +303,39 @@ const UICustomerReport = () => {
 
               return (
                 <Table.Summary.Row className="table-row-light">
-                  <Table.Summary.Cell className="text-center" colSpan={4}>รวม</Table.Summary.Cell>
+                  <Table.Summary.Cell className="text-center" colSpan={1}>
+                    รวม
+                  </Table.Summary.Cell>
+                  <Table.Summary.Cell colSpan={1}></Table.Summary.Cell>{" "}
+                  <Table.Summary.Cell colSpan={1}></Table.Summary.Cell>{" "}
+                  <Table.Summary.Cell colSpan={1}></Table.Summary.Cell>
                   <Table.Summary.Cell className="text-right">
-                    {(totalUnit / 1000).toLocaleString("en-US", { minimumFractionDigits: 3 })}
+                    {(totalUnit / 1000).toLocaleString("en-US", {
+                      minimumFractionDigits: 3,
+                    })}
                   </Table.Summary.Cell>
                   <Table.Summary.Cell className="text-right">
-                    {totalPrice.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                    {totalPrice.toLocaleString("en-US", {
+                      minimumFractionDigits: 2,
+                    })}
                   </Table.Summary.Cell>
                 </Table.Summary.Row>
               );
             }}
-
           />
         </TabPane>
-        <TabPane tab="รายงานยอดขาย ลูกค้า2" key="2">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <TabPane tab="รายงานยอดขาย ลูกค้า2" key={2}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <h1 style={{ fontSize: "18px" }}>รายงานยอดขาย (ขนาด)</h1>
             <Space>
               <Radio.Group onChange={onProductChange} value={product}>
+                <Radio value="">ทั้งหมด</Radio>
                 <Radio value="pcw">PCW</Radio>
                 <Radio value="pcs">PCS</Radio>
               </Radio.Group>
@@ -294,12 +344,16 @@ const UICustomerReport = () => {
                 style={{ width: "230px" }}
                 format={"DD/MM/YYYY"}
                 onChange={onDateChange}
+                value={dateRange}
               />
             </Space>
           </div>
-          {console.log("AllReportData2", AllReportData2)}
+
           <Table
-            rowClassName={(record) => record.isSummary && "table-row-light-remove"}
+            style={{ marginTop: "1rem" }}
+            rowClassName={(record) =>
+              record.isSummary && "table-row-light-remove"
+            }
             dataSource={AllReportData2}
             columns={tab2Columns}
             pagination={false}

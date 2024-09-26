@@ -113,8 +113,8 @@ import {
 //   {
 //     key: "15",
 //     icon: <UserOutlined className="icon-menubar" />,
-//     label: "ลูกค้า",
-//     path: "/webpsi/sale/report-customer-1",
+//     label: "รายงาน - ลูกค้า",
+//     path: "/webpsi/sale/customer-report",
 //     disabled: true,
 //   },
 //   {
@@ -147,10 +147,10 @@ export const nav = [
     path: "/webpsi/qc-report",
   },
   {
-    key: "17",
+    key: "15",
     icon: <FileTextOutlined className="icon-menubar" />,
     label: "รายงาน - ลูกค้า",
-    path: "/webpsi/customer-report",
+    path: "/webpsi/sale/customer-report",
   },
   { label: "ยังไม่เปิดใช้งาน", key: "sub3", type: "sub" },
   {
@@ -229,13 +229,6 @@ export const nav = [
     icon: <FileTextOutlined className="icon-menubar" />,
     label: "รายเดือน",
     path: "/webpsi/sale/report-monthly",
-    disabled: true,
-  },
-  {
-    key: "15",
-    icon: <UserOutlined className="icon-menubar" />,
-    label: "ลูกค้า",
-    path: "/webpsi/sale/report-customer-1",
     disabled: true,
   },
   {
