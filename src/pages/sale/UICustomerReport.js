@@ -258,7 +258,7 @@ const UICustomerReport = () => {
   return (
     <Card className="card-dashboard">
       <Tabs defaultActiveKey={1} onChange={handleTabChange}>
-        <TabPane tab="รายงานยอดขาย ลูกค้า1" key={1}>
+        <TabPane tab="รายงานยอดขายลูกค้า 1 (ลูกค้า)" key={1}>
           <div
             style={{
               display: "flex",
@@ -324,7 +324,7 @@ const UICustomerReport = () => {
             }}
           />
         </TabPane>
-        <TabPane tab="รายงานยอดขาย ลูกค้า2" key={2}>
+        <TabPane tab="รายงานยอดขายลูกค้า 2 (ขนาด)" key={2}>
           <div
             style={{
               display: "flex",
