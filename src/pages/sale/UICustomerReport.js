@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Space, Table, DatePicker, Radio, Tabs, message } from "antd";
 import RwiService from "services/RwiService";
 import $ from "jquery";
+import { dateFormat, getDefaultValue } from "utils/utils";
 
 const { RangePicker } = DatePicker;
 const { TabPane } = Tabs;
@@ -131,8 +132,7 @@ const UICustomerReport = () => {
       dataIndex: "total_price",
       key: "total_price",
       align: "right",
-      render: (value) =>
-        value.toLocaleString("en-US", { minimumFractionDigits: 2 }),
+      render: (total_price) => (total_price ? getDefaultValue(total_price) : 0),
     },
   ];
 
@@ -165,6 +165,7 @@ const UICustomerReport = () => {
       title: "วันที่ขาย",
       dataIndex: "gdsdate",
       key: "gdsdate",
+      render: (gdsdate) => (gdsdate ? dateFormat(gdsdate) : ""),
     },
     {
       title: "Invoice No.",
@@ -176,29 +177,21 @@ const UICustomerReport = () => {
       dataIndex: "total_unit",
       key: "total_unit",
       align: "right",
-      render: (total_unit) => {
-        return total_unit ? total_unit.toLocaleString() : 0;
-      },
+      render: (total_unit) => (total_unit ? total_unit.toLocaleString() : 0),
     },
     {
       title: "ราคา",
       dataIndex: "u_price",
       key: "u_price",
       align: "right",
-      render: (value) => {
-        const numValue = Number(value);
-        return numValue.toLocaleString("en-US", { minimumFractionDigits: 2 });
-      },
+      render: (u_price) => (u_price ? getDefaultValue(u_price) : ""),
     },
     {
       title: "จำนวนเงิน (บาท)",
       dataIndex: "total_price",
       key: "total_price",
       align: "right",
-      render: (value) => {
-        const numValue = Number(value);
-        return numValue.toLocaleString("en-US", { minimumFractionDigits: 2 });
-      },
+      render: (value) => getDefaultValue(value),
     },
 
     {
