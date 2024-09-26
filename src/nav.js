@@ -115,7 +115,6 @@ import {
 //     icon: <UserOutlined className="icon-menubar" />,
 //     label: "รายงาน - ลูกค้า",
 //     path: "/webpsi/sale/customer-report",
-//     disabled: true,
 //   },
 //   {
 //     key: "16",
