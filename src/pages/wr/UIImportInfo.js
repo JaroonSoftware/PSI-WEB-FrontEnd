@@ -54,7 +54,7 @@ const UIImportReport = () => {
 
         let obj = {};
 
-        for (let i of items) {
+        items.forEach((i, idx) => {
           let key = i.vendor + "@" + i.productcode;
           // let key = i.pdate
 
@@ -70,11 +70,15 @@ const UIImportReport = () => {
             };
           }
 
-          obj[key]["items"].push({ key: i.lc_no + "@" + i.charge_no, ...i });
+          obj[key]["items"].push({
+            index: idx,
+            key: i.lc_no + "@" + i.charge_no,
+            ...i,
+          });
           obj[key]["totalWeight"] += i.total_weight;
           obj[key]["totalQuantity"] += i.quantity;
           obj[key]["remaining"] += i.remaining;
-        }
+        });
 
         let arrayItem = [];
         let totalKeys = Object.keys(obj);
@@ -114,8 +118,9 @@ const UIImportReport = () => {
     {
       title: "ลำดับ",
       key: "index",
+      dataIndex: "index",
       align: "center",
-      render: (text, record, idx) => (record?.vendor ? idx + 1 : <b>รวม</b>),
+      render: (index, record) => (record?.vendor ? index + 1 : <b>รวม</b>),
     },
     {
       title: "วันที่รับ",

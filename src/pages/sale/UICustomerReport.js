@@ -41,39 +41,36 @@ const UICustomerReport = () => {
     };
 
     if (dateRange && dateRange.length > 0) {
-      if (tabType == 1) {
-        setIsLoading(true);
-        RwiService.getCustomerReport(reqData)
-          .then(({ data }) => {
-            setReportData1(data.items);
-            if (data.items.length <= 0)
-              return message.error(
-                "[404] : ไม่มีข้อมูลสินค้าตามเงื่อนไขที่เลือก"
-              );
-          })
-          .catch((err) => {
-            message.error(
-              `[${err?.response?.data?.status}] : ${err?.response?.data?.message}`
+      setIsLoading(true);
+
+      RwiService.getCustomerReport(reqData)
+        .then(({ data }) => {
+          let { items } = data;
+
+          if (items.length <= 0) {
+            return message.error(
+              "[404] : ไม่มีข้อมูลสินค้าตามเงื่อนไขที่เลือก"
             );
-          })
-          .finally(() => setIsLoading(false));
-      } else {
-        setIsLoading(true);
-        RwiService.getCustomerReport(reqData)
-          .then(({ data }) => {
-            setReportData2(data.items);
-            if (data.items.length <= 0)
-              return message.error(
-                "[404] : ไม่มีข้อมูลสินค้าตามเงื่อนไขที่เลือก"
-              );
-          })
-          .catch((err) => {
-            message.error(
-              `[${err?.response?.data?.status}] : ${err?.response?.data?.message}`
-            );
-          })
-          .finally(() => setIsLoading(false));
-      }
+          }
+
+          if (tabType === 1) {
+            setReportData1(items);
+          } else if (tabType === 2) {
+            let nextList = [];
+            items.forEach((i, index) => {
+              nextList.push({ index, ...i });
+            });
+            console.log(nextList);
+
+            setReportData2(nextList);
+          }
+        })
+        .catch((err) => {
+          message.error(
+            `[${err?.response?.data?.status}] : ${err?.response?.data?.message}`
+          );
+        })
+        .finally(() => setIsLoading(false));
     }
   };
 
@@ -96,11 +93,10 @@ const UICustomerReport = () => {
   const tab1Columns = [
     {
       title: "ลำดับที่",
-      dataIndex: "index",
       key: "index",
       width: "70px",
       align: "center",
-      render: (_, __, idx) => idx + 1,
+      render: (_, record, idx) => idx + 1,
     },
     {
       title: "รหัสลูกค้า",
@@ -142,7 +138,7 @@ const UICustomerReport = () => {
       dataIndex: "index",
       key: "index",
       align: "center",
-      render: (text, record) => (record.isSummary ? "รวม" : record.index + 1),
+      render: (index, record) => (record.isSummary ? "รวม" : index + 1),
     },
     {
       title: "ขนาด",
@@ -219,13 +215,10 @@ const UICustomerReport = () => {
     });
 
     Object.entries(customerGroups).forEach(([name, items]) => {
-      items.forEach((item, index) => {
-        preparedData.push({
-          ...item,
-          isSummary: false,
-          index: preparedData.length,
-        });
+      items.forEach((item) => {
+        preparedData.push({ ...item, isSummary: false });
       });
+
       const totalWeight = items.reduce((sum, item) => sum + item.total_unit, 0);
       const totalAmountThb = items.reduce(
         (sum, item) => sum + item.total_price,
@@ -233,6 +226,7 @@ const UICustomerReport = () => {
       );
 
       preparedData.push({
+        index: name,
         isSummary: true,
         size: "",
         total_unit: totalWeight,
@@ -352,6 +346,7 @@ const UICustomerReport = () => {
             pagination={false}
             size="small"
             bordered
+            rowKey="index"
           />
         </TabPane>
       </Tabs>
