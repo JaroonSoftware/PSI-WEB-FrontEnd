@@ -50,11 +50,15 @@ const DocRemainingStock = React.forwardRef(
               let totalQuantity = 0;
               let totalWeight = 0;
               let totalRemaining = 0;
-              pageData.forEach(({ quantity, total_weight, remaining }) => {
-                totalQuantity += quantity;
-                totalWeight += total_weight;
-                totalRemaining += remaining;
-              });
+              pageData.forEach(
+                ({ vendor, quantity, total_weight, remaining }) => {
+                  if (vendor) {
+                    totalQuantity += quantity;
+                    totalWeight += total_weight;
+                    totalRemaining += remaining;
+                  }
+                }
+              );
               return (
                 <Table.Summary.Row
                   align="center"
