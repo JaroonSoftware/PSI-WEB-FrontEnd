@@ -34,6 +34,7 @@ const UIStock = () => {
               items: [],
               venCode: i.vendor,
               venName: i.ven_name,
+              totalSupWeight: 0,
               totalWeight: 0,
               totalQuantity: 0,
               remaining: 0,
@@ -45,6 +46,7 @@ const UIStock = () => {
             key: i.lc_no + "@" + i.charge_no,
             ...i,
           });
+          obj[key]["totalSupWeight"] += i.total_sup_weight;
           obj[key]["totalWeight"] += i.total_weight;
           obj[key]["totalQuantity"] += i.quantity;
           obj[key]["remaining"] += i.remaining;
@@ -59,6 +61,7 @@ const UIStock = () => {
             key: k + "#SUM",
             venCode: obj[k].venCode,
             venName: obj[k].venName,
+            total_sup_weight: obj[k].totalSupWeight,
             total_weight: obj[k].totalWeight,
             quantity: obj[k].totalQuantity,
             productCode: obj[k].productCode,
@@ -178,6 +181,22 @@ const UIStock = () => {
           <b>{total_weight?.toLocaleString()}</b>
         ),
     },
+    {
+      title: "น้ำหนักจริง",
+      dataIndex: "total_sup_weight",
+      key: "total_sup_weight",
+      align: "right",
+      render: (total_sup_weight, record) =>
+        record?.vendor ? (
+          total_sup_weight ? (
+            total_sup_weight.toLocaleString()
+          ) : (
+            0
+          )
+        ) : (
+          <b>{total_sup_weight?.toLocaleString()}</b>
+        ),
+    },
   ];
 
   const columnsPrint = [
@@ -264,6 +283,18 @@ const UIStock = () => {
           <b>{total_weight?.toLocaleString()}</b>
         ),
     },
+    // {
+    //   title: "SUP",
+    //   dataIndex: "total_sup_weight",
+    //   key: "total_sup_weight",
+    //   align: "right",
+    //   render: (total_sup_weight, record) =>
+    //     record?.vendor ? (
+    //       total_sup_weight?.toLocaleString()
+    //     ) : (
+    //       <b>{total_sup_weight?.toLocaleString()}</b>
+    //     ),
+    // },
   ];
 
   return (
@@ -304,12 +335,20 @@ const UIStock = () => {
             let totalQuantity = 0;
             let totalWeight = 0;
             let totalRemaining = 0;
+            let totalSupWeight = 0;
             pageData.forEach(
-              ({ vendor, quantity, total_weight, remaining }) => {
+              ({
+                vendor,
+                quantity,
+                total_weight,
+                remaining,
+                total_sup_weight,
+              }) => {
                 if (vendor) {
                   totalQuantity += quantity;
                   totalWeight += total_weight;
                   totalRemaining += remaining;
+                  totalSupWeight += total_sup_weight;
                 }
               }
             );
@@ -330,6 +369,9 @@ const UIStock = () => {
                 </Table.Summary.Cell>
                 <Table.Summary.Cell align="right" index={4} colSpan={1}>
                   <b>{totalWeight?.toLocaleString()}</b>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell align="right" index={4} colSpan={1}>
+                  <b>{totalSupWeight?.toLocaleString()}</b>
                 </Table.Summary.Cell>
               </Table.Summary.Row>
             );

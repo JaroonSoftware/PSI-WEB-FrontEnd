@@ -50,12 +50,20 @@ const DocRemainingStock = React.forwardRef(
               let totalQuantity = 0;
               let totalWeight = 0;
               let totalRemaining = 0;
+              let totalSupWeight = 0;
               pageData.forEach(
-                ({ vendor, quantity, total_weight, remaining }) => {
+                ({
+                  vendor,
+                  quantity,
+                  total_weight,
+                  remaining,
+                  total_sup_weight,
+                }) => {
                   if (vendor) {
                     totalQuantity += quantity;
                     totalWeight += total_weight;
                     totalRemaining += remaining;
+                    totalSupWeight += total_sup_weight;
                   }
                 }
               );
@@ -80,6 +88,9 @@ const DocRemainingStock = React.forwardRef(
                   <Table.Summary.Cell align="right" index={4} colSpan={1}>
                     <b>{totalWeight?.toLocaleString()}</b>
                   </Table.Summary.Cell>
+                  {/* <Table.Summary.Cell align="right" index={4} colSpan={1}>
+                    <b>{totalSupWeight?.toLocaleString()}</b>
+                  </Table.Summary.Cell> */}
                 </Table.Summary.Row>
               );
             }}
