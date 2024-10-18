@@ -36,8 +36,8 @@ const UIQcReport = () => {
     let objNoTest = {};
 
     data.forEach((item) => {
+      const key = `${item?.pdate}:${item?.shift}:${item?.code}`;
       if (item.pass === "Y") {
-        const key = `${item?.pdate}:${item?.shift}:${item?.code}`;
         if (!obj[key])
           obj[key] = {
             items: [],
@@ -49,7 +49,6 @@ const UIQcReport = () => {
           };
         obj[key]["items"].push(item);
       } else {
-        const key = `${item?.pdate}:${item?.shift}:${item?.code}`;
         if (!objNoTest[key])
           objNoTest[key] = {
             items: [],
