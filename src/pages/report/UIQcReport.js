@@ -37,7 +37,7 @@ const UIQcReport = () => {
 
     data.forEach((item) => {
       if (item.pass === "Y") {
-        const key = `${item?.pdate}:${item?.shift}:${item?.code}-${item?.testdate}`;
+        const key = `${item?.pdate}:${item?.shift}:${item?.code}`;
         if (!obj[key])
           obj[key] = {
             items: [],
