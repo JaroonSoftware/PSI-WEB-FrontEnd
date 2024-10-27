@@ -41,7 +41,7 @@ const DocRemainingStock = React.forwardRef(
           <Table
             dataSource={printData}
             columns={columns}
-            style={{ marginTop: "1rem" }}
+            style={{ marginTop: "1.25rem" }}
             pagination={false}
             size="small"
             bordered
