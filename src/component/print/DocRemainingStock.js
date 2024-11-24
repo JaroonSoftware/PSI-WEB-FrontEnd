@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Row, Col, Card } from "antd";
 import logo from "assets/image/psi.jpg";
 import { dateFormat } from "utils/utils";
 
 const DocRemainingStock = React.forwardRef(
   ({ printData, columns, date }, ref) => {
+    const [list, setList] = useState([]);
+
+    useEffect(() => {
+      if (Array.isArray(printData) && printData.length) {
+        const sumTotal = {
+          key: "#SUM_TOTAL",
+          totalQuantity: 0,
+          totalWeight: 0,
+          totalRemaining: 0,
+          totalSupWeight: 0,
+        };
+
+        printData.forEach(
+          ({ vendor, quantity, total_weight, remaining, total_sup_weight }) => {
+            if (vendor) {
+              sumTotal["totalQuantity"] += quantity;
+              sumTotal["totalWeight"] += total_weight;
+              sumTotal["totalRemaining"] += remaining;
+              sumTotal["totalSupWeight"] += total_sup_weight;
+            }
+          }
+        );
+
+        setList([...printData, sumTotal]);
+      } else {
+        setList([]);
+      }
+    }, [printData]);
+
     return (
       <div>
         <Card ref={ref}>
@@ -39,61 +68,13 @@ const DocRemainingStock = React.forwardRef(
           </Row>
 
           <Table
-            dataSource={printData}
+            dataSource={list}
             columns={columns}
             style={{ marginTop: "1.5rem" }}
             pagination={false}
             size="small"
             bordered
             className="antd-custom-border-table table-less-pd table-less-font"
-            summary={(pageData) => {
-              let totalQuantity = 0;
-              let totalWeight = 0;
-              let totalRemaining = 0;
-              let totalSupWeight = 0;
-              pageData.forEach(
-                ({
-                  vendor,
-                  quantity,
-                  total_weight,
-                  remaining,
-                  total_sup_weight,
-                }) => {
-                  if (vendor) {
-                    totalQuantity += quantity;
-                    totalWeight += total_weight;
-                    totalRemaining += remaining;
-                    totalSupWeight += total_sup_weight;
-                  }
-                }
-              );
-              return (
-                <Table.Summary.Row
-                  align="center"
-                  style={{ backgroundColor: "#fafafa" }}
-                >
-                  <Table.Summary.Cell index={0}>
-                    <b>สุทธิ</b>
-                  </Table.Summary.Cell>
-                  <Table.Summary.Cell
-                    index={1}
-                    colSpan={6}
-                  ></Table.Summary.Cell>
-                  <Table.Summary.Cell index={2} colSpan={1}>
-                    <b>{totalQuantity?.toLocaleString()}</b>
-                  </Table.Summary.Cell>
-                  <Table.Summary.Cell index={3} colSpan={1}>
-                    <b>{totalRemaining?.toLocaleString()}</b>
-                  </Table.Summary.Cell>
-                  <Table.Summary.Cell align="right" index={4} colSpan={1}>
-                    <b>{totalWeight?.toLocaleString()}</b>
-                  </Table.Summary.Cell>
-                  {/* <Table.Summary.Cell align="right" index={4} colSpan={1}>
-                    <b>{totalSupWeight?.toLocaleString()}</b>
-                  </Table.Summary.Cell> */}
-                </Table.Summary.Row>
-              );
-            }}
           />
         </Card>
       </div>

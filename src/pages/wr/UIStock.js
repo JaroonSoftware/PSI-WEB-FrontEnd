@@ -146,7 +146,7 @@ const UIStock = () => {
       align: "center",
     },
     {
-      title: "จำนวน",
+      title: "จำนวนรับเข้า",
       dataIndex: "quantity",
       key: "quantity",
       align: "center",
@@ -205,7 +205,14 @@ const UIStock = () => {
       key: "index",
       align: "center",
       width: "5%",
-      render: (text, record, idx) => (record?.vendor ? idx + 1 : <b>รวม</b>),
+      render: (text, record, idx) =>
+        record?.key === "#SUM_TOTAL" ? (
+          <b>สุทธิ</b>
+        ) : record?.vendor ? (
+          idx + 1
+        ) : (
+          <b>รวม</b>
+        ),
     },
     {
       title: "วันที่รับ",
@@ -248,12 +255,14 @@ const UIStock = () => {
       align: "center",
     },
     {
-      title: "จำนวน",
+      title: "จำนวนรับเข้า",
       dataIndex: "quantity",
       key: "quantity",
       align: "center",
       render: (quantity, record) =>
-        record?.vendor ? (
+        record?.key === "#SUM_TOTAL" ? (
+          <b>{record?.totalQuantity?.toLocaleString()}</b>
+        ) : record?.vendor ? (
           quantity?.toLocaleString()
         ) : (
           <b>{quantity?.toLocaleString()}</b>
@@ -265,7 +274,9 @@ const UIStock = () => {
       key: "remaining",
       align: "center",
       render: (remaining, record) =>
-        record?.vendor ? (
+        record?.key === "#SUM_TOTAL" ? (
+          <b>{record?.totalRemaining?.toLocaleString()}</b>
+        ) : record?.vendor ? (
           remaining?.toLocaleString()
         ) : (
           <b>{remaining?.toLocaleString()}</b>
@@ -277,7 +288,9 @@ const UIStock = () => {
       key: "total_weight",
       align: "right",
       render: (total_weight, record) =>
-        record?.vendor ? (
+        record?.key === "#SUM_TOTAL" ? (
+          <b>{record?.totalWeight?.toLocaleString()}</b>
+        ) : record?.vendor ? (
           total_weight?.toLocaleString()
         ) : (
           <b>{total_weight?.toLocaleString()}</b>
