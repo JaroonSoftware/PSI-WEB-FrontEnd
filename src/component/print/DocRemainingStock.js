@@ -31,7 +31,7 @@ const DocRemainingStock = React.forwardRef(
                 fontSize: "16px",
                 textAlign: "center",
                 color: "black",
-                marginTop: "10px",
+                marginTop: "5px",
               }}
             >
               รายงานสต็อกคงเหลือประจำวันที่ {dateFormat(date)}
@@ -41,7 +41,7 @@ const DocRemainingStock = React.forwardRef(
           <Table
             dataSource={printData}
             columns={columns}
-            style={{ marginTop: "1.25rem" }}
+            style={{ marginTop: "1.5rem" }}
             pagination={false}
             size="small"
             bordered
