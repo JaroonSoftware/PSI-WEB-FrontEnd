@@ -68,7 +68,6 @@ const ModalProductReport = ({ isOpen, onClose, getReportData }) => {
         grandTotal += item?.weight;
       });
     }
-    console.log(obj);
     getReportData({ data: obj, reportType, reportInfo, grandTotal });
   };
 

@@ -68,9 +68,6 @@ const UIStock = () => {
             remaining: obj[k].remaining,
           });
         }
-
-        // console.log(arrayItem);
-
         setData(arrayItem);
       })
       .catch((err) => {

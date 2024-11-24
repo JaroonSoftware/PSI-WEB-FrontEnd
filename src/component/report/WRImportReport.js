@@ -24,10 +24,6 @@ const WRImportReport = forwardRef(({ printData }, ref) => {
 
       temp[t.vendor]["totalWeight"] += t.total_weight;
       temp[t.vendor]["totalCoil"] += t.coil_qty;
-
-      // temp[t.vendor][t.product_code]["totalWeight"] += t.total_weight;
-      // temp[t.vendor][t.product_code]["totalCoil"] += t.coil_qty;
-
       temp["sumDateWeight"] += t.total_weight;
       temp["sumDateCoil"] += t.coil_qty;
     });
@@ -40,8 +36,6 @@ const WRImportReport = forwardRef(({ printData }, ref) => {
       <Card ref={ref} title={null} style={{ marginBottom: "8px" }}>
         {data &&
           Object.keys(data).map((dateKey, index) => {
-            console.log(dateKey);
-
             let arrayUsed = [...data[dateKey]["items"]];
             let temp = createTemp(arrayUsed);
 
@@ -49,14 +43,7 @@ const WRImportReport = forwardRef(({ printData }, ref) => {
               vendor: arrayUsed[0].vendor,
               name: arrayUsed[0].ven_name,
             };
-            let lastIndex = data[dateKey]["items"].length - 1;
             let currentIndex = 0;
-
-            let currentCode = arrayUsed[0].product_code;
-            console.log("======================");
-
-            console.log(temp);
-            console.log(temp[currentCode]);
 
             arrayUsed.forEach((t) => {
               if (current.vendor !== t.vendor && !t?.key) {
@@ -70,34 +57,11 @@ const WRImportReport = forwardRef(({ printData }, ref) => {
                 current = { vendor: t.vendor, name: t.ven_name };
               }
 
-              // if (
-              //   !t?.key &&
-              //   (current.vendor !== t.vendor || currentCode !== t.product_code)
-              // ) {
-              //   console.log(currentCode, t.product_code);
-              //   // currentCode !== t.product_code &&
-              //   console.log("SS ==> ", temp[current.vendor][currentCode]);
-              //   arrayUsed.splice(currentIndex, 0, {
-              //     key: "sumProduct",
-              //     procode: `รวม [${currentCode}]`,
-              //     total_weight: temp[current.vendor][currentCode]?.totalWeight,
-              //     sumTotalCoil: temp[current.vendor][currentCode]?.totalCoil,
-              //   });
-
-              //   currentCode = t.product_code;
-              // }
-
               currentIndex++;
             });
 
             arrayUsed = [
               ...arrayUsed,
-              // {
-              //   key: "sumProduct",
-              //   procode: `รวม [${currentCode}]`,
-              //   total_weight: temp[current.vendor][currentCode]?.totalWeight,
-              //   sumTotalCoil: temp[current.vendor][currentCode]?.totalCoil,
-              // },
               {
                 key: "sumVendor",
                 procode: `รวม [${current.vendor}]`,
@@ -139,7 +103,6 @@ const WRImportReport = forwardRef(({ printData }, ref) => {
                   pagination={false}
                   size="small"
                   rowKey="id"
-                  // bordered
                 />
               </React.Fragment>
             );

@@ -61,8 +61,6 @@ const UIQcReport = () => {
         objNoTest[key]["items"].push(item);
       }
     });
-    // console.log(obj);
-    console.log(objNoTest);
     setQcList(obj);
     setNoQcList(objNoTest);
   };

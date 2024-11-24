@@ -10,7 +10,6 @@ const ProductPreparing = forwardRef(({ printData }, ref) => {
   let { invoice, list } = printData;
   let currentDate = dayjs().format("DD/MM/YYYY");
   let currentTime = dayjs().format("HH:mm:ss");
-  console.log(printData);
 
   return (
     <div style={{ display: "none" }}>

@@ -60,8 +60,6 @@ const UICustomerReport = () => {
             items.forEach((i, index) => {
               nextList.push({ index, ...i });
             });
-            console.log(nextList);
-
             setReportData2(nextList);
           }
         })
