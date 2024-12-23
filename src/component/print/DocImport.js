@@ -52,7 +52,7 @@ const DocImport = React.forwardRef(({ printData, date }, ref) => {
       align: "center",
     },
     {
-      title: "จำนวน",
+      title: "จำนวนรับเข้า",
       dataIndex: "quantity",
       key: "quantity",
       align: "center",
@@ -79,7 +79,7 @@ const DocImport = React.forwardRef(({ printData, date }, ref) => {
       title: "น้ำหนัก",
       dataIndex: "total_weight",
       key: "total_weight",
-      align: "right",
+      align: "center",
       render: (total_weight, record) =>
         record?.vendor ? (
           total_weight?.toLocaleString()

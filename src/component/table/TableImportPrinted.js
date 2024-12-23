@@ -56,7 +56,7 @@ const TableImportPrinted = ({ data }) => {
       align: "center",
     },
     {
-      title: "จำนวน",
+      title: "จำนวนรับเข้า",
       dataIndex: "quantity",
       key: "quantity",
       align: "center",
