@@ -18,7 +18,7 @@ const MainLayout = () => {
           <Outlet />
         </Content>
         <Footer className="footer">
-          PSI ©2024 Created by{" "}
+          PSI ©2024-{(new Date().getFullYear())} Created by{" "}
           <a
             href="https://www.facebook.com/jaroonsoft/"
             target="_blank"

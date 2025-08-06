@@ -179,7 +179,7 @@ const UIStock = () => {
         ),
     },
     {
-      title: "น้ำหนักจริง",
+      title: "น้ำหนักเฉลี่ย",
       dataIndex: "total_sup_weight",
       key: "total_sup_weight",
       align: "right",
