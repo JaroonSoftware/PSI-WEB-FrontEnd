@@ -347,6 +347,44 @@ const UICustomerReport = () => {
             rowKey="index"
           />
         </TabPane>
+        <TabPane tab="รายงานยอดขายลูกค้า 3 (แยกตาม Sales)" key={3}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <h1 style={{ fontSize: "18px" }}>รายงานยอดขายลูกค้า 3 (แยกตาม Sales)</h1>
+            <Space>
+              <Radio.Group onChange={onProductChange} value={product}>
+                <Radio value="">ทั้งหมด</Radio>
+                <Radio value="pcw">PCW</Radio>
+                <Radio value="pcs">PCS</Radio>
+              </Radio.Group>
+
+              <RangePicker
+                style={{ width: "230px" }}
+                format={"DD/MM/YYYY"}
+                onChange={onDateChange}
+                value={dateRange}
+              />
+            </Space>
+          </div>
+
+          {/* <Table
+            style={{ marginTop: "1rem" }}
+            rowClassName={(record) =>
+              record.isSummary && "table-row-light-remove"
+            }
+            dataSource={AllReportData2}
+            columns={tab2Columns}
+            pagination={false}
+            size="small"
+            bordered
+            rowKey="index"
+          /> */}
+        </TabPane>
       </Tabs>
     </Card>
   );
