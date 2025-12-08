@@ -302,7 +302,7 @@ const UIQcReport = () => {
               <div style={{ textAlign: "center", marginBottom: "25px" }}>
                  <h3>
                   FINISHED PRODUCT P.C. WIRE{" "}                  
-                  {getDefaultValue(data[key]["size"], 2)} MM {data[key]["code"]==='PCW43' ? 'Crimp ' : ''}
+                  {getDefaultValue(noQcList[key]["size"], 2)} MM {noQcList[key]["code"]==='PCW43' ? 'Crimp ' : ''}
                   {/* mm. */}
                 </h3>
                 <h3>MECHANICAL PROPERTIES TESTING REPORT</h3>
