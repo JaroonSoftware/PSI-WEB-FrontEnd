@@ -65,7 +65,7 @@ const PCW4_SPECIFICATION = [
     procode: "FIX-3",
     diameter: "-0.05",
     area: "12.89",
-    indent: "0.30",
+    indent: "0.20",
     u_weight: "100.90",
   },
 ];
@@ -107,7 +107,6 @@ const PCW4_CRIMP_SPECIFICATION = [
     area: "12.89",
     indent: "0.80",
     u_weight: "100.90",
-    tens_ld: "",
   },
 ];
 
@@ -146,9 +145,8 @@ const PCW5_SPECIFICATION = [
     procode: "FIX-3",
     diameter: "-0.05",
     area: "20.04",
-    indent: "0.30",
+    indent: "0.20",
     u_weight: "157.10",
-    tens_ld: "",
   },
 ];
 
@@ -161,7 +159,7 @@ const PCW7_SPECIFICATION = [
     tensile: "MIN",
     yield_str: "MIN",
     reverse: "MIN",
-    indent: "0.05",
+    indent: "0.10",
     elong: "MIN",
     u_weight: "297.70",
     tens_ld: "MIN",
@@ -187,9 +185,8 @@ const PCW7_SPECIFICATION = [
     procode: "FIX-3",
     diameter: "-0.05",
     area: "39.05",
-    indent: "0.30",
+    indent: "0.25",
     u_weight: "306.30",
-    tens_ld: "",
   },
 ];
 
@@ -202,7 +199,7 @@ const PCW9_SPECIFICATION = [
     tensile: "MIN",
     yield_str: "MIN",
     reverse: "MIN",
-    indent: "0.05",
+    indent: "0.15",
     elong: "MIN",
     u_weight: "491.80",
     tens_ld: "MIN",
@@ -213,24 +210,23 @@ const PCW9_SPECIFICATION = [
     procode: "FIX-2",
     diameter: "9.00",
     area: "TO",
+    tens_ld: 9532,
     tensile: 149,
+    yield_ld: 7625,
     yield_str: 119,
-    re_area: "25-45",
     reverse: "3",
     indent: "TO",
     elong: "3.50",
-    u_weight: "TO",
-    tens_ld: 9532,
-    yield_ld: 7625,
     camber: 30,
+    re_area: "25-45",
+    u_weight: "TO",
   },
   {
     procode: "FIX-3",
     diameter: "-0.05",
     area: "64.35",
-    indent: "0.30",
+    indent: "0.25",
     u_weight: "506.20",
-    tens_ld: "",
   },
 ];
 
@@ -244,6 +240,8 @@ export const getFixedQcRow = (code) => {
       return PCW5_SPECIFICATION;
     case "PCW72":
       return PCW7_SPECIFICATION;
+    case "PCW90":
+      return PCW9_SPECIFICATION;
     case "PCW92":
       return PCW9_SPECIFICATION;
     default:
