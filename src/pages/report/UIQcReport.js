@@ -255,9 +255,14 @@ const UIQcReport = () => {
               style={{ marginTop: "1.5rem", borderColor: "#0ea2d2" }}
             >
               <div style={{ textAlign: "center", marginBottom: "25px" }}>
-                <h3>
+                {/* <h3>
                   FINISH PRODUCT P.C. WIRE{" "}
                   {getDefaultValue(qcList[key]["size"], 2)} mm.
+                </h3> */}
+                <h3>
+                  FINISH PRODUCT P.C. WIRE{" "}                  
+                  {getDefaultValue(qcList[key]["size"], 2)} MM {qcList[key]["code"]==='PCW43' ? 'Crimp ' : ''}
+                  {/* mm. */}
                 </h3>
                 <h3>MECHANICAL PROPERTIES TESTING REPORT</h3>
               </div>
