@@ -8,7 +8,7 @@ import {
   ShopOutlined,
   FileTextOutlined,
   FileSearchOutlined,
-  UserOutlined,
+  LineChartOutlined,
   StockOutlined,
 } from "@ant-design/icons";
 
@@ -159,6 +159,12 @@ export const nav = [
     icon: <FileTextOutlined className="icon-menubar" />,
     label: "รายงาน - ลูกค้า",
     path: "/webpsi/sale/customer-report",
+  },
+  {
+    key: "16",
+    icon: <LineChartOutlined className="icon-menubar" />,
+    label: "ยอดขายรายวัน",
+    path: "/webpsi/sale/daily-report",
   },
   // { label: "ยังไม่เปิดใช้งาน", key: "sub3", type: "sub" },
   // {

@@ -3,6 +3,7 @@ import { METHOD } from "context/constant";
 import { API_URL } from "utils/utils";
 
 const ENDPOINT = {
+  GET_SALE_DAILY: `${API_URL}/rwi/get-sale-daily`,
   GET_STOCK: `${API_URL}/rwi/get-stock`,
   GET_IMPORT_WIREROD: `${API_URL}/rwi/get-import`,
   GET_VENDOR: `${API_URL}/setting/vendor?getAll=${true}`,
@@ -11,6 +12,14 @@ const ENDPOINT = {
 };
 
 const RwiService = {
+  getSaleDaily: (reqData) => {
+    return axios({
+      method: METHOD.POST,
+      url: ENDPOINT.GET_SALE_DAILY,
+      data: reqData,
+    });
+  },
+
   getStock: (dateQuery) => {
     return axios({
       method: METHOD.POST,

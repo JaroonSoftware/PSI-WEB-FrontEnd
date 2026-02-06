@@ -1,0 +1,246 @@
+@media print { 
+    /* .print-content {
+      page-break-before: always;
+    }  */
+
+    .page-break {
+      page-break-before: always; 
+    }
+
+    .psp-page-form { 
+      letter-pspacing: .2px;
+      width: 21cm; /* A4 width */
+      height: 29.7cm; /* A4 height */
+      /* margin: 0px !important; */
+      /* padding: 0px !important; */
+      padding-inline: 0.15in;
+      padding-bottom: 0;
+      /* margin: 1cm; Margins */
+      /* padding: 1cm; */
+      /* page-break-after: always;    */
+      /* position: absolute; */
+      /* left: 0;  */
+      /* top: 0;  */
+      box-shadow: none !important;
+      border-radius: 0px !important;      
+    } 
+
+    .head-page {
+      margin-top: .13in !important;
+    }
+} 
+
+@page {
+  size: A4; 
+  /* Chrome sets own margins, we change these printer settings */
+  margin-top: 2mm !important;
+  margin-bottom: 8mm !important;
+  margin-inline: 4mm !important; 
+  page-break-inside: avoid;
+} 
+
+#psp.page-show {
+  ---width-padding-param : 4mm;
+  ---width-param : 0mm;
+  ---width-items : calc( 21cm - var(---width-param) );
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  overflow: auto;
+  padding: 1rem;
+  background-color: #d9d9d9;
+}
+
+#psp .title-preview { 
+    width: calc( 21cm + (var(---width-padding-param) * 2) ); /* A4 width */
+    box-sizing: border-box;
+}
+
+#psp .print-layout-page { 
+  padding: var(---width-padding-param);
+  width: calc( 21cm + (var(---width-padding-param) * 2) ); /* A4 width */
+  /* min-height: 29.7cm;*/
+  height: auto; 
+  margin: 0 auto;                   /* center horizontally in non-flex fallback */
+  box-sizing: border-box;
+  box-shadow: 1px 1px 2px 1px #c5c7c5;
+  border-radius: 4px;
+  background-color: #fff;
+  letter-pspacing: 0px; 
+  color: #000;
+}    
+
+/* .psp-page-form {
+    position: relative;
+    width: 21cm;
+    min-height: 29.7cm; 
+} */
+ .psp-page-form {
+  position: relative;           /* ให้ footer absolute ทำงานภายใน container */
+  width: 210mm;                 /* A4 width */
+  min-height: 297mm;            /* ให้ความสูงหน้าเท่ากับ A4 */
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding-bottom: 48px;         /* เผื่อที่ว่างสำหรับ footer */
+}
+
+.head-page{
+    border-bottom: 2px solid #2c84c9;
+}
+
+.psp-page-form .foot-page{
+    border-top: 2px solid #2c84c9;
+}
+
+.psp-page-form .head-data{
+    /* border-bottom: 2px solid #2c84c9; */
+}
+
+.psp-page-form .body-data{
+    /* border-bottom: 2px solid #2c84c9; */
+    font-size: 12pt;
+    padding-block-start: 8px;
+}
+
+.psp-page-form .ant-typography {
+  font-family: inherit; 
+  box-sizing: border-box;
+  vertical-align: top;
+}
+
+.psp-page-form .ant-card {
+  background: #ffffff;
+  border-radius: 0;
+  box-shadow: none;
+  padding-block-start: 8px;
+  font-family: inherit
+} 
+.psp-page-form [class^="ant-table"], .psp-page-form [class*=" ant-table"] {
+  font-family: inherit;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+.psp-page-form .body-data .ant-card:first-child{
+  padding-block-start: 0px;
+}
+
+.psp-page-form .body-data .ant-card .ant-card-head {
+  min-height: 34px;
+  margin-bottom: 0px;
+  padding: 0 24px;
+  font-size: 10pt;
+  background: #2c84c9;
+  border-bottom: 0px solid #f0f0f0;
+  border-radius: 0;
+}
+
+.psp-page-form .body-data .ant-card .ant-card-body {
+  padding: 0px;
+  border-radius: 0;
+}
+
+.psp-page-form .body-data .ant-table-wrapper .ant-table-cell, 
+.psp-page-form .body-data .ant-table-wrapper .ant-table-thead>tr>th, 
+.psp-page-form .body-data .ant-table-wrapper .ant-table-tbody>tr>th, 
+.psp-page-form .body-data .ant-table-wrapper .ant-table-tbody>tr>td, 
+.psp-page-form .body-data .ant-table-wrapper tfoot>tr>th, 
+.psp-page-form .body-data .ant-table-wrapper tfoot>tr>td {
+  position: relative;
+  padding: 2px 6px;
+  overflow-wrap: break-word;
+  font-size: 10pt;
+  vertical-align: top;
+  font-family: inherit;
+}
+
+.psp-page-form .body-data .ant-table-wrapper .ant-table-thead >tr>th, 
+.psp-page-form .body-data .ant-table-wrapper .ant-table-thead >tr>td {
+  position: relative;
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 600;
+  text-align: start;
+  background: #ffffff !important;
+  border-bottom: 0px solid #0d0d0e;
+  transition: none;
+}
+
+.psp-page-form .body-data .ant-table-wrapper .ant-table-container table>thead>tr:first-child >*:last-child {
+  border-start-end-radius: 0;
+}
+
+.psp-page-form .body-data .ant-table-wrapper .ant-table-container table>thead>tr:first-child >*:first-child {
+  border-start-start-radius: 0;
+} 
+
+.psp-page-form .body-data .ant-table-wrapper .ant-table-tbody >tr >th, 
+.psp-page-form .body-data .ant-table-wrapper .ant-table-tbody >tr >td {
+  transition: none;
+  border-bottom: 0px solid #f0f0f0;
+  background-color: #fff !important;
+}
+
+/* compact steps - ลดช่องว่างระหว่างไอเท็ม และระหว่างแถว */
+.site-navigation-steps.compact,
+.site-navigation-steps.compact .ant-steps {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.site-navigation-steps.compact .ant-steps-item {
+  margin: 0 !important; /* ขวา, ล่าง, ซ้าย */
+  padding: 0 !important;
+}
+
+.psp-page-form .body-data .ant-table-wrapper .ant-table-thead >tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colpspan])::before, 
+.psp-page-form .body-data .ant-table-wrapper .ant-table-thead >tr>td:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colpspan])::before {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: 0;
+  width: 1px;
+  height: 1.6em;
+  background-color: #f0f0f0;
+  transform: translateY(-50%);
+  transition: none;
+  content: unset;
+}
+
+.psp-page-form .body-data  .ant-table-wrapper .ant-table-summary >tr >th, 
+.psp-page-form .body-data  .ant-table-wrapper .ant-table-summary >tr >td {
+  border-bottom: 0px solid #f0f0f0;
+  font-size: 12pt;
+}
+
+.psp-page-form .print-foot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48px;                 /* ความสูง footer ให้ตรงกับ padding-bottom */
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.psp-page-form .ant-table-tbody > tr > td {
+    font-size: 12px !important;
+    border: 1px !important;
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+@media print {
+  .psp-page-form {
+    width: 210mm;
+    height: 297mm;
+    padding-bottom: 48px;
+    page-break-after: always;
+  }
+  .psp-page-form .print-foot { position: absolute; bottom: 0; }
+}
