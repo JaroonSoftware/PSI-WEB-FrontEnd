@@ -1,4 +1,4 @@
-import PspPrintPreview from "./psp/PspPrintPreview";
+import PspPrintPreview from "./sale-daily/SaleDaillyPrintPreview";
 export { 
     PspPrintPreview,
 }

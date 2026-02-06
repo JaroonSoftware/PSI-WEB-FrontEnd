@@ -7,7 +7,7 @@
       page-break-before: always; 
     }
 
-    .psp-page-form { 
+    .sale-daily-page-form { 
       letter-pspacing: .2px;
       width: 21cm; /* A4 width */
       height: 29.7cm; /* A4 height */
@@ -39,7 +39,7 @@
   page-break-inside: avoid;
 } 
 
-#psp.page-show {
+#sale-daily.page-show {
   ---width-padding-param : 4mm;
   ---width-param : 0mm;
   ---width-items : calc( 21cm - var(---width-param) );
@@ -56,12 +56,12 @@
   background-color: #d9d9d9;
 }
 
-#psp .title-preview { 
+#sale-daily .title-preview { 
     width: calc( 21cm + (var(---width-padding-param) * 2) ); /* A4 width */
     box-sizing: border-box;
 }
 
-#psp .print-layout-page { 
+#sale-daily .print-layout-page { 
   padding: var(---width-padding-param);
   width: calc( 21cm + (var(---width-padding-param) * 2) ); /* A4 width */
   /* min-height: 29.7cm;*/
@@ -75,12 +75,12 @@
   color: #000;
 }    
 
-/* .psp-page-form {
+/* .sale-daily-page-form {
     position: relative;
     width: 21cm;
     min-height: 29.7cm; 
 } */
- .psp-page-form {
+ .sale-daily-page-form {
   position: relative;           /* ให้ footer absolute ทำงานภายใน container */
   width: 210mm;                 /* A4 width */
   min-height: 297mm;            /* ให้ความสูงหน้าเท่ากับ A4 */
@@ -90,46 +90,78 @@
 }
 
 .head-page{
-    border-bottom: 2px solid #2c84c9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  border-bottom: 2px solid #2c84c9;
 }
 
-.psp-page-form .foot-page{
+.print-logo {
+  display: flex;
+  align-items: center;
+}
+.print-logo img {
+  height: 60px;        /* consistent logo size */
+  width: auto;
+  padding-inline: 6px;
+}
+
+.print-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* push content to the right */
+  text-align: right;
+}
+.print-head .th-text {
+  font-weight: 600;
+  font-size: 14pt;
+  margin: 0 0 2px 0;
+}
+.print-head .ts-text {
+  font-size: 8pt;
+  color: #333;
+  margin: 0;
+}
+
+.sale-daily-page-form .foot-page{
     border-top: 2px solid #2c84c9;
 }
 
-.psp-page-form .head-data{
+.sale-daily-page-form .head-data{
     /* border-bottom: 2px solid #2c84c9; */
 }
 
-.psp-page-form .body-data{
+.sale-daily-page-form .body-data{
     /* border-bottom: 2px solid #2c84c9; */
     font-size: 12pt;
     padding-block-start: 8px;
 }
 
-.psp-page-form .ant-typography {
+.sale-daily-page-form .ant-typography {
   font-family: inherit; 
   box-sizing: border-box;
   vertical-align: top;
 }
 
-.psp-page-form .ant-card {
+.sale-daily-page-form .ant-card {
   background: #ffffff;
   border-radius: 0;
   box-shadow: none;
   padding-block-start: 8px;
   font-family: inherit
 } 
-.psp-page-form [class^="ant-table"], .psp-page-form [class*=" ant-table"] {
+.sale-daily-page-form [class^="ant-table"], .sale-daily-page-form [class*=" ant-table"] {
   font-family: inherit;
   font-size: 12px;
   box-sizing: border-box;
+  border-collapse: collapse;
 }
-.psp-page-form .body-data .ant-card:first-child{
+.sale-daily-page-form .body-data .ant-card:first-child{
   padding-block-start: 0px;
 }
 
-.psp-page-form .body-data .ant-card .ant-card-head {
+.sale-daily-page-form .body-data .ant-card .ant-card-head {
   min-height: 34px;
   margin-bottom: 0px;
   padding: 0 24px;
@@ -139,49 +171,50 @@
   border-radius: 0;
 }
 
-.psp-page-form .body-data .ant-card .ant-card-body {
+.sale-daily-page-form .body-data .ant-card .ant-card-body {
   padding: 0px;
   border-radius: 0;
 }
 
-.psp-page-form .body-data .ant-table-wrapper .ant-table-cell, 
-.psp-page-form .body-data .ant-table-wrapper .ant-table-thead>tr>th, 
-.psp-page-form .body-data .ant-table-wrapper .ant-table-tbody>tr>th, 
-.psp-page-form .body-data .ant-table-wrapper .ant-table-tbody>tr>td, 
-.psp-page-form .body-data .ant-table-wrapper tfoot>tr>th, 
-.psp-page-form .body-data .ant-table-wrapper tfoot>tr>td {
+.sale-daily-page-form .body-data .ant-table-wrapper .ant-table-cell, 
+.sale-daily-page-form .body-data .ant-table-wrapper .ant-table-thead>tr>th, 
+.sale-daily-page-form .body-data .ant-table-wrapper .ant-table-tbody>tr>th, 
+.sale-daily-page-form .body-data .ant-table-wrapper .ant-table-tbody>tr>td, 
+.sale-daily-page-form .body-data .ant-table-wrapper tfoot>tr>th, 
+.sale-daily-page-form .body-data .ant-table-wrapper tfoot>tr>td {
   position: relative;
-  padding: 2px 6px;
+  padding: 6px 8px;        /* increase cell padding for readability */
   overflow-wrap: break-word;
   font-size: 10pt;
+  line-height: 1.4;        /* add line height for clarity */
   vertical-align: top;
   font-family: inherit;
 }
 
-.psp-page-form .body-data .ant-table-wrapper .ant-table-thead >tr>th, 
-.psp-page-form .body-data .ant-table-wrapper .ant-table-thead >tr>td {
+.sale-daily-page-form .body-data .ant-table-wrapper .ant-table-thead >tr>th, 
+.sale-daily-page-form .body-data .ant-table-wrapper .ant-table-thead >tr>td {
   position: relative;
   color: rgba(0, 0, 0, 0.88);
   font-weight: 600;
   text-align: start;
-  background: #ffffff !important;
-  border-bottom: 0px solid #0d0d0e;
+  background: #c7f3c7 !important; /* light blue header */
+  border: 1px solid #3d72bf;
   transition: none;
 }
 
-.psp-page-form .body-data .ant-table-wrapper .ant-table-container table>thead>tr:first-child >*:last-child {
+.sale-daily-page-form .body-data .ant-table-wrapper .ant-table-container table>thead>tr:first-child >*:last-child {
   border-start-end-radius: 0;
 }
 
-.psp-page-form .body-data .ant-table-wrapper .ant-table-container table>thead>tr:first-child >*:first-child {
+.sale-daily-page-form .body-data .ant-table-wrapper .ant-table-container table>thead>tr:first-child >*:first-child {
   border-start-start-radius: 0;
 } 
 
-.psp-page-form .body-data .ant-table-wrapper .ant-table-tbody >tr >th, 
-.psp-page-form .body-data .ant-table-wrapper .ant-table-tbody >tr >td {
+.sale-daily-page-form .body-data .ant-table-wrapper .ant-table-tbody >tr >th, 
+.sale-daily-page-form .body-data .ant-table-wrapper .ant-table-tbody >tr >td {
   transition: none;
-  border-bottom: 0px solid #f0f0f0;
-  background-color: #fff !important;
+  border: 1px solid #3d72bf;
+  background-color: #fffff7 !important;
 }
 
 /* compact steps - ลดช่องว่างระหว่างไอเท็ม และระหว่างแถว */
@@ -190,13 +223,36 @@
   margin: 0 !important;
   padding: 0 !important;
 }
+#sale-daily .ant-table-tbody > tr:nth-child(odd) > td {
+  background-color: #e7ffff !important; /* zebra strip light blue */
+}
+
+#sale-daily .ant-table-tbody > tr.sum-row > td {
+  background-color: #c7f3c7 !important; /* summary row green */
+  font-weight: 600;
+}
+
+#sale-daily .ant-table-tbody > tr.sum-row > td.sum-weight,
+#sale-daily .ant-table-tbody > tr.sum-row > td.sum-amount {
+  background-color: #c7f3c7 !important; /* match summary row green */
+}
+
+#sale-daily .ant-table-tbody > tr.grand-row > td {
+  background-color: #9be29b !important; /* grand total deeper green */
+  font-weight: 700;
+}
+
+#sale-daily .ant-table-tbody > tr.grand-row > td.sum-weight,
+#sale-daily .ant-table-tbody > tr.grand-row > td.sum-amount {
+  background-color: #e6f59b !important; /* highlight totals within grand row */
+}
 .site-navigation-steps.compact .ant-steps-item {
   margin: 0 !important; /* ขวา, ล่าง, ซ้าย */
   padding: 0 !important;
 }
 
-.psp-page-form .body-data .ant-table-wrapper .ant-table-thead >tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colpspan])::before, 
-.psp-page-form .body-data .ant-table-wrapper .ant-table-thead >tr>td:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colpspan])::before {
+.sale-daily-page-form .body-data .ant-table-wrapper .ant-table-thead >tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colpspan])::before, 
+.sale-daily-page-form .body-data .ant-table-wrapper .ant-table-thead >tr>td:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colpspan])::before {
   position: absolute;
   top: 50%;
   inset-inline-end: 0;
@@ -208,13 +264,13 @@
   content: unset;
 }
 
-.psp-page-form .body-data  .ant-table-wrapper .ant-table-summary >tr >th, 
-.psp-page-form .body-data  .ant-table-wrapper .ant-table-summary >tr >td {
-  border-bottom: 0px solid #f0f0f0;
+.sale-daily-page-form .body-data  .ant-table-wrapper .ant-table-summary >tr >th, 
+.sale-daily-page-form .body-data  .ant-table-wrapper .ant-table-summary >tr >td {
+  border: 1px solid #3d72bf;
   font-size: 12pt;
 }
 
-.psp-page-form .print-foot {
+.sale-daily-page-form .print-foot {
   position: absolute;
   left: 0;
   right: 0;
@@ -227,20 +283,17 @@
   background: transparent;
 }
 
-.psp-page-form .ant-table-tbody > tr > td {
+.sale-daily-page-form .ant-table-tbody > tr > td {
     font-size: 12px !important;
-    border: 1px !important;
-    padding-left: 1px !important;
-    padding-right: 1px !important;
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
+    border: 1px solid #3d72bf !important;
+    padding: 4px 8px !important;   /* more vertical spacing in body cells */
   }
 @media print {
-  .psp-page-form {
+  .sale-daily-page-form {
     width: 210mm;
     height: 297mm;
     padding-bottom: 48px;
     page-break-after: always;
   }
-  .psp-page-form .print-foot { position: absolute; bottom: 0; }
+  .sale-daily-page-form .print-foot { position: absolute; bottom: 0; }
 }

@@ -65,8 +65,8 @@ const UISaleDailyAccess = () => {
     };
 
     const base = process.env.PUBLIC_URL || "";
-    const date1 = dateRange?.[0]?.format("DD-MM-YYYY");
-    const date2 = dateRange?.[1]?.format("DD-MM-YYYY");
+    const date1 = dateRange?.[0]?.format("MM-DD-YYYY");
+    const date2 = dateRange?.[1]?.format("MM-DD-YYYY");
     const url = `${base}/sale/daily-report-print/${product}/${date1}${date2 ? `/${date2}` : ""}`;
     const newWindow = window.open(url, "_blank");
     if (!newWindow) {
