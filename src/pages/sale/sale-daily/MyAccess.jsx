@@ -81,64 +81,6 @@ const UISaleDailyAccess = () => {
       message.warning("Popup ถูกบล็อก กรุณาอนุญาตป๊อปอัปสำหรับไซต์นี้");
       return;
     }
-
-    // newWindow.location.href = `/psp-print/${recode?.psp_code}/${recode?.version}`;
-
-    // if (dateRange && dateRange.length > 0) {
-    // RwiService.getSaleDaily(reqData)
-    //   .then(({ data }) => {
-    //     let { items } = data;
-
-    //     let obj = {};
-
-    //     items.forEach((i, idx) => {
-    //       let key = i.productcode;
-
-    //       if (!obj[key]) {
-    //         obj[key] = {
-    //           items: [],
-    //           venCode: i.vendor,
-    //           venName: i.ven_name,
-    //           totalSupWeight: 0,
-    //           totalWeight: 0,
-    //           totalQuantity: 0,
-    //           remaining: 0,
-    //           productCode: i.productcode,
-    //         };
-    //       }
-    //       obj[key]["items"].push({
-    //         index: idx,
-    //         key: i.lc_no + "@" + i.charge_no,
-    //         ...i,
-    //       });
-    //       obj[key]["totalSupWeight"] += i.total_sup_weight;
-    //       obj[key]["totalWeight"] += i.total_weight;
-    //       obj[key]["totalQuantity"] += i.quantity;
-    //       obj[key]["remaining"] += i.remaining;
-    //     });
-
-    //     let arrayItem = [];
-    //     let totalKeys = Object.keys(obj);
-
-    //     for (let k of totalKeys) {
-    //       arrayItem = [...arrayItem, ...obj[k].items];
-    //       arrayItem.push({
-    //         key: k + "#SUM",
-    //         venCode: obj[k].venCode,
-    //         venName: obj[k].venName,
-    //         total_sup_weight: obj[k].totalSupWeight,
-    //         total_weight: obj[k].totalWeight,
-    //         quantity: obj[k].totalQuantity,
-    //         productCode: obj[k].productCode,
-    //         remaining: obj[k].remaining,
-    //       });
-    //     }
-    //     setData(arrayItem);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    // }
   };
 
   return (
@@ -153,8 +95,10 @@ const UISaleDailyAccess = () => {
             <Col>
               <Space wrap>
                 <Radio.Group onChange={onProductChange} value={product}>
+                  <Radio value="all">ทั้งหมด</Radio>
                   <Radio value="pcw">PCW</Radio>
                   <Radio value="pcs">PCS</Radio>
+                  <Radio value="crd">CRD</Radio>
                 </Radio.Group>
                 <RangePicker
                   style={{ width: 260 }}

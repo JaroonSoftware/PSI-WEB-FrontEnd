@@ -130,7 +130,7 @@ function SaleDaillyPrintPreview() {
           style={{ marginBottom: 0, paddingBottom: 0 }}
         >
           <Typography.Title level={5} className="uppercase mb-0.5">
-            ข้อมูลการขายของ {(product || '').toUpperCase()} ประจำวันที่ {dayjs(date1).format('DD/MM/YYYY')} ถึง {dayjs(date2).format('DD/MM/YYYY')}
+            ข้อมูลการขาย{((product === 'all' ? 'ทั้งหมด' : 'ของ '+product) || '').toUpperCase()} ประจำวันที่ {dayjs(date1).format('DD/MM/YYYY')} ถึง {dayjs(date2).format('DD/MM/YYYY')}
           </Typography.Title>
         </div>        
       </div>
