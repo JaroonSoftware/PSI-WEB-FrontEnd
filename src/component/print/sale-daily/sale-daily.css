@@ -94,7 +94,11 @@
   align-items: center;
   justify-content: space-between;
   height: 80px;
-  border-bottom: 2px solid #2c84c9;
+  /* border-bottom: 2px solid #2c84c9; */
+}
+
+.head-data{
+  border-top: 2px solid #2c84c9;
 }
 
 .print-logo {

@@ -39,3 +39,33 @@ h4.ant-typography+.ant-form-item.\!m-0
 {
     margin-bottom: 0px !important;
 }
+
+/* Page layout enhancements */
+.saledaily-report {
+    padding: 12px;
+}
+
+.saledaily-report .report-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fff;
+    border-radius: 12px;
+}
+
+.saledaily-report .report-title {
+    margin: 0;
+}
+
+.saledaily-report .kpi-grid .kpi-card {
+    border-radius: 12px;
+}
+
+.saledaily-report .table-card {
+    border-radius: 12px;
+}
+
+/* Make Empty guidance readable and centered */
+.saledaily-report .ant-empty-description {
+    margin-top: 4px;
+}

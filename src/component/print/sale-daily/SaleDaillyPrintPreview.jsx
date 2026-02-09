@@ -25,7 +25,12 @@ function SaleDaillyPrintPreview() {
       handleBeforePrint();
       handleCheckMultiPages();
     },
-    onAfterPrint: () => console.log("after printing..."),
+    onAfterPrint: () => {
+      // restore any forced page breaks to default after print
+      const parm = document.getElementById("form-body-main");
+      if (parm) parm.style.pageBreakBefore = "auto";
+      console.log("after printing...");
+    },
     removeAfterPrint: true,
   });
 
@@ -49,6 +54,9 @@ function SaleDaillyPrintPreview() {
     const parm = document.getElementById("form-body-main");
 
     // const othr = document.getElementById("form-body-other");
+
+    // clear previous forced page break before measuring
+    if (parm) parm.style.pageBreakBefore = "auto";
 
     const getHeight = (el) =>
       el
@@ -122,7 +130,7 @@ function SaleDaillyPrintPreview() {
           style={{ marginBottom: 0, paddingBottom: 0 }}
         >
           <Typography.Title level={5} className="uppercase mb-0.5">
-            ข้อมูลการขายของ PCW ประจำวันที่ 06/01/2568 ถึง 06/02/2568
+            ข้อมูลการขายของ {(product || '').toUpperCase()} ประจำวันที่ {dayjs(date1).format('DD/MM/YYYY')} ถึง {dayjs(date2).format('DD/MM/YYYY')}
           </Typography.Title>
         </div>        
       </div>

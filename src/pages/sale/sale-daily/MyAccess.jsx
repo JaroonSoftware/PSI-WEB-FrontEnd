@@ -12,8 +12,13 @@ import {
   message,
   Input,
   DatePicker,
+  Typography,
+  Empty,
+  Divider,
+  Button,
+  Table,
+  Radio,
 } from "antd";
-import { Button, Table, Radio } from "antd";
 import { SearchOutlined, ClearOutlined } from "@ant-design/icons";
 import { accessColumn } from "./model";
 import { useNavigate } from "react-router-dom";
@@ -30,14 +35,14 @@ import { TbFileExport } from "react-icons/tb";
 // const reportservice = ReportService();
 
 const { RangePicker } = DatePicker;
+const { Title, Text } = Typography;
 
 const UISaleDailyAccess = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState([]);
-  const [product, setProduct] = useState("");
-
-  const [dateRange, setDateRange] = useState([dayjs()]);
+  const [product, setProduct] = useState("pcw");
+  const [dateRange, setDateRange] = useState([dayjs(), dayjs()]);
 
   // const { Text } = Typography;
 
@@ -68,7 +73,10 @@ const UISaleDailyAccess = () => {
     const date1 = dateRange?.[0]?.format("MM-DD-YYYY");
     const date2 = dateRange?.[1]?.format("MM-DD-YYYY");
     const url = `${base}/sale/daily-report-print/${product}/${date1}${date2 ? `/${date2}` : ""}`;
-    const newWindow = window.open(url, "_blank");
+    const newWindow = window.open(url, "PSI_SALE_DAILY_PRINT");
+    if (newWindow) {
+      try { newWindow.focus(); } catch (e) {}
+    }
     if (!newWindow) {
       message.warning("Popup ถูกบล็อก กรุณาอนุญาตป๊อปอัปสำหรับไซต์นี้");
       return;
@@ -135,55 +143,56 @@ const UISaleDailyAccess = () => {
 
   return (
     <div className="saledaily-report">
-      <Space
-        direction="vertical"
-        size="middle"
-        style={{ display: "flex", position: "relative" }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <h1 style={{ fontSize: "18px" }}>รายงานสรุปยอดขาย (ลูกค้า)</h1>
-          <Space>
-
-            <Radio.Group 
-            onChange={onProductChange} 
-            value={product}>                            
-                            <Radio value="pcw">PCW</Radio>
-                            <Radio value="pcs">PCS</Radio>
-                          </Radio.Group>
-
-              <RangePicker
-                style={{ width: "230px" }}
-                format={"DD/MM/YYYY"}
-                onChange={onDateChange}
-                value={dateRange}
-              />
-            <Button
-              type="primary"
-              icon={<SearchOutlined />}
-              onClick={fetchStock}
-            >
-              ค้นหา
-            </Button>
-          </Space>
-        </div>
-        <Card>
-          <Row gutter={[8, 8]}>
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-              <Table
-                size="small"
-                rowKey="seq"
-                columns={accessColumn}
-                dataSource={data}
-                scroll={{ x: "max-content" }}
-              />
+      <Space direction="vertical" size="large" style={{ display: "flex" }}>
+        <Card bordered className="report-toolbar">
+          <Row align="middle" gutter={[12, 12]}>
+            <Col flex="auto">
+              <Title level={4} style={{ margin: 0 }}>รายงานสรุปยอดขายรายวัน</Title>
+              <Text type="secondary">เลือกประเภทสินค้าและช่วงวันที่ จากนั้นกดค้นหา</Text>
+            </Col>
+            <Col>
+              <Space wrap>
+                <Radio.Group onChange={onProductChange} value={product}>
+                  <Radio value="pcw">PCW</Radio>
+                  <Radio value="pcs">PCS</Radio>
+                </Radio.Group>
+                <RangePicker
+                  style={{ width: 260 }}
+                  format={"DD/MM/YYYY"}
+                  onChange={onDateChange}
+                  value={dateRange}
+                />
+                <Button type="primary" icon={<SearchOutlined />} onClick={fetchStock}>
+                  ค้นหา
+                </Button>
+              </Space>
             </Col>
           </Row>
+        </Card>
+
+        <Card className="table-card" style={{ height: "600px" }} bordered>
+          {/* {(data && data.length > 0) ? (
+            <Table
+              size="small"
+              rowKey={(record) => record.seq || record.key || `${record.productCode}-${record.index}`}
+              columns={accessColumn}
+              dataSource={data}
+              scroll={{ x: "max-content" }}
+            />
+          ) : (
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description={
+                <Space direction="vertical" size={4}>
+                  <Text>ยังไม่มีข้อมูล</Text>
+                  <Text type="secondary">ขั้นตอนใช้งาน:</Text>
+                  <Text>- เลือกประเภทสินค้า (PCW/PCS)</Text>
+                  <Text>- เลือกช่วงวันที่ที่ต้องการ</Text>
+                  <Text>- กดปุ่ม "ค้นหา" เพื่อแสดงรายงาน</Text>
+                </Space>
+              }
+            /> 
+          )} */}
         </Card>
       </Space>
     </div>
