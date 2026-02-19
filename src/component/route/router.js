@@ -19,6 +19,8 @@ import UIFactoryReport from "../../pages/report/UIFactoryReport";
 import UIQcReport from "../../pages/report/UIQcReport";
 import UICustomerReport from "../../pages/sale/UICustomerReport";
 
+import { UIMonthly, UIMonthlyAccess } from "../../pages/report/monthly";
+
 // === COMPONENT === //
 import MainLayout from "../../component/layout/MainLayout";
 import NotFound from "../../component/404/404";
@@ -45,7 +47,7 @@ const Router = () => {
 
           <Route path="factory-report" element={<UIFactoryReport />} />
           <Route path="weekly-report" element={<UIWeeklyReport />} />
-          <Route path="monthly-report" element={<UIMonthlyReport />} />
+          {/* <Route path="monthly-report" element={<UIMonthlyReport />} /> */}
           <Route path="yearly-report" element={<UIMonthlyReport />} />
           <Route path="qc-report" element={<UIQcReport />} />
           <Route path="sale/report-monthly" element={<UIReportSaleMonthly />} />
@@ -53,6 +55,10 @@ const Router = () => {
           <Route path="sale/daily-report" element={<UISaleDaily />}>
             <Route index element={<UISaleDailyAccess />} />
           </Route>
+          <Route path="monthly-report" element={<UIMonthly />}>
+            <Route index element={<UIMonthlyAccess />} />
+          </Route>
+          
         </Route>
           {PrintRouter}
         <Route path="*" element={<NotFound />} />

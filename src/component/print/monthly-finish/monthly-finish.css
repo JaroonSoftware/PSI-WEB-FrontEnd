@@ -1,0 +1,174 @@
+/* On-screen A4 preview wrapper (similar to sale-daily print preview) */
+#monthly-finish.page-show {
+  --width-padding-param: 4mm;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  overflow: auto;
+  padding: 1rem;
+  background-color: #d9d9d9;
+}
+
+#monthly-finish .title-preview {
+  width: calc(29.7cm + (var(--width-padding-param) * 2));
+  box-sizing: border-box;
+}
+
+#monthly-finish .print-layout-page {
+  padding: var(--width-padding-param);
+  width: calc(29.7cm + (var(--width-padding-param) * 2));
+  height: auto;
+  margin: 0 auto;
+  box-sizing: border-box;
+  box-shadow: 1px 1px 2px 1px #c5c7c5;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #000;
+}
+
+.monthly-finish-page-form {
+  width: 297mm;
+  min-height: 210mm;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding-inline: 0.15in;
+  padding-block: 0.13in 0;
+}
+
+.monthly-finish-print {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000;
+  /* Prevent browsers from applying dark-mode color adjustments during print */
+  color-scheme: light;
+}
+
+@page {
+  size: A4 landscape;
+  /* Chrome sets own margins, we change these printer settings */
+  margin-top: 2mm !important;
+  margin-bottom: 8mm !important;
+  margin-inline: 4mm !important;
+  page-break-inside: avoid;
+}
+
+.monthly-finish-print .print-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 22px;
+  color: #0033cc !important;
+  margin: 6px 0 10px 0;
+}
+
+.monthly-finish-print table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  page-break-inside: avoid;
+}
+
+.monthly-finish-print tr {
+  page-break-inside: avoid;
+}
+
+.monthly-finish-print th,
+.monthly-finish-print td {
+  border: 2px solid #0033cc !important;
+  padding: 6px 6px;
+  font-size: 8pt;
+}
+
+.monthly-finish-print th {
+  background-color: #d7f7ff !important;
+  text-align: center;
+}
+
+.monthly-finish-print td {
+  text-align: right;
+}
+
+.monthly-finish-print td:first-child {
+  text-align: left;
+  font-weight: 700;
+}
+
+/* Make the first/last columns predictable on A4 */
+.monthly-finish-print table th:first-child,
+.monthly-finish-print table td:first-child {
+  width: 35mm !important;
+}
+
+.monthly-finish-print table th:last-child,
+.monthly-finish-print table td:last-child {
+  width: 20mm !important;
+}
+
+.monthly-finish-print tr.row-actual td,
+.monthly-finish-print tr.row-diff td {
+  background-color: #0033cc !important;
+  color: #fff !important;
+  font-weight: 700;
+}
+
+.monthly-finish-print tr.row-planning td {
+  background-color: #ffd666 !important;
+  color: #000 !important;
+  font-weight: 700;
+}
+
+@media print {
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Force browsers to keep colors when printing */
+  #monthly-finish,
+  #monthly-finish * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  #monthly-finish.page-show {
+    height: auto;
+    overflow: visible;
+    padding: 0;
+    background: #ffffff !important;
+  }
+  #monthly-finish .title-preview {
+    display: none;
+  }
+  #monthly-finish .print-layout-page {
+    width: auto;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+    background: #ffffff !important;
+  }
+  .monthly-finish-page-form {
+    width: 297mm;
+    /* Don't force full A4 height; margins reduce printable area and can create a blank 2nd page */
+    min-height: unset !important;
+    height: auto !important;
+    padding-inline: 4mm;
+    padding-top: 0;
+    padding-bottom: 0;
+    background: #ffffff !important;
+  }
+
+  /* Slightly tighter spacing to fit on a single page */
+  .monthly-finish-print th,
+  .monthly-finish-print td {
+    padding: 4px 4px;
+    font-size: 8pt;
+  }
+  .monthly-finish-print {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

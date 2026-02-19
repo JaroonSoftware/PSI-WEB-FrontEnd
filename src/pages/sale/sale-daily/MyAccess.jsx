@@ -69,7 +69,9 @@ const UISaleDailyAccess = () => {
       dateQuery: dateRange
     };
 
-    const base = process.env.PUBLIC_URL || "";
+    const base =
+      process.env.PUBLIC_URL ||
+      (window.location.pathname.startsWith("/webpsi") ? "/webpsi" : "");
     const date1 = dateRange?.[0]?.format("MM-DD-YYYY");
     const date2 = dateRange?.[1]?.format("MM-DD-YYYY");
     const url = `${base}/sale/daily-report-print/${product}/${date1}${date2 ? `/${date2}` : ""}`;

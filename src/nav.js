@@ -145,7 +145,13 @@ export const nav = [
     icon: <FileSearchOutlined className="icon-menubar" />,
     label: "Factory Report",
     path: "/webpsi/factory-report",
-    // disabled: true,
+  },
+  
+  {
+    key: "9",
+    icon: <FileSearchOutlined className="icon-menubar" />,
+    label: "Monthly Report",
+    path: "/webpsi/monthly-report",
   },
   {
     key: "11",
@@ -200,13 +206,6 @@ export const nav = [
   //   icon: <FileSearchOutlined className="icon-menubar" />,
   //   label: "Weekly Report",
   //   path: "/webpsi/weekly-report",
-  //   disabled: true,
-  // },
-  // {
-  //   key: "9",
-  //   icon: <FileSearchOutlined className="icon-menubar" />,
-  //   label: "Monthly Report",
-  //   path: "/webpsi/monthly-report",
   //   disabled: true,
   // },
   // {

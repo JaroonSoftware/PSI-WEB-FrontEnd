@@ -496,8 +496,12 @@ h1 {
 }
 
 @page {
-  size: auto;
-  margin: 8mm 0;
+  size: A4;
+  /* Align defaults with existing print pages (sale-daily, monthly-finish) */
+  margin-top: 2mm !important;
+  margin-bottom: 8mm !important;
+  margin-inline: 4mm !important;
+  page-break-inside: avoid;
 }
 .print-table {
   border-left: 1px solid black !important;
