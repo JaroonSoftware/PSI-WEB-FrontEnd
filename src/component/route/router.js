@@ -28,6 +28,7 @@ import NotFound from "../../component/404/404";
 import { PrintRouter } from "./print.route";
 
 import { UISaleDaily, UISaleDailyAccess } from "../../pages/sale/sale-daily";
+import { UIStockCard, UIStockCardAccess } from "../../pages/report/stockcard";
 
 const Router = () => {
   return (
@@ -58,7 +59,9 @@ const Router = () => {
           <Route path="monthly-report" element={<UIMonthly />}>
             <Route index element={<UIMonthlyAccess />} />
           </Route>
-          
+          <Route path="stockcard-report" element={<UIStockCard />}>
+            <Route index element={<UIStockCardAccess />} />
+          </Route>
         </Route>
           {PrintRouter}
         <Route path="*" element={<NotFound />} />

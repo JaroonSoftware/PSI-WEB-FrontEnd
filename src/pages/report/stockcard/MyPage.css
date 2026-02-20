@@ -1,0 +1,71 @@
+.stockcard-report .ant-table-tbody > tr > td, 
+.stockcard-report .ant-table-thead > tr > th {
+    white-space: break-spaces;
+    vertical-align: top;
+}
+
+.stockcard-report .ant-collapse>.ant-collapse-item:last-child, 
+.stockcard-report .ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header {
+    border-radius: 12px;
+    background-color: #d9d9d9;
+    border: none;
+}
+
+.stockcard-report .ant-collapse .ant-collapse-header,
+.stockcard-report .ant-collapse .ant-collapse-item-active .ant-collapse-header { 
+    border-bottom: 0px solid #fff;
+    padding-inline-start: 12px;
+    background-color: #d9d9d9;
+}
+
+
+.stockcard-report .ant-collapse .ant-collapse-item-active .ant-collapse-content,
+.stockcard-report .ant-collapse .ant-collapse-content {
+    color: rgba(0, 0, 0, 0.88);
+    background-color: #d9d9d9;
+    border-top: 0px solid #d9d9d9;
+    padding-inline: 12px;
+}
+
+.ant-form .ant-form-item {
+    margin-bottom: 6px !important;
+}
+td.ant-table-cell>.ant-form-item {
+    margin-bottom: 0px !important;
+}
+span.ant-typography+.ant-form-item.\!m-0,
+h3.ant-typography+.ant-form-item.\!m-0, 
+h4.ant-typography+.ant-form-item.\!m-0 
+{
+    margin-bottom: 0px !important;
+}
+
+/* Page layout enhancements */
+.stockcard-report {
+    padding: 12px;
+}
+
+.stockcard-report .report-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fff;
+    border-radius: 12px;
+}
+
+.stockcard-report .report-title {
+    margin: 0;
+}
+
+.stockcard-report .kpi-grid .kpi-card {
+    border-radius: 12px;
+}
+
+.stockcard-report .table-card {
+    border-radius: 12px;
+}
+
+/* Make Empty guidance readable and centered */
+.stockcard-report .ant-empty-description {
+    margin-top: 4px;
+}

@@ -172,6 +172,13 @@ export const nav = [
     label: "ยอดขายรายวัน",
     path: "/webpsi/sale/daily-report",
   },
+  { label: "ภาพรวม", key: "sub1", type: "sub" },
+  {
+    key: "17",
+    icon: <FileSearchOutlined className="icon-menubar" />,
+    label: "Stock Card Report",
+    path: "/webpsi/stockcard-report",
+  },
   // { label: "ยังไม่เปิดใช้งาน", key: "sub3", type: "sub" },
   // {
   //   key: "1",
