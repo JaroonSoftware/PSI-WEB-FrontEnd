@@ -1,0 +1,40 @@
+.pending-report-print {
+  padding: 16px;
+}
+
+.pending-report-print .title-preview {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.pending-report-print .print-area {
+  background: #fff;
+}
+
+.pending-report-print .print-header {
+  margin-bottom: 12px;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .pending-report-print {
+    padding: 0;
+  }
+
+  .pending-report-print .ant-table {
+    font-size: 11px;
+  }
+
+  .pending-report-print .ant-table-cell {
+    padding: 3px 6px !important;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+}

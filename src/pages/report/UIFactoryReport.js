@@ -5,9 +5,19 @@ import ReportService from "services/Report.service.js";
 import dayjs from "dayjs";
 import { formatMoney } from "utils/utils.js";
 import { render } from "@testing-library/react";
+
+const MAX_SELECTABLE_DATE = dayjs("2025-11-01");
 const UIFactoryReport = () => {
   const [dataList, setDataList] = useState([]);
-  const [date, setDate] = useState(dayjs());
+  const [date, setDate] = useState(() => {
+    const now = dayjs();
+    return now.isBefore(MAX_SELECTABLE_DATE, "day") ? MAX_SELECTABLE_DATE : now;
+  });
+
+  const disabledDate = (current) => {
+    if (!current) return false;
+    return current.isBefore(MAX_SELECTABLE_DATE, "day");
+  };
 
   const masterProductList = [
     { code: "PCW43", productname: "C4.00", productcolumn: "PC Wire" },
@@ -107,7 +117,7 @@ const UIFactoryReport = () => {
 
   useEffect(() => {
     // เรียกใช้ fetchReport เมื่อคอมโพเนนต์ถูกโหลด
-    fetchReport(date);
+    fetchReport(date ? date.format("YYYY/MM/DD") : undefined);
   }, [date]);
 
   const columns = [
@@ -274,9 +284,17 @@ const UIFactoryReport = () => {
           <Space>
             <DatePicker
               onChange={(v) => {
+                if (!v) return;
+                if (v.isBefore(MAX_SELECTABLE_DATE, "day")) {
+                  setDate(MAX_SELECTABLE_DATE);
+                  return;
+                }
                 setDate(v);
               }}
-              format={"YYYY/MM/DD"}
+              format={"DD/MM/YYYY"}
+              value={date}
+              disabledDate={disabledDate}
+              inputReadOnly
             />
           </Space>
         </div>

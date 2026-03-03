@@ -139,14 +139,14 @@ export const nav = [
     label: "สต๊อคคงเหลือ",
     path: "/webpsi/wirerod/stock",
   },
-  { label: "ผลิต", key: "sub1", type: "sub" },  
+  { label: "ผลิต", key: "sub1", type: "sub" },
   {
     key: "7",
     icon: <FileSearchOutlined className="icon-menubar" />,
     label: "Factory Report",
     path: "/webpsi/factory-report",
   },
-  
+
   {
     key: "9",
     icon: <FileSearchOutlined className="icon-menubar" />,
@@ -158,6 +158,12 @@ export const nav = [
     icon: <FileSearchOutlined className="icon-menubar" />,
     label: "QC Report",
     path: "/webpsi/qc-report",
+  },
+  {
+    key: "12",
+    icon: <FileSearchOutlined className="icon-menubar" />,
+    label: "รายงานค้างส่ง",
+    path: "/webpsi/pending-report",
   },
   { label: "ขาย", key: "sub1", type: "sub" },
   {
@@ -176,9 +182,10 @@ export const nav = [
   {
     key: "17",
     icon: <FileSearchOutlined className="icon-menubar" />,
-    label: "Stock Card Report",
+    label: "Stock Card",
     path: "/webpsi/stockcard-report",
   },
+
   // { label: "ยังไม่เปิดใช้งาน", key: "sub3", type: "sub" },
   // {
   //   key: "1",
@@ -207,7 +214,7 @@ export const nav = [
   //   label: "รายงาน - อายุ",
   //   path: "/webpsi/wirerod/life-time-report",
   //   disabled: true,
-  // },  
+  // },
   // {
   //   key: "8",
   //   icon: <FileSearchOutlined className="icon-menubar" />,

@@ -6,6 +6,7 @@ const ENDPOINT = {
   // GET_STOCK: `${API_URL}/rwi/get-stock`,
   GET_FACTORYREPORT: `${API_URL}/report/report-fg`,
   GET_MONTHLY_FINISH_BY_SIZE: `${API_URL}/report/monthly-finish-by-size`,
+  GET_DELIVERY_REMAINING_BY_PO: `${API_URL}/report/delivery-remaining-by-po`,
 };
 
 const ReportService = {
@@ -21,6 +22,14 @@ const ReportService = {
     return axios({
       method: METHOD.POST,
       url: ENDPOINT.GET_MONTHLY_FINISH_BY_SIZE,
+      data: reqData,
+    });
+  },
+
+  DeliveryRemainingByPO: (reqData) => {
+    return axios({
+      method: METHOD.POST,
+      url: ENDPOINT.GET_DELIVERY_REMAINING_BY_PO,
       data: reqData,
     });
   },

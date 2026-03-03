@@ -1,0 +1,14 @@
+.customer-sales-print {
+  padding: 16px;
+}
+
+.customer-sales-print .title-preview {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+
+
+/* Intentionally minimal: this print preview reuses the StockCard print layout/styles. */
+  margin-bottom: 12px;

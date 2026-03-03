@@ -1,0 +1,557 @@
+import React, { useEffect, useMemo, useState } from "react";
+import { Button, Card, DatePicker, message, Radio, Space, Table, Tabs } from "antd";
+import RwiService from "services/RwiService";
+import $ from "jquery";
+import { dateFormat, getDefaultValue } from "utils/utils";
+import { TbFileExport } from "react-icons/tb";
+
+const { RangePicker } = DatePicker;
+const { TabPane } = Tabs;
+
+$(function () {
+  $(".table-row-light-remove").each(function () {
+    $(this).find("td").first().attr("colspan", "5");
+    $(this).find("td").slice(1, 5).remove();
+  });
+});
+
+const UICustomerReportAccess = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [product, setProduct] = useState("");
+  const [dateRange, setDateRange] = useState([]);
+  const [reportData1, setReportData1] = useState([]);
+  const [reportData2, setReportData2] = useState([]);
+  const [reportData3, setReportData3] = useState([]);
+  const [tabType, setTabType] = useState(1);
+
+  useEffect(() => {
+    setDateRange([]);
+    setProduct("");
+    if (tabType === 1) setReportData1([]);
+    else if (tabType === 2) setReportData2([]);
+    else if (tabType === 3) setReportData3([]);
+  }, [tabType]);
+
+  const handleTabChange = (key) => {
+    setTabType(Number(key));
+  };
+
+  const fetchCustomer = (product, dateRange) => {
+    const reqData = {
+      pdCodeQuery: product,
+      dateQuery: dateRange,
+      type: tabType,
+    };
+
+    if (dateRange && dateRange.length > 0) {
+      setIsLoading(true);
+
+      RwiService.getCustomerReport(reqData)
+        .then(({ data }) => {
+          const { items } = data;
+
+          if (items.length <= 0) {
+            return message.error("[404] : ไม่มีข้อมูลสินค้าตามเงื่อนไขที่เลือก");
+          }
+
+          if (tabType === 1) {
+            setReportData1(items);
+          } else if (tabType === 2) {
+            const nextList = [];
+            items.forEach((i, index) => {
+              nextList.push({ index, ...i });
+            });
+            setReportData2(nextList);
+          } else if (tabType === 3) {
+            setReportData3(items);
+          }
+        })
+        .catch((err) => {
+          message.error(`[${err?.response?.data?.status}] : ${err?.response?.data?.message}`);
+        })
+        .finally(() => setIsLoading(false));
+    }
+  };
+
+  const onProductChange = (e) => {
+    const selectedProduct = e.target.value;
+    setProduct(selectedProduct);
+    fetchCustomer(selectedProduct, dateRange);
+  };
+
+  const onDateChange = (value) => {
+    if (!value) {
+      if (tabType === 1) setReportData1([]);
+      else if (tabType === 2) setReportData2([]);
+      else if (tabType === 3) setReportData3([]);
+      setDateRange([]);
+    } else {
+      setDateRange(value);
+      fetchCustomer(product, value);
+    }
+  };
+
+  const tab1Columns = [
+    {
+      title: "ลำดับที่",
+      key: "index",
+      width: "70px",
+      align: "center",
+      render: (_, record, idx) => idx + 1,
+    },
+    {
+      title: "รหัสลูกค้า",
+      dataIndex: "cusno",
+      key: "cusno",
+    },
+    {
+      title: "ชื่อลูกค้า",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "เครดิต",
+      dataIndex: "total_credit",
+      key: "total_credit",
+      align: "right",
+      render: (total_credit) => total_credit?.toLocaleString(),
+    },
+    {
+      title: "ปริมาณ(ตัน)",
+      dataIndex: "total_unit",
+      key: "total_unit",
+      align: "right",
+      render: (value) => (value / 1000).toLocaleString("en-US", { minimumFractionDigits: 3 }),
+    },
+    {
+      title: "จำนวนเงิน(บาท)",
+      dataIndex: "total_price",
+      key: "total_price",
+      align: "right",
+      render: (total_price) => (total_price ? getDefaultValue(total_price) : 0),
+    },
+  ];
+
+  const tab2Columns = [
+    {
+      title: "ลำดับที่",
+      key: "index",
+      align: "center",
+      render: (_v, record) => (record.isSummary ? "รวม" : record?.seq || ""),
+    },
+    {
+      title: "ขนาด",
+      dataIndex: "size",
+      key: "size",
+      align: "center",
+      render: (value) => {
+        const numValue = Number(value);
+        return value ? numValue.toLocaleString("en-US", { minimumFractionDigits: 2 }) : "";
+      },
+    },
+    {
+      title: "ชื่อลูกค้า",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "วันที่ขาย",
+      dataIndex: "gdsdate",
+      key: "gdsdate",
+      render: (gdsdate) => (gdsdate ? dateFormat(gdsdate) : ""),
+    },
+    {
+      title: "Invoice No.",
+      dataIndex: "invno",
+      key: "invno",
+    },
+    {
+      title: "น้ำหนัก",
+      dataIndex: "total_unit",
+      key: "total_unit",
+      align: "right",
+      render: (total_unit) => (total_unit ? total_unit.toLocaleString() : 0),
+    },
+    {
+      title: "ราคา",
+      dataIndex: "u_price",
+      key: "u_price",
+      align: "right",
+      render: (u_price) => (u_price ? getDefaultValue(u_price) : ""),
+    },
+    {
+      title: "จำนวนเงิน (บาท)",
+      dataIndex: "total_price",
+      key: "total_price",
+      align: "right",
+      render: (value) => getDefaultValue(value),
+    },
+
+    {
+      title: "เครดิต",
+      dataIndex: "credit",
+      key: "credit",
+      align: "center",
+    },
+    {
+      title: "ชื่อ Sale",
+      dataIndex: "sale_name",
+      key: "sale_name",
+    },
+  ];
+
+  const addSummaryRow = (data) => {
+    const preparedData = [];
+    const customerGroups = {};
+
+    data.forEach((item) => {
+      if (!customerGroups[item.name]) {
+        customerGroups[item.name] = [];
+      }
+      customerGroups[item.name].push(item);
+    });
+
+    Object.entries(customerGroups).forEach(([name, items]) => {
+      items.forEach((item) => {
+        preparedData.push({ ...item, isSummary: false });
+      });
+
+      const totalWeight = items.reduce((sum, item) => sum + item.total_unit, 0);
+      const totalAmountThb = items.reduce((sum, item) => sum + item.total_price, 0);
+
+      preparedData.push({
+        index: name,
+        isSummary: true,
+        size: "",
+        total_unit: totalWeight,
+        total_price: totalAmountThb,
+        u_price: "",
+        credit: "",
+        sale_name: "",
+      });
+    });
+
+    return preparedData;
+  };
+
+  const AllReportData2 = useMemo(() => addSummaryRow(reportData2), [reportData2]);
+
+  const AllReportData2WithSeq = useMemo(() => {
+    let seq = 0;
+    return (AllReportData2 || []).map((row) => {
+      if (row?.isSummary) return { ...row, seq: null };
+      seq += 1;
+      return { ...row, seq };
+    });
+  }, [AllReportData2]);
+
+  const tab3Columns = useMemo(() => {
+    return [
+      {
+        title: "ลำดับที่",
+        key: "index",
+        width: "70px",
+        align: "center",
+        render: (_v, record) => {
+          if (record?.isSaleHeader) return record?.headerLabel || "";
+          if (record?.isSummary) return "รวม";
+          return record?.seq || "";
+        },
+        onCell: (record) => {
+          if (record?.isSaleHeader) {
+            return { colSpan: 5, style: { fontWeight: 600, textAlign: "left" } };
+          }
+          return {};
+        },
+      },
+      {
+        title: "รหัสลูกค้า",
+        dataIndex: "cusno",
+        key: "cusno",
+        onCell: (record) => (record?.isSaleHeader ? { colSpan: 0 } : {}),
+      },
+      {
+        title: "ชื่อลูกค้า",
+        dataIndex: "name",
+        key: "name",
+        onCell: (record) => (record?.isSaleHeader ? { colSpan: 0 } : {}),
+        render: (v, record) => (record?.isSummary ? <b>{v}</b> : v),
+      },
+      {
+        title: "ปริมาณ(ตัน)",
+        dataIndex: "total_unit",
+        key: "total_unit",
+        align: "right",
+        onCell: (record) => (record?.isSaleHeader ? { colSpan: 0 } : {}),
+        render: (value, record) => {
+          const ton = (Number(value) || 0) / 1000;
+          const txt = ton.toLocaleString("en-US", { minimumFractionDigits: 3 });
+          return record?.isSummary ? <b>{txt}</b> : txt;
+        },
+      },
+      {
+        title: "จำนวนเงิน(บาท)",
+        dataIndex: "total_price",
+        key: "total_price",
+        align: "right",
+        onCell: (record) => (record?.isSaleHeader ? { colSpan: 0 } : {}),
+        render: (value, record) => {
+          const txt = value ? getDefaultValue(value) : 0;
+          return record?.isSummary ? <b>{txt}</b> : txt;
+        },
+      },
+    ];
+  }, []);
+
+  const AllReportData3 = useMemo(() => {
+    const rows = Array.isArray(reportData3) ? reportData3 : [];
+    const groups = {};
+
+    rows.forEach((r) => {
+      const saleName = (r?.sale_name || "-").trim() || "-";
+      if (!groups[saleName]) groups[saleName] = [];
+      groups[saleName].push(r);
+    });
+
+    const saleNames = Object.keys(groups).sort((a, b) => a.localeCompare(b));
+    const out = [];
+
+    saleNames.forEach((saleName) => {
+      const items = groups[saleName] || [];
+
+      out.push({
+        isSaleHeader: true,
+        key: `HDR_${saleName}`,
+        headerLabel: `Sales: ${saleName}`,
+      });
+
+      items.forEach((it, i) => {
+        out.push({
+          seq: i + 1,
+          ...it,
+          key: `${saleName}_${it?.cusno || i}`,
+          isSummary: false,
+        });
+      });
+
+      const totalUnit = items.reduce((sum, it) => sum + (Number(it.total_unit) || 0), 0);
+      const totalPrice = items.reduce((sum, it) => sum + (Number(it.total_price) || 0), 0);
+
+      out.push({
+        isSummary: true,
+        key: `SUM_${saleName}`,
+        cusno: "",
+        name: "รวม",
+        total_unit: totalUnit,
+        total_price: totalPrice,
+      });
+    });
+
+    return out;
+  }, [reportData3]);
+
+  const openPrintTab3 = () => {
+    if (isLoading) {
+      return message.info("กำลังโหลดข้อมูล...");
+    }
+    if (!dateRange || dateRange.length < 2) {
+      return message.warning("กรุณาเลือกช่วงวันที่");
+    }
+    if (!AllReportData3 || AllReportData3.length === 0) {
+      return message.warning("ยังไม่มีข้อมูลสำหรับพิมพ์");
+    }
+
+    const base = process.env.PUBLIC_URL || (window.location.pathname.startsWith("/webpsi") ? "/webpsi" : "");
+    const p = product && product !== "" ? product : "all";
+    const date1 = dateRange?.[0]?.format("YYYY-MM-DD");
+    const date2 = dateRange?.[1]?.format("YYYY-MM-DD");
+    const url = `${base}/sale/customer-report-sales-print/${p}/${date1}${date2 ? `/${date2}` : ""}`;
+    const newWindow = window.open(url, "PSI_CUSTOMER_SALES_PRINT");
+    if (newWindow) {
+      try {
+        newWindow.focus();
+      } catch (e) {}
+    }
+    if (!newWindow) {
+      message.warning("Popup ถูกบล็อก กรุณาอนุญาตป๊อปอัปสำหรับไซต์นี้");
+    }
+  };
+
+  const openPrintTab1 = () => {
+    if (isLoading) {
+      return message.info("กำลังโหลดข้อมูล...");
+    }
+    if (!dateRange || dateRange.length < 2) {
+      return message.warning("กรุณาเลือกช่วงวันที่");
+    }
+    if (!reportData1 || reportData1.length === 0) {
+      return message.warning("ยังไม่มีข้อมูลสำหรับพิมพ์");
+    }
+
+    const base = process.env.PUBLIC_URL || (window.location.pathname.startsWith("/webpsi") ? "/webpsi" : "");
+    const p = product && product !== "" ? product : "all";
+    const d1 = dateRange?.[0]?.format("YYYY-MM-DD");
+    const d2 = dateRange?.[1]?.format("YYYY-MM-DD");
+    const url = `${base}/sale/customer-report-customer-print/${p}/${d1}${d2 ? `/${d2}` : ""}`;
+    const newWindow = window.open(url, "PSI_CUSTOMER_REPORT1_PRINT");
+    if (newWindow) {
+      try {
+        newWindow.focus();
+      } catch (e) {}
+    }
+    if (!newWindow) {
+      message.warning("Popup ถูกบล็อก กรุณาอนุญาตป๊อปอัปสำหรับไซต์นี้");
+    }
+  };
+
+  const openPrintTab2 = () => {
+    if (isLoading) {
+      return message.info("กำลังโหลดข้อมูล...");
+    }
+    if (!dateRange || dateRange.length < 2) {
+      return message.warning("กรุณาเลือกช่วงวันที่");
+    }
+    if (!AllReportData2 || AllReportData2.length === 0) {
+      return message.warning("ยังไม่มีข้อมูลสำหรับพิมพ์");
+    }
+
+    const base = process.env.PUBLIC_URL || (window.location.pathname.startsWith("/webpsi") ? "/webpsi" : "");
+    const p = product && product !== "" ? product : "all";
+    const d1 = dateRange?.[0]?.format("YYYY-MM-DD");
+    const d2 = dateRange?.[1]?.format("YYYY-MM-DD");
+    const url = `${base}/sale/customer-report-size-print/${p}/${d1}${d2 ? `/${d2}` : ""}`;
+    const newWindow = window.open(url, "PSI_CUSTOMER_REPORT2_PRINT");
+    if (newWindow) {
+      try {
+        newWindow.focus();
+      } catch (e) {}
+    }
+    if (!newWindow) {
+      message.warning("Popup ถูกบล็อก กรุณาอนุญาตป๊อปอัปสำหรับไซต์นี้");
+    }
+  };
+
+  return (
+    <Card className="card-dashboard">
+      <Tabs defaultActiveKey={1} onChange={handleTabChange}>
+        <TabPane tab="รายงานยอดขายลูกค้า 1 (ลูกค้า)" key={1}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <h1 style={{ fontSize: "18px" }}>รายงานสรุปยอดขาย (ลูกค้า)</h1>
+            <Space>
+              <Radio.Group onChange={onProductChange} value={product}>
+                <Radio value="">ทั้งหมด</Radio>
+                <Radio value="pcw">PCW</Radio>
+                <Radio value="pcs">PCS</Radio>
+              </Radio.Group>
+
+              <RangePicker style={{ width: "230px" }} format={"DD/MM/YYYY"} onChange={onDateChange} value={dateRange} />
+              <Button icon={<TbFileExport />} onClick={openPrintTab1} loading={isLoading} disabled={isLoading}>
+                Print
+              </Button>
+            </Space>
+          </div>
+          <Table
+            dataSource={reportData1}
+            columns={tab1Columns}
+            style={{ marginTop: "1rem" }}
+            className="table-less-pd"
+            pagination={false}
+            size="small"
+            bordered
+            rowKey="cusno"
+            loading={isLoading}
+            summary={() => {
+              let totalUnit = 0;
+              let totalPrice = 0;
+
+              reportData1.forEach(({ total_unit, total_price }) => {
+                totalUnit += total_unit;
+                totalPrice += total_price;
+              });
+
+              return (
+                <Table.Summary.Row className="table-row-light">
+                  <Table.Summary.Cell className="text-center" colSpan={1}>
+                    รวม
+                  </Table.Summary.Cell>
+                  <Table.Summary.Cell colSpan={1}></Table.Summary.Cell>{" "}
+                  <Table.Summary.Cell colSpan={1}></Table.Summary.Cell>{" "}
+                  <Table.Summary.Cell colSpan={1}></Table.Summary.Cell>
+                  <Table.Summary.Cell className="text-right">
+                    {(totalUnit / 1000).toLocaleString("en-US", {
+                      minimumFractionDigits: 3,
+                    })}
+                  </Table.Summary.Cell>
+                  <Table.Summary.Cell className="text-right">
+                    {totalPrice.toLocaleString("en-US", {
+                      minimumFractionDigits: 2,
+                    })}
+                  </Table.Summary.Cell>
+                </Table.Summary.Row>
+              );
+            }}
+          />
+        </TabPane>
+        <TabPane tab="รายงานยอดขายลูกค้า 2 (ขนาด)" key={2}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <h1 style={{ fontSize: "18px" }}>รายงานยอดขาย (ขนาด)</h1>
+            <Space>
+              <Radio.Group onChange={onProductChange} value={product}>
+                <Radio value="">ทั้งหมด</Radio>
+                <Radio value="pcw">PCW</Radio>
+                <Radio value="pcs">PCS</Radio>
+              </Radio.Group>
+
+              <RangePicker style={{ width: "230px" }} format={"DD/MM/YYYY"} onChange={onDateChange} value={dateRange} />
+              <Button icon={<TbFileExport />} onClick={openPrintTab2} loading={isLoading} disabled={isLoading}>
+                Print
+              </Button>
+            </Space>
+          </div>
+
+          <Table
+            style={{ marginTop: "1rem" }}
+            rowClassName={(record) => record.isSummary && "table-row-light-remove"}
+            dataSource={AllReportData2WithSeq}
+            columns={tab2Columns}
+            pagination={false}
+            size="small"
+            bordered
+            rowKey={(record) => (record?.isSummary ? `SUM_${record.index}` : `ROW_${record.index}`)}
+            loading={isLoading}
+          />
+        </TabPane>
+        <TabPane tab="รายงานยอดขายลูกค้า 3 (แยกตาม Sales)" key={3}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <h1 style={{ fontSize: "18px" }}>รายงานยอดขายลูกค้า 3 (แยกตาม Sales)</h1>
+            <Space>
+              <Radio.Group onChange={onProductChange} value={product}>
+                <Radio value="">ทั้งหมด</Radio>
+                <Radio value="pcw">PCW</Radio>
+                <Radio value="pcs">PCS</Radio>
+              </Radio.Group>
+
+              <RangePicker style={{ width: "230px" }} format={"DD/MM/YYYY"} onChange={onDateChange} value={dateRange} />
+              <Button icon={<TbFileExport />} onClick={openPrintTab3} loading={isLoading} disabled={isLoading}>
+                Print
+              </Button>
+            </Space>
+          </div>
+
+          <Table
+            style={{ marginTop: "1rem" }}
+            dataSource={AllReportData3}
+            columns={tab3Columns}
+            pagination={false}
+            size="small"
+            bordered
+            rowKey="key"
+            loading={isLoading}
+          />
+        </TabPane>
+      </Tabs>
+    </Card>
+  );
+};
+
+export default UICustomerReportAccess;

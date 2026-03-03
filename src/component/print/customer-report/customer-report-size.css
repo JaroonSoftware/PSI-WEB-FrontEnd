@@ -1,0 +1,65 @@
+/* Print overrides for Customer Report Tab 2 (Size)
+   Goal: fit the wide table on A4 by using landscape and tighter table spacing.
+*/
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin-top: 2mm !important;
+    margin-bottom: 8mm !important;
+    margin-inline: 4mm !important;
+  }
+
+  /* Landscape sizing should apply only when printing */
+  #sale-daily.customer-report-size-print .title-preview {
+    width: calc(29.7cm + (var(---width-padding-param) * 2));
+  }
+
+  #sale-daily.customer-report-size-print .print-layout-page {
+    width: calc(29.7cm + (var(---width-padding-param) * 2));
+  }
+
+  #sale-daily.customer-report-size-print .sale-daily-page-form {
+    width: 297mm;
+    min-height: 210mm;
+  }
+
+  /* Remove preview chrome so content fits A4 */
+  #sale-daily.customer-report-size-print.page-show {
+    height: auto;
+    padding: 0;
+    background: transparent;
+    overflow: visible;
+    gap: 0;
+  }
+
+  #sale-daily.customer-report-size-print .print-layout-page {
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  /* Hide Sale column on paper */
+  #sale-daily.customer-report-size-print .hide-when-print {
+    display: none !important;
+  }
+}
+
+/* Tighter table so it fits on the page */
+#sale-daily.customer-report-size-print .sale-daily-page-form [class^="ant-table"],
+#sale-daily.customer-report-size-print .sale-daily-page-form [class*=" ant-table"] {
+  font-size: 9.5px;
+}
+
+#sale-daily.customer-report-size-print .sale-daily-page-form .body-data .ant-table-wrapper .ant-table-cell,
+#sale-daily.customer-report-size-print .sale-daily-page-form .body-data .ant-table-wrapper .ant-table-thead > tr > th,
+#sale-daily.customer-report-size-print .sale-daily-page-form .body-data .ant-table-wrapper .ant-table-tbody > tr > td {
+  padding: 3px 5px;
+  line-height: 1.2;
+}
+
+/* Make long text less likely to expand the table */
+#sale-daily.customer-report-size-print .sale-daily-page-form .ant-table-cell {
+  word-break: break-word;
+}

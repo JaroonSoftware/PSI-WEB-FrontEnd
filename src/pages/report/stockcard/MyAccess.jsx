@@ -37,12 +37,20 @@ import { TbFileExport } from "react-icons/tb";
 const { RangePicker } = DatePicker;
 const { Title, Text } = Typography;
 
+const MAX_SELECTABLE_DATE = dayjs("2025-11-01");
+
 const UIStockCardAccess = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState([]);
   const [product, setProduct] = useState("pcw42");
-  const [dateRange, setDateRange] = useState([dayjs(), dayjs()]);
+  const [dateRange, setDateRange] = useState(() => {
+    const today = dayjs();
+    const selected = today.isBefore(MAX_SELECTABLE_DATE, "day")
+      ? MAX_SELECTABLE_DATE
+      : today;
+    return [selected, selected];
+  });
   const [loading, setLoading] = useState(false);
 
   // const { Text } = Typography;
@@ -55,6 +63,11 @@ const UIStockCardAccess = () => {
   //   }
   // }, [dateRange]);
 
+  const disabledDate = (current) => {
+    if (!current) return false;
+    return current.isBefore(MAX_SELECTABLE_DATE, "day");
+  };
+
   const onDateChange = (date) => {
     setDateRange(date);
   };
@@ -66,6 +79,11 @@ const UIStockCardAccess = () => {
   const fetchStock = async () => {
     if (!dateRange?.[0] || !dateRange?.[1]) {
       message.warning("กรุณาเลือกช่วงวันที่");
+      return;
+    }
+
+    if (dateRange?.[1]?.isBefore(MAX_SELECTABLE_DATE, "day")) {
+      message.warning("ห้ามเลือกวันที่ก่อน 01/11/2025");
       return;
     }
 
@@ -95,6 +113,11 @@ const UIStockCardAccess = () => {
   const openPrint = () => {
     if (!dateRange?.[0] || !dateRange?.[1]) {
       message.warning("กรุณาเลือกช่วงวันที่");
+      return;
+    }
+
+    if (dateRange?.[1]?.isBefore(MAX_SELECTABLE_DATE, "day")) {
+      message.warning("ห้ามเลือกวันที่ก่อน 01/11/2025");
       return;
     }
 
@@ -145,6 +168,8 @@ const UIStockCardAccess = () => {
                   format={"DD/MM/YYYY"}
                   onChange={onDateChange}
                   value={dateRange}
+                  disabledDate={disabledDate}
+                  inputReadOnly
                 />
                 <Button type="primary" icon={<SearchOutlined />} onClick={fetchStock}>
                   ค้นหา
