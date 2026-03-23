@@ -9,7 +9,7 @@ const ENDPOINT = {
   GET_IMPORT_WIREROD: `${API_URL}/rwi/get-import`,
   GET_VENDOR: `${API_URL}/setting/vendor?getAll=${true}`,
   GET_QC_REPORT: `${API_URL}/rwi/qc-report`,
-  GET_CUSTOMER_REPORT: `${API_URL}/rwi/product/export`,
+  GET_CUSTOMER_REPORT: `${API_URL}/rwi/rwi/customer-report`,
 };
 
 const RwiService = {
