@@ -7,6 +7,7 @@ import { PiPrinterFill } from "react-icons/pi";
 import dayjs from "dayjs";
 
 import ReportService from "services/Report.service";
+import useDimensions from "hook/useDimensions";
 import { formatMoney } from "utils/utils";
 
 import "./pending-report.css";
@@ -16,15 +17,43 @@ const { Title, Text } = Typography;
 function PendingReportPrintPreview() {
   const { status, date1, date2 } = useParams();
   const componentRef = useRef(null);
+  const { width: viewportWidth, height: viewportHeight } = useDimensions();
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const money0 = (v) => formatMoney(Number(v) || 0, 0);
+  const previewScale = useMemo(() => {
+    const mmToPx = 96 / 25.4;
+    const pageWidthPx = 305 * mmToPx;
+    const pageHeightPx = 218 * mmToPx;
+    const availableWidth = Math.max(viewportWidth - 48, 320);
+    const availableHeight = Math.max(viewportHeight - 120, 320);
+
+    return Math.min(1, availableWidth / pageWidthPx, availableHeight / pageHeightPx);
+  }, [viewportHeight, viewportWidth]);
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: "pending-delivery-report",
+    pageStyle: `
+      @page {
+        size: landscape !important;
+        size: A4 landscape !important;
+        margin-top: 4mm;
+        margin-bottom: 8mm;
+        margin-inline: 5mm;
+      }
+      @media print {
+        html, body {
+          width: 297mm;
+          min-height: 210mm;
+          margin: 0 !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    `,
     removeAfterPrint: true,
   });
 
@@ -87,14 +116,18 @@ function PendingReportPrintPreview() {
         render: (v) => formatMoney(Number(v) || 0, 2),
       },
       {
-        title: "สถานะ",
-        children: [
-          { title: "จำนวน", children: qtyCols },
-          { title: "ขายแล้ว", children: soldCols },
-          { title: "ค้างส่ง", children: remCols },
-        ],
+        title: "จำนวน",
+        children:qtyCols 
       },
-      { title: "sales", dataIndex: "sale_name", key: "sale_name", width: 160 },
+      {
+        title: "ขายแล้ว",
+        children: soldCols
+      },
+      {
+        title: "ค้างส่ง",
+        children: remCols 
+      },
+      // { title: "Sales", dataIndex: "sale_name", key: "sale_name", width: 160 },
     ];
   }, []);
 
@@ -171,36 +204,61 @@ function PendingReportPrintPreview() {
   }, [status, date1, date2]);
 
   return (
-    <div className="pending-report-print">
+    <div
+      className="page-show pending-report-print"
+      id="pending-report"
+      style={{
+        "--preview-scale": previewScale,
+      }}
+    >
       <div className="title-preview no-print">
         <Button onClick={handlePrint} icon={<PiPrinterFill style={{ fontSize: "1.1rem" }} />}>
           PRINT
         </Button>
       </div>
 
-      <div ref={componentRef} className="print-area">
-        <div className="print-header">
-          <Title level={4} style={{ margin: 0, textAlign: "center" }}>
-            รายงานค้างส่งตาม PO สั่งซื้อลูกค้า
-          </Title>
-          <Space size={16} style={{ width: "100%", justifyContent: "center" }}>
-            <Text>สถานะ: {statusLabel}</Text>
-            <Text>
-              ช่วงเวลา: {dayjs(date1).format("DD/MM/YYYY")} ถึง {dayjs(date2 || date1).format("DD/MM/YYYY")}
-            </Text>
-          </Space>
-        </div>
+      <div className="print-layout-page">
+        <div ref={componentRef} className="print-area pending-report-page-form">
+          <style media="print">
+            {`
+              @page {
+                size: landscape !important;
+                size: A4 landscape !important;
+                margin-top: 4mm !important;
+                margin-bottom: 8mm !important;
+                margin-inline: 5mm !important;
+              }
 
-        <Table
-          size="small"
-          bordered
-          rowKey={(r) => r.key || r.approval_no}
-          dataSource={data}
-          columns={columns}
-          loading={loading}
-          pagination={false}
-          summary={summary}
-        />
+              html, body {
+                width: 297mm !important;
+                min-height: 210mm !important;
+                margin: 0 !important;
+              }
+            `}
+          </style>
+          <div className="print-header">
+            <Title level={4} style={{ margin: 0, textAlign: "center" }}>
+              รายงานค้างส่งตาม PO สั่งซื้อลูกค้า
+            </Title>
+            <Space size={16} style={{ width: "100%", justifyContent: "center" }}>
+              <Text>สถานะ: {statusLabel}</Text>
+              <Text>
+                ช่วงเวลา: {dayjs(date1).format("DD/MM/YYYY")} ถึง {dayjs(date2 || date1).format("DD/MM/YYYY")}
+              </Text>
+            </Space>
+          </div>
+
+          <Table
+            size="small"
+            bordered
+            rowKey={(r) => r.key || r.approval_no}
+            dataSource={data}
+            columns={columns}
+            loading={loading}
+            pagination={false}
+            summary={summary}
+          />
+        </div>
       </div>
     </div>
   );

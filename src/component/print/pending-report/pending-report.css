@@ -1,11 +1,41 @@
-.pending-report-print {
-  padding: 16px;
+#pending-report.page-show {
+  --width-padding-param: 4mm;
+  --preview-scale: 1;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  overflow: auto;
+  padding: 1rem;
+  background-color: #d9d9d9;
 }
 
-.pending-report-print .title-preview {
+#pending-report .title-preview {
+  width: calc(29.7cm + (var(--width-padding-param) * 2));
   display: flex;
   justify-content: center;
-  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+#pending-report .print-layout-page {
+  width: calc(29.7cm + (var(--width-padding-param) * 2));
+  padding: var(--width-padding-param);
+  box-sizing: border-box;
+  box-shadow: 1px 1px 2px 1px #c5c7c5;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.pending-report-page-form {
+  width: 297mm;
+  min-height: 210mm;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0.15in;
+  background: #fff;
+  color: #000;
 }
 
 .pending-report-print .print-area {
@@ -16,25 +46,74 @@
   margin-bottom: 12px;
 }
 
+.pending-report-print .ant-table {
+  font-size: 11px;
+}
+
+.pending-report-print .ant-table-cell {
+  padding: 4px 6px !important;
+}
+
+@media screen {
+  #pending-report .print-layout-page {
+    zoom: var(--preview-scale);
+  }
+
+  #pending-report .print-layout-page {
+    transform-origin: top center;
+  }
+
+  .pending-report-page-form {
+    width: 297mm;
+  }
+}
+
+@page {
+  size: A4 landscape;
+  margin-top: 4mm !important;
+  margin-bottom: 8mm !important;
+  margin-inline: 5mm !important;
+}
+
 @media print {
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
   .no-print {
     display: none !important;
   }
 
-  .pending-report-print {
+  #pending-report.page-show {
+    min-height: auto;
+    overflow: visible;
     padding: 0;
+    background: #ffffff !important;
+  }
+
+  #pending-report .print-layout-page {
+    width: auto;
+    zoom: 1;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+    background: #ffffff !important;
+  }
+
+  .pending-report-page-form {
+    width: 297mm;
+    min-height: unset;
+    padding: 0 4mm;
+    background: #ffffff !important;
   }
 
   .pending-report-print .ant-table {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .pending-report-print .ant-table-cell {
-    padding: 3px 6px !important;
-  }
-
-  @page {
-    size: A4 landscape;
-    margin: 10mm;
+    padding: 3px 5px !important;
   }
 }

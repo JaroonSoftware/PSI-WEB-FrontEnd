@@ -134,14 +134,18 @@ const UIPendingAccess = () => {
         render: (v) => formatMoney(Number(v) || 0, 2),
       },
       {
-        title: "สถานะ",
-        children: [
-          { title: "จำนวน", children: qtyCols },
-          { title: "ขายแล้ว", children: soldCols },
-          { title: "ค้างส่ง", children: remCols },
-        ],
+        title: "จำนวน",
+        children:qtyCols 
       },
-      { title: "sales", dataIndex: "sale_name", key: "sale_name", width: 160 },
+      {
+        title: "ขายแล้ว",
+        children: soldCols
+      },
+      {
+        title: "ค้างส่ง",
+        children: remCols 
+      },
+      { title: "Sales", dataIndex: "sale_name", key: "sale_name", align: "center", width: 160 },
     ];
   }, []);
 
