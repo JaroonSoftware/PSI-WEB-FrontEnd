@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo, useState } from "react";
-import { Button, Card, Col, DatePicker, Empty, Row, Space, Table, Typography, message } from "antd";
+import { Button, Card, Col, DatePicker, Empty, Row, Select, Space, Table, Typography, message } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { TbFileExport } from "react-icons/tb";
 import dayjs from "dayjs";
@@ -11,8 +11,13 @@ import { dateFormat, formatMoney } from "utils/utils";
 const { RangePicker } = DatePicker;
 const { Title, Text } = Typography;
 
+const STATUS_OPTIONS = [
+  { label: "ปิดจ่าย", value: "closed" },
+  { label: "รอปิดจ่าย", value: "pending" },
+];
+
 const UIPendingAccess = () => {
-  const [status] = useState("pending");
+  const [status, setStatus] = useState("pending");
   const [dateRange, setDateRange] = useState(() => {
     const today = dayjs();
     return [today, today];
@@ -212,6 +217,15 @@ const UIPendingAccess = () => {
         </Col>
         <Col>
           <Space wrap>
+            <Select
+              style={{ width: 160 }}
+              value={status}
+              options={STATUS_OPTIONS}
+              onChange={(value) => {
+                setStatus(value);
+                setData([]);
+              }}
+            />
             <RangePicker
               style={{ width: 260 }}
               format={"DD/MM/YYYY"}
