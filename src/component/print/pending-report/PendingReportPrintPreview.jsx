@@ -59,10 +59,17 @@ function PendingReportPrintPreview() {
 
   const statusLabel = useMemo(() => {
     const s = String(status || "pending").toLowerCase();
-    if (s === "closed") return "ปิดจ่าย";
+    if (s === "closed" || s === "c") return "ปิดจ่าย";
     if (s === "all") return "ทั้งหมด";
     return "รอปิดจ่าย";
   }, [status]);
+
+  const getApiStatus = () => {
+    const s = String(status || "pending").toLowerCase();
+    if (s === "closed" || s === "c") return "C";
+    if (s === "all") return "";
+    return "N";
+  };
 
   const columns = useMemo(() => {
     const qtyCols = [
@@ -188,7 +195,7 @@ function PendingReportPrintPreview() {
       setLoading(true);
       try {
         const reqData = {
-          status,
+          status: getApiStatus(),
           dateQuery: [date1, date2 || date1],
         };
         const resp = await ReportService.DeliveryRemainingByPO(reqData);

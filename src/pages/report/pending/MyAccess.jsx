@@ -12,12 +12,12 @@ const { RangePicker } = DatePicker;
 const { Title, Text } = Typography;
 
 const STATUS_OPTIONS = [
-  { label: "ปิดจ่าย", value: "closed" },
-  { label: "รอปิดจ่าย", value: "pending" },
+  { label: "ปิดจ่าย", value: "C" },
+  { label: "รอปิดจ่าย", value: "N" },
 ];
 
 const UIPendingAccess = () => {
-  const [status, setStatus] = useState("pending");
+  const [status, setStatus] = useState("N");
   const [dateRange, setDateRange] = useState(() => {
     const today = dayjs();
     return [today, today];
