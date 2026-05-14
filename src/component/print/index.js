@@ -5,8 +5,9 @@ import PendingReportPrintPreview from "./pending-report/PendingReportPrintPrevie
 import CustomerSalesPrintPreview from "./customer-sales/CustomerSalesPrintPreview";
 import CustomerReportCustomerPrintPreview from "./customer-report/CustomerReportCustomerPrintPreview";
 import CustomerReportSizePrintPreview from "./customer-report/CustomerReportSizePrintPreview";
+import FactoryReportPrintPreview from "./factory-report/FactoryReportPrintPreview";
 
-export { 
+export {
     PspPrintPreview,
     MonthlyFinishPrintPreview,
     StockCardPrintPreview,
@@ -14,4 +15,5 @@ export {
     CustomerSalesPrintPreview,
     CustomerReportCustomerPrintPreview,
     CustomerReportSizePrintPreview,
+    FactoryReportPrintPreview,
 }

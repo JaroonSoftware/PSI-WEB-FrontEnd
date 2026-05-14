@@ -1,0 +1,24 @@
+.pending-access-table .ant-table-cell {
+  border-width: 1px !important;
+  border-color: #1565c0 !important;
+}
+
+.pending-access-table .ant-table-thead > tr > th,
+.pending-access-table .ant-table-thead > tr > td {
+  background-color: #c8e6c9 !important;
+  color: #000 !important;
+  font-weight: 600 !important;
+}
+
+.pending-access-table .ant-table-tbody > tr > td {
+  background-color: #fffde7 !important;
+}
+
+.pending-access-table .ant-table-tbody tr.row-stripe > td {
+  background-color: #e0f7fa !important;
+}
+
+.pending-access-table .ant-table-summary > tr > td {
+  background-color: #a5d6a7 !important;
+  font-weight: bold;
+}

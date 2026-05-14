@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Table, Card, DatePicker, Button, Space } from "antd";
-import OptionService from "services/Option.service.js";
 import ReportService from "services/Report.service.js";
 import dayjs from "dayjs";
 import { formatMoney } from "utils/utils.js";
-import { render } from "@testing-library/react";
+import { PiPrinterFill } from "react-icons/pi";
+import "./UIFactoryReport.css";
 
 const MAX_SELECTABLE_DATE = dayjs("2025-11-01");
 const UIFactoryReport = () => {
@@ -296,12 +296,24 @@ const UIFactoryReport = () => {
               disabledDate={disabledDate}
               inputReadOnly
             />
+            <Button
+              icon={<PiPrinterFill style={{ fontSize: "1.1rem" }} />}
+              onClick={() => {
+                const base = window.location.pathname.startsWith("/webpsi") ? "/webpsi" : "";
+                const url = `${base}/factory-report-print/${date?.format("YYYY-MM-DD")}`;
+                const w = window.open(url, "PSI_FACTORY_PRINT");
+                if (w) w.focus();
+              }}
+            >
+              Print
+            </Button>
           </Space>
         </div>
 
         <Table
+          className="factory-report-table"
           rowClassName={(record, idx) =>
-            idx === 5 || idx === 9 || idx === 13 ? "table-row-light" : ""
+            record.productname === "Total" ? "row-total" : idx % 2 !== 0 ? "row-stripe" : ""
           }
           dataSource={dataList}
           columns={columns}
@@ -330,10 +342,7 @@ const UIFactoryReport = () => {
             const grandTotalNoTest = sumCol("no_test");
 
             return (
-              <Table.Summary.Row
-                align="center"
-                style={{ backgroundColor: "#fafafa" }}
-              >
+              <Table.Summary.Row align="center">
                 <Table.Summary.Cell index={0} colSpan={2}>
                   <b>Grand Total</b>
                 </Table.Summary.Cell>

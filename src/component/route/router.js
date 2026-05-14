@@ -15,7 +15,7 @@ import UIStock from "../../pages/wr/UIStock";
 // === SUMMARY === //
 import UIMonthlyReport from "../../pages/report/UIMonthlyReport";
 import UIWeeklyReport from "../../pages/report/UIWeeklyReport";
-import UIFactoryReport from "../../pages/report/UIFactoryReport";
+import UIFactoryReport from "../../pages/report/factory/UIFactoryReport";
 import UIQcReport from "../../pages/report/UIQcReport";
 import { UICustomerReport, UICustomerReportAccess } from "../../pages/sale/customer-report";
 

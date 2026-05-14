@@ -1,4 +1,4 @@
-#pending-report.page-show {
+#factory-report.page-show {
   --width-padding-param: 4mm;
   --preview-scale: 1;
   width: 100%;
@@ -12,14 +12,14 @@
   background-color: #d9d9d9;
 }
 
-#pending-report .title-preview {
+#factory-report .title-preview {
   width: calc(29.7cm + (var(--width-padding-param) * 2));
   display: flex;
   justify-content: center;
   box-sizing: border-box;
 }
 
-#pending-report .print-layout-page {
+#factory-report .print-layout-page {
   width: calc(29.7cm + (var(--width-padding-param) * 2));
   padding: var(--width-padding-param);
   box-sizing: border-box;
@@ -28,36 +28,43 @@
   background: #fff;
 }
 
-.pending-report-page-form {
+.factory-report-page-form {
   width: 297mm;
-  min-height: 210mm;
+  height: 210mm;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 0.15in;
+  padding: 5mm 6mm;
   background: #fff;
   color: #000;
+  overflow: hidden;
 }
 
-.pending-report-print .print-area {
-  background: #fff;
+.factory-report-print .print-header {
+  margin-bottom: 6px;
+  text-align: center;
 }
 
-.pending-report-print .print-header {
-  margin-bottom: 12px;
-}
-
-.pending-report-print .ant-table {
+.factory-report-print .ant-table {
   font-size: 11px;
 }
 
-.pending-report-print .ant-table-cell {
-  padding: 4px 6px !important;
+.factory-report-print .ant-table-container {
+  border: 1px solid #1565c0 !important;
+  border-radius: 4px;
+}
+
+.factory-report-print .ant-table-cell {
+  padding: 3px 5px !important;
   border-width: 1px !important;
   border-color: #1565c0 !important;
 }
 
-.pending-report-print .ant-table-thead > tr > th,
-.pending-report-print .ant-table-thead > tr > td {
+.factory-report-print .ant-table-wrapper {
+  page-break-inside: avoid;
+}
+
+.factory-report-print .ant-table-thead > tr > th,
+.factory-report-print .ant-table-thead > tr > td {
   background-color: #c8e6c9 !important;
   color: #000 !important;
   font-weight: 600 !important;
@@ -65,19 +72,26 @@
   print-color-adjust: exact;
 }
 
-.pending-report-print .ant-table-tbody > tr > td {
+.factory-report-print .ant-table-tbody > tr > td {
   background-color: #fffde7 !important;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
 
-.pending-report-print .ant-table-tbody tr.row-stripe > td {
+.factory-report-print .ant-table-tbody tr.row-stripe > td {
   background-color: #e0f7fa !important;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
 
-.pending-report-print .ant-table-summary > tr > td {
+.factory-report-print .ant-table-tbody tr.row-total > td {
+  background-color: #a5d6a7 !important;
+  font-weight: bold;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.factory-report-print .ant-table-summary > tr > td {
   background-color: #a5d6a7 !important;
   font-weight: bold;
   -webkit-print-color-adjust: exact;
@@ -85,29 +99,21 @@
 }
 
 @media screen {
-  #pending-report .print-layout-page {
+  #factory-report .print-layout-page {
     zoom: var(--preview-scale);
-  }
-
-  #pending-report .print-layout-page {
     transform-origin: top center;
-  }
-
-  .pending-report-page-form {
-    width: 297mm;
   }
 }
 
 @page {
   size: A4 landscape;
-  margin-top: 4mm !important;
-  margin-bottom: 8mm !important;
-  margin-inline: 5mm !important;
+  margin-top: 4mm;
+  margin-bottom: 8mm;
+  margin-inline: 5mm;
 }
 
 @media print {
-  html,
-  body {
+  html, body {
     background: #ffffff !important;
     color: #000000 !important;
     -webkit-print-color-adjust: exact !important;
@@ -118,14 +124,14 @@
     display: none !important;
   }
 
-  #pending-report.page-show {
+  #factory-report.page-show {
     min-height: auto;
     overflow: visible;
     padding: 0;
     background: #ffffff !important;
   }
 
-  #pending-report .print-layout-page {
+  #factory-report .print-layout-page {
     width: auto;
     zoom: 1;
     padding: 0;
@@ -134,18 +140,27 @@
     background: #ffffff !important;
   }
 
-  .pending-report-page-form {
+  .factory-report-page-form {
     width: 297mm;
-    min-height: unset;
-    padding: 0 4mm;
+    height: 210mm;
+    overflow: hidden;
+    padding: 4mm 5mm;
     background: #ffffff !important;
   }
 
-  .pending-report-print .ant-table {
-    font-size: 10px;
+  .factory-report-print .print-header {
+    margin-bottom: 4px !important;
   }
 
-  .pending-report-print .ant-table-cell {
-    padding: 3px 5px !important;
+  .factory-report-print .ant-table {
+    font-size: 9px;
+  }
+
+  .factory-report-print .ant-table-cell {
+    padding: 1px 3px !important;
+  }
+
+  .factory-report-print .ant-table-thead .ant-table-cell {
+    font-size: 9px;
   }
 }

@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 
 import ReportService from "services/Report.service";
 import { dateFormat, formatMoney } from "utils/utils";
+import "./MyAccess.css";
 
 const { RangePicker } = DatePicker;
 const { Title, Text } = Typography;
@@ -78,31 +79,32 @@ const UIPendingAccess = () => {
     }
   };
 
-  const money0 = (v) => formatMoney(Number(v) || 0, 0);
+  const money0 = (v) => { const n = Number(v) || 0; return n === 0 ? "" : formatMoney(n, 0); };
 
   const columns = useMemo(() => {
+    const pcwWidth = 105;
     const qtyCols = [
-      { title: "PCW42", dataIndex: "ord_pcw42", key: "ord_pcw42", align: "right", render: money0 },
-      { title: "PCW43", dataIndex: "ord_pcw43", key: "ord_pcw43", align: "right", render: money0 },
-      { title: "PCW52", dataIndex: "ord_pcw52", key: "ord_pcw52", align: "right", render: money0 },
-      { title: "PCW72", dataIndex: "ord_pcw72", key: "ord_pcw72", align: "right", render: money0 },
-      { title: "PCW92", dataIndex: "ord_pcw92", key: "ord_pcw92", align: "right", render: money0 },
+      { title: "PCW42", dataIndex: "ord_pcw42", key: "ord_pcw42", align: "right", width: pcwWidth, render: money0 },
+      { title: "PCW43", dataIndex: "ord_pcw43", key: "ord_pcw43", align: "right", width: pcwWidth, render: money0 },
+      { title: "PCW52", dataIndex: "ord_pcw52", key: "ord_pcw52", align: "right", width: pcwWidth, render: money0 },
+      { title: "PCW72", dataIndex: "ord_pcw72", key: "ord_pcw72", align: "right", width: pcwWidth, render: money0 },
+      { title: "PCW92", dataIndex: "ord_pcw92", key: "ord_pcw92", align: "right", width: pcwWidth, render: money0 },
     ];
 
     const soldCols = [
-      { title: "PCW42", dataIndex: "sold_pcw42", key: "sold_pcw42", align: "right", render: money0 },
-      { title: "PCW43", dataIndex: "sold_pcw43", key: "sold_pcw43", align: "right", render: money0 },
-      { title: "PCW52", dataIndex: "sold_pcw52", key: "sold_pcw52", align: "right", render: money0 },
-      { title: "PCW72", dataIndex: "sold_pcw72", key: "sold_pcw72", align: "right", render: money0 },
-      { title: "PCW92", dataIndex: "sold_pcw92", key: "sold_pcw92", align: "right", render: money0 },
+      { title: "PCW42", dataIndex: "sold_pcw42", key: "sold_pcw42", align: "right", width: pcwWidth, render: money0 },
+      { title: "PCW43", dataIndex: "sold_pcw43", key: "sold_pcw43", align: "right", width: pcwWidth, render: money0 },
+      { title: "PCW52", dataIndex: "sold_pcw52", key: "sold_pcw52", align: "right", width: pcwWidth, render: money0 },
+      { title: "PCW72", dataIndex: "sold_pcw72", key: "sold_pcw72", align: "right", width: pcwWidth, render: money0 },
+      { title: "PCW92", dataIndex: "sold_pcw92", key: "sold_pcw92", align: "right", width: pcwWidth, render: money0 },
     ];
 
     const remCols = [
-      { title: "PCW42", dataIndex: "rem_pcw42", key: "rem_pcw42", align: "right", render: money0 },
-      { title: "PCW43", dataIndex: "rem_pcw43", key: "rem_pcw43", align: "right", render: money0 },
-      { title: "PCW52", dataIndex: "rem_pcw52", key: "rem_pcw52", align: "right", render: money0 },
-      { title: "PCW72", dataIndex: "rem_pcw72", key: "rem_pcw72", align: "right", render: money0 },
-      { title: "PCW92", dataIndex: "rem_pcw92", key: "rem_pcw92", align: "right", render: money0 },
+      { title: "PCW42", dataIndex: "rem_pcw42", key: "rem_pcw42", align: "right", width: pcwWidth, render: money0 },
+      { title: "PCW43", dataIndex: "rem_pcw43", key: "rem_pcw43", align: "right", width: pcwWidth, render: money0 },
+      { title: "PCW52", dataIndex: "rem_pcw52", key: "rem_pcw52", align: "right", width: pcwWidth, render: money0 },
+      { title: "PCW72", dataIndex: "rem_pcw72", key: "rem_pcw72", align: "right", width: pcwWidth, render: money0 },
+      { title: "PCW92", dataIndex: "rem_pcw92", key: "rem_pcw92", align: "right", width: pcwWidth, render: money0 },
     ];
 
     return [
@@ -177,29 +179,29 @@ const UIPendingAccess = () => {
       rem_pcw92: sum("rem_pcw92"),
     };
 
-    const cell = (value) => <Table.Summary.Cell align="right">{money0(value)}</Table.Summary.Cell>;
+    const cell = (idx, value) => (
+      <Table.Summary.Cell index={idx} align="right">{money0(value)}</Table.Summary.Cell>
+    );
 
     return (
       <Table.Summary fixed>
         <Table.Summary.Row>
-          <Table.Summary.Cell index={0} colSpan={5}>
-            <b>รวม</b>
-          </Table.Summary.Cell>
-          {cell(totals.ord_pcw42)}
-          {cell(totals.ord_pcw43)}
-          {cell(totals.ord_pcw52)}
-          {cell(totals.ord_pcw72)}
-          {cell(totals.ord_pcw92)}
-          {cell(totals.sold_pcw42)}
-          {cell(totals.sold_pcw43)}
-          {cell(totals.sold_pcw52)}
-          {cell(totals.sold_pcw72)}
-          {cell(totals.sold_pcw92)}
-          {cell(totals.rem_pcw42)}
-          {cell(totals.rem_pcw43)}
-          {cell(totals.rem_pcw52)}
-          {cell(totals.rem_pcw72)}
-          {cell(totals.rem_pcw92)}
+          <Table.Summary.Cell index={0} colSpan={5}><b>รวม</b></Table.Summary.Cell>
+          {cell(5,  totals.ord_pcw42)}
+          {cell(6,  totals.ord_pcw43)}
+          {cell(7,  totals.ord_pcw52)}
+          {cell(8,  totals.ord_pcw72)}
+          {cell(9,  totals.ord_pcw92)}
+          {cell(10, totals.sold_pcw42)}
+          {cell(11, totals.sold_pcw43)}
+          {cell(12, totals.sold_pcw52)}
+          {cell(13, totals.sold_pcw72)}
+          {cell(14, totals.sold_pcw92)}
+          {cell(15, totals.rem_pcw42)}
+          {cell(16, totals.rem_pcw43)}
+          {cell(17, totals.rem_pcw52)}
+          {cell(18, totals.rem_pcw72)}
+          {cell(19, totals.rem_pcw92)}
           <Table.Summary.Cell index={20} />
         </Table.Summary.Row>
       </Table.Summary>
@@ -248,7 +250,9 @@ const UIPendingAccess = () => {
           <Table
             size="small"
             bordered
+            className="pending-access-table"
             rowKey={(r) => r.key || r.approval_no}
+            rowClassName={(_, index) => (index % 2 !== 0 ? "row-stripe" : "")}
             dataSource={data}
             columns={columns}
             loading={loading}

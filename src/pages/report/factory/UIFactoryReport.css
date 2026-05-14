@@ -1,0 +1,34 @@
+.factory-report-table .ant-table-container {
+  border: 1px solid #1565c0 !important;
+  border-radius: 4px;
+}
+
+.factory-report-table .ant-table-cell {
+  border-width: 1px !important;
+  border-color: #1565c0 !important;
+}
+
+.factory-report-table .ant-table-thead > tr > th,
+.factory-report-table .ant-table-thead > tr > td {
+  background-color: #c8e6c9 !important;
+  color: #000 !important;
+  font-weight: 600 !important;
+}
+
+.factory-report-table .ant-table-tbody > tr > td {
+  background-color: #fffde7 !important;
+}
+
+.factory-report-table .ant-table-tbody tr.row-stripe > td {
+  background-color: #e0f7fa !important;
+}
+
+.factory-report-table .ant-table-tbody tr.row-total > td {
+  background-color: #a5d6a7 !important;
+  font-weight: bold;
+}
+
+.factory-report-table .ant-table-summary > tr > td {
+  background-color: #a5d6a7 !important;
+  font-weight: bold;
+}
