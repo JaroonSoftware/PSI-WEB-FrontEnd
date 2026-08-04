@@ -1,0 +1,232 @@
+#freight-report.page-show {
+  --width-padding-param: 4mm;
+  --preview-scale: 1;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  overflow: auto;
+  padding: 1rem;
+  background-color: #d9d9d9;
+}
+
+#freight-report .title-preview {
+  width: calc(29.7cm + (var(--width-padding-param) * 2));
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+#freight-report .print-layout-page {
+  width: calc(29.7cm + (var(--width-padding-param) * 2));
+  padding: var(--width-padding-param);
+  box-sizing: border-box;
+  box-shadow: 1px 1px 2px 1px #c5c7c5;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.freight-report-page-form {
+  width: 297mm;
+  min-height: 210mm;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0.15in;
+  background: #fff;
+  color: #000;
+}
+
+.freight-report-print .print-area {
+  background: #fff;
+}
+
+/* ---- หัวรายงาน ---- */
+.freight-report-print .print-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #da2a35;
+}
+
+.freight-report-print .fr-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.freight-report-print .fr-brand img {
+  width: 52px;
+  height: auto;
+}
+
+.freight-report-print .fr-company {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.freight-report-print .fr-company small {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+  color: #666;
+}
+
+.freight-report-print .fr-title {
+  flex: 1;
+  text-align: center;
+}
+
+.freight-report-print .fr-title h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.freight-report-print .fr-chip {
+  display: inline-block;
+  margin: 4px 3px 0;
+  padding: 1px 12px;
+  border: 1px solid #da2a35;
+  border-radius: 20px;
+  background: #fff1f0;
+  color: #da2a35;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.freight-report-print .fr-meta {
+  text-align: right;
+  font-size: 10px;
+  line-height: 1.7;
+  color: #444;
+  min-width: 120px;
+}
+
+/* ---- ตาราง ---- */
+.freight-report-print .ant-table {
+  font-size: 10px;
+}
+
+.freight-report-print .ant-table-cell {
+  padding: 3px 5px !important;
+  border-width: 1px !important;
+  border-color: #9aa3ac !important;
+}
+
+.freight-report-print .ant-table-thead > tr > th,
+.freight-report-print .ant-table-thead > tr > td {
+  background-color: #e9edf1 !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.freight-report-print .ant-table-tbody > tr > td {
+  background-color: #fff !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.freight-report-print .ant-table-tbody > tr:nth-child(even) > td {
+  background-color: #fafbfc !important;
+}
+
+.freight-report-print .ant-table-summary > tr > td {
+  background-color: #e9edf1 !important;
+  font-weight: 700;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ---- สรุปท้ายรายงาน ---- */
+.freight-report-print .fr-summary {
+  margin-top: 14px;
+  page-break-inside: avoid;
+}
+
+.freight-report-print .fr-summary-title {
+  font-weight: 700;
+  font-size: 12px;
+  color: #da2a35;
+  margin-bottom: 5px;
+}
+
+.freight-report-print .fr-sum-table {
+  border-collapse: collapse;
+  font-size: 10.5px;
+  width: 48%;
+}
+
+.freight-report-print .fr-sum-table th,
+.freight-report-print .fr-sum-table td {
+  border: 1px solid #9aa3ac;
+  padding: 3px 7px;
+}
+
+.freight-report-print .fr-sum-table th {
+  background: #e9edf1;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.freight-report-print .fr-sum-table td.num {
+  text-align: right;
+}
+
+.freight-report-print .fr-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 18px;
+  font-size: 10.5px;
+}
+
+.freight-report-print .fr-note {
+  color: #666;
+  max-width: 62%;
+}
+
+.freight-report-print .fr-sign {
+  text-align: center;
+  min-width: 200px;
+}
+
+.freight-report-print .fr-sign-line {
+  margin-top: 30px;
+  border-top: 1px dotted #555;
+  padding-top: 3px;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  #freight-report.page-show {
+    padding: 0;
+    background: #fff;
+  }
+
+  #freight-report .print-layout-page {
+    width: auto;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .freight-report-print .ant-table-thead {
+    display: table-header-group;
+  }
+
+  .freight-report-print tr {
+    page-break-inside: avoid;
+  }
+}

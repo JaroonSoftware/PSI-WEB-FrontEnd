@@ -178,6 +178,12 @@ export const nav = [
     label: "ยอดขายรายวัน",
     path: "/webpsi/sale/daily-report",
   },
+  {
+    key: "18",
+    icon: <FileTextOutlined className="icon-menubar" />,
+    label: "รายงานค่าขนส่ง",
+    path: "/webpsi/freight-report",
+  },
   { label: "ภาพรวม", key: "sub1", type: "sub" },
   {
     key: "17",

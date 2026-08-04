@@ -9,6 +9,7 @@ import {
   CustomerReportCustomerPrintPreview,
   CustomerReportSizePrintPreview,
   FactoryReportPrintPreview,
+  FreightReportPrintPreview,
 } from "../print";
 
 export const PrintRouter = (
@@ -21,5 +22,6 @@ export const PrintRouter = (
     <Route path="/webpsi/sale/customer-report-customer-print/:product/:date1/:date2?" element={<CustomerReportCustomerPrintPreview />} />
     <Route path="/webpsi/sale/customer-report-size-print/:product/:date1/:date2?" element={<CustomerReportSizePrintPreview />} />
     <Route path="/webpsi/factory-report-print/:date" element={<FactoryReportPrintPreview />} />
+    <Route path="/webpsi/freight-report-print/:date1/:date2?" element={<FreightReportPrintPreview />} />
   </>
 );

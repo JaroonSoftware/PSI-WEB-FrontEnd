@@ -6,6 +6,7 @@ import CustomerSalesPrintPreview from "./customer-sales/CustomerSalesPrintPrevie
 import CustomerReportCustomerPrintPreview from "./customer-report/CustomerReportCustomerPrintPreview";
 import CustomerReportSizePrintPreview from "./customer-report/CustomerReportSizePrintPreview";
 import FactoryReportPrintPreview from "./factory-report/FactoryReportPrintPreview";
+import FreightReportPrintPreview from "./freight-report/FreightReportPrintPreview";
 
 export {
     PspPrintPreview,
@@ -16,4 +17,5 @@ export {
     CustomerReportCustomerPrintPreview,
     CustomerReportSizePrintPreview,
     FactoryReportPrintPreview,
+    FreightReportPrintPreview,
 }

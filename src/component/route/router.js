@@ -30,6 +30,7 @@ import { PrintRouter } from "./print.route";
 import { UISaleDaily, UISaleDailyAccess } from "../../pages/sale/sale-daily";
 import { UIStockCard, UIStockCardAccess } from "../../pages/report/stockcard";
 import { UIPending, UIPendingAccess } from "../../pages/report/pending";
+import { UIFreightReport, UIFreightReportAccess } from "../../pages/report/freight";
 
 const Router = () => {
   return (
@@ -54,6 +55,9 @@ const Router = () => {
           <Route path="qc-report" element={<UIQcReport />} />
           <Route path="pending-report" element={<UIPending />}>
             <Route index element={<UIPendingAccess />} />
+          </Route>
+          <Route path="freight-report" element={<UIFreightReport />}>
+            <Route index element={<UIFreightReportAccess />} />
           </Route>
           <Route path="sale/report-monthly" element={<UIReportSaleMonthly />} />
           <Route path="sale/customer-report" element={<UICustomerReport />}>
