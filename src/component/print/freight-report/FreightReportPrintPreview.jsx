@@ -12,6 +12,7 @@ import {
   accessColumn,
   WEIGHT_COLUMNS,
   weight0,
+  money2,
 } from "pages/report/freight/model";
 import logo from "assets/image/psi.jpg";
 
@@ -22,6 +23,7 @@ function FreightReportPrintPreview() {
   const [searchParams] = useSearchParams();
   const trncode = searchParams.get("trn") || "";
   const bandLabel = searchParams.get("band") || "";
+  const bandId = searchParams.get("bandId") || null;
 
   const componentRef = useRef(null);
   const { width: viewportWidth, height: viewportHeight } = useDimensions();
@@ -76,6 +78,7 @@ function FreightReportPrintPreview() {
         const resp = await ReportService.FreightSummary({
           dateQuery: [date1, date2 || date1],
           trncode,
+          bandId,
         });
         setData(resp?.data?.items || []);
         setSummary(resp?.data?.summary || {});
@@ -88,7 +91,7 @@ function FreightReportPrintPreview() {
     };
 
     init();
-  }, [date1, date2, trncode]);
+  }, [date1, date2, trncode, bandId]);
 
   const columns = useMemo(() => accessColumn(true), []);
 
@@ -107,6 +110,9 @@ function FreightReportPrintPreview() {
           {weight0(summary.w_total)}
         </Table.Summary.Cell>
         <Table.Summary.Cell index={14} colSpan={5} />
+        <Table.Summary.Cell index={19} align="right">
+          {money2(summary.cost)}
+        </Table.Summary.Cell>
       </Table.Summary.Row>
     </Table.Summary>
   );
@@ -209,7 +215,7 @@ function FreightReportPrintPreview() {
                       <td>{t.transport}</td>
                       <td className="num">{weight0(t.trips)}</td>
                       <td className="num">{weight0(t.weight)}</td>
-                      <td className="num" />
+                      <td className="num">{money2(t.cost)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -220,8 +226,8 @@ function FreightReportPrintPreview() {
           {/* ---------- ท้ายรายงาน ---------- */}
           <div className="fr-foot">
             <div className="fr-note">
-              หมายเหตุ : ช่อง พขร. / ประเภทรถ / ค่าขนส่ง
-              ยังไม่มีการบันทึกข้อมูลในระบบ จึงเว้นว่างไว้สำหรับกรอกด้วยมือ
+              หมายเหตุ : ค่าขนส่ง = เลทราคา (ปัดเป็นจำนวนเต็ม) x น้ำหนัก (ตัน)
+              อ้างอิงตามช่วงราคาน้ำมันที่เลือก
             </div>
             <div className="fr-sign">
               <div className="fr-sign-line">ผู้ตรวจสอบ</div>

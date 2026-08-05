@@ -19,7 +19,7 @@ import dayjs from "dayjs";
 
 import ReportService from "services/Report.service";
 import OptionService from "services/Option.service";
-import { accessColumn, WEIGHT_COLUMNS, weight0 } from "./model";
+import { accessColumn, WEIGHT_COLUMNS, weight0, money2 } from "./model";
 
 const { RangePicker } = DatePicker;
 const { Title } = Typography;
@@ -51,6 +51,10 @@ const UIFreightReportAccess = () => {
     fetchReport();
   }, []);
 
+  useEffect(() => {
+    if (bandId !== null) fetchReport();
+  }, [bandId]);
+
   const fetchReport = async () => {
     if (!dateRange?.[0] || !dateRange?.[1]) {
       message.warning("กรุณาเลือกช่วงวันที่");
@@ -65,6 +69,7 @@ const UIFreightReportAccess = () => {
           dateRange[1].format("YYYY-MM-DD"),
         ],
         trncode,
+        bandId,
       });
       const items = resp?.data?.items || [];
       setData(items);
@@ -96,6 +101,7 @@ const UIFreightReportAccess = () => {
     const qs = new URLSearchParams();
     if (trncode) qs.set("trn", trncode);
     if (band) qs.set("band", band);
+    if (bandId) qs.set("bandId", bandId);
 
     const url = `${base}/freight-report-print/${date1}/${date2}${
       qs.toString() ? `?${qs.toString()}` : ""
@@ -128,6 +134,9 @@ const UIFreightReportAccess = () => {
           <b>{weight0(summary.w_total)}</b>
         </Table.Summary.Cell>
         <Table.Summary.Cell index={14} colSpan={5} />
+        <Table.Summary.Cell index={19} align="right">
+          <b>{money2(summary.cost)}</b>
+        </Table.Summary.Cell>
       </Table.Summary.Row>
     </Table.Summary>
   );
@@ -243,10 +252,11 @@ const UIFreightReportAccess = () => {
               },
               {
                 title: "ค่าขนส่ง (บาท)",
+                dataIndex: "cost",
                 key: "cost",
                 align: "right",
                 width: 140,
-                render: () => <span style={{ color: "#bfbfbf" }}>-</span>,
+                render: (v) => <b>{money2(v)}</b>,
               },
             ]}
           />

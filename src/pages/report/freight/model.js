@@ -18,6 +18,11 @@ export const weight0 = (v) => {
 
 const blank = () => <span style={{ color: "#bfbfbf" }}>-</span>;
 
+export const money2 = (v) => {
+  if (v === null || v === undefined || v === "") return "";
+  return formatMoney(Number(v), 2);
+};
+
 /**
  * คอลัมน์รายงานค่าขนส่ง
  * @param {boolean} compact ใช้สำหรับหน้าพิมพ์ (คอลัมน์แคบลง)
@@ -94,10 +99,11 @@ export const accessColumn = (compact = false) => {
     },
     {
       title: "พขร.",
+      dataIndex: "driver",
       key: "driver",
       align: "center",
-      width: w(90, 60),
-      render: blank,
+      width: w(90, 62),
+      render: (v) => v || blank(),
     },
     {
       title: "จังหวัด",
@@ -108,17 +114,28 @@ export const accessColumn = (compact = false) => {
     },
     {
       title: "ประเภทรถ",
+      dataIndex: "carType",
       key: "carType",
       align: "center",
-      width: w(100, 62),
-      render: blank,
+      width: w(100, 66),
+      render: (v) => v || blank(),
+    },
+    {
+      title: "เลทราคา",
+      dataIndex: "rate",
+      key: "rate",
+      align: "right",
+      width: w(105, 70),
+      render: (v) => (v === null || v === undefined ? blank() : money2(v)),
     },
     {
       title: "ค่าขนส่ง",
+      dataIndex: "cost",
       key: "cost",
       align: "right",
-      width: w(110, 72),
-      render: blank,
+      width: w(115, 78),
+      render: (v) =>
+        v === null || v === undefined ? blank() : <b>{money2(v)}</b>,
     },
   ];
 };
