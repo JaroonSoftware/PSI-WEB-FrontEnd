@@ -7,6 +7,7 @@ import CustomerReportCustomerPrintPreview from "./customer-report/CustomerReport
 import CustomerReportSizePrintPreview from "./customer-report/CustomerReportSizePrintPreview";
 import FactoryReportPrintPreview from "./factory-report/FactoryReportPrintPreview";
 import FreightReportPrintPreview from "./freight-report/FreightReportPrintPreview";
+import CustomerYearlyPrintPreview from "./customer-yearly/CustomerYearlyPrintPreview";
 
 export {
     PspPrintPreview,
@@ -18,4 +19,5 @@ export {
     CustomerReportSizePrintPreview,
     FactoryReportPrintPreview,
     FreightReportPrintPreview,
+    CustomerYearlyPrintPreview,
 }

@@ -7,6 +7,7 @@ const ENDPOINT = {
   OPTION_FG: `${API_URL}/option/options-fg`,
   TRANSPORT: `${API_URL}/setting/transport?page=1&limit=999&query=&status=Y&getAll=false`,
   FUEL_BANDS: `${API_URL}/setting/freight/bands`,
+  SELLER: `${API_URL}/setting/seller?page=1&limit=999&query=&status=Y&getAll=false`,
 };
 
 const OptionService = {
@@ -21,6 +22,13 @@ const OptionService = {
     return axios({
       method: METHOD.GET,
       url: ENDPOINT.FUEL_BANDS,
+    });
+  },
+
+  SELLER: () => {
+    return axios({
+      method: METHOD.GET,
+      url: ENDPOINT.SELLER,
     });
   },
 

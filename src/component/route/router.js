@@ -31,6 +31,7 @@ import { UISaleDaily, UISaleDailyAccess } from "../../pages/sale/sale-daily";
 import { UIStockCard, UIStockCardAccess } from "../../pages/report/stockcard";
 import { UIPending, UIPendingAccess } from "../../pages/report/pending";
 import { UIFreightReport, UIFreightReportAccess } from "../../pages/report/freight";
+import { UICustomerYearly, UICustomerYearlyAccess } from "../../pages/report/customer-yearly";
 
 const Router = () => {
   return (
@@ -58,6 +59,9 @@ const Router = () => {
           </Route>
           <Route path="freight-report" element={<UIFreightReport />}>
             <Route index element={<UIFreightReportAccess />} />
+          </Route>
+          <Route path="customer-yearly-report" element={<UICustomerYearly />}>
+            <Route index element={<UICustomerYearlyAccess />} />
           </Route>
           <Route path="sale/report-monthly" element={<UIReportSaleMonthly />} />
           <Route path="sale/customer-report" element={<UICustomerReport />}>

@@ -8,6 +8,7 @@ const ENDPOINT = {
   GET_MONTHLY_FINISH_BY_SIZE: `${API_URL}/report/monthly-finish-by-size`,
   GET_DELIVERY_REMAINING_BY_PO: `${API_URL}/report/delivery-remaining-by-po`,
   GET_FREIGHT_SUMMARY: `${API_URL}/report/freight-summary`,
+  GET_CUSTOMER_YEARLY_SALES: `${API_URL}/report/customer-yearly-sales`,
 };
 
 const ReportService = {
@@ -39,6 +40,14 @@ const ReportService = {
     return axios({
       method: METHOD.POST,
       url: ENDPOINT.GET_FREIGHT_SUMMARY,
+      data: reqData,
+    });
+  },
+
+  CustomerYearlySales: (reqData) => {
+    return axios({
+      method: METHOD.POST,
+      url: ENDPOINT.GET_CUSTOMER_YEARLY_SALES,
       data: reqData,
     });
   },

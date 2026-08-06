@@ -184,6 +184,12 @@ export const nav = [
     label: "รายงานค่าขนส่ง",
     path: "/webpsi/freight-report",
   },
+  {
+    key: "19",
+    icon: <FileSearchOutlined className="icon-menubar" />,
+    label: "ยอดขายลูกค้าทั้งปี",
+    path: "/webpsi/customer-yearly-report",
+  },
   { label: "ภาพรวม", key: "sub1", type: "sub" },
   {
     key: "17",
