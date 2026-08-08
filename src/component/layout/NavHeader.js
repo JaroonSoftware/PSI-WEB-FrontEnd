@@ -1,10 +1,17 @@
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
-import { Layout, Button } from "antd";
+import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  LogoutOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Layout, Button, Popconfirm, Space, Tag } from "antd";
+import { useAuth } from "../../context/auth/AuthContext";
 import React, { useState, useEffect } from "react";
 const { Header } = Layout;
 
 const NavHeader = ({ collapsed, setCollapsed }) => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,17 +47,42 @@ const NavHeader = ({ collapsed, setCollapsed }) => {
         }}
       />
 
-      {process.env.NODE_ENV === "development" && (
-        <span
-          style={{
-            textTransform: "uppercase",
-            fontWeight: "bold",
-            color: "#0ea2d2",
-          }}
-        >
-          {process.env.NODE_ENV}
-        </span>
-      )}
+      <Space size={12} style={{ marginRight: 16 }}>
+        {process.env.NODE_ENV === "development" && (
+          <span
+            style={{
+              textTransform: "uppercase",
+              fontWeight: "bold",
+              color: "#0ea2d2",
+            }}
+          >
+            {process.env.NODE_ENV}
+          </span>
+        )}
+
+        {user && (
+          <>
+            <Tag
+              icon={<UserOutlined />}
+              color="blue"
+              style={{ fontWeight: 600, marginInlineEnd: 0 }}
+            >
+              {user?.fullname || user?.username}
+            </Tag>
+            <Popconfirm
+              title="ออกจากระบบ"
+              description="ต้องการออกจากระบบใช่หรือไม่?"
+              okText="ออกจากระบบ"
+              cancelText="ยกเลิก"
+              onConfirm={logout}
+            >
+              <Button danger size="small" icon={<LogoutOutlined />}>
+                ออกจากระบบ
+              </Button>
+            </Popconfirm>
+          </>
+        )}
+      </Space>
     </Header>
   );
 };

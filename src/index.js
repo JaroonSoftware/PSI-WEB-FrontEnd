@@ -6,6 +6,7 @@ import "antd/dist/reset.css";
 import "./assets/css/styles.scss";
 import "./assets/css/index.css";
 import { ConfigProvider } from "antd";
+import { AuthProvider } from "./context/auth/AuthContext";
 import locale from "antd/locale/th_TH";
 // import buddhistEra from "dayjs/plugin/buddhistEra";
 // import dayjs from "dayjs";
@@ -15,7 +16,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <ConfigProvider locale={locale}>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </ConfigProvider>
 );
 

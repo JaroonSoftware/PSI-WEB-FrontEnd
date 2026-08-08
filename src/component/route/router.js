@@ -23,6 +23,8 @@ import { UIMonthly, UIMonthlyAccess } from "../../pages/report/monthly";
 
 // === COMPONENT === //
 import MainLayout from "../../component/layout/MainLayout";
+import UILogin from "../../pages/auth/UILogin";
+import PrivateRoute from "../auth/PrivateRoute";
 import NotFound from "../../component/404/404";
 
 import { PrintRouter } from "./print.route";
@@ -38,7 +40,15 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/webpsi" element={<Navigate to="/webpsi/wirerod" />} />
-        <Route path="/webpsi" element={<MainLayout />}>
+        <Route path="/webpsi/login" element={<UILogin />} />
+        <Route
+          path="/webpsi"
+          element={
+            <PrivateRoute>
+              <MainLayout />
+            </PrivateRoute>
+          }
+        >
           <Route path="wirerod" element={<UIWireRod />} />
           <Route path="wirerod/import" element={<UIImportInfo />} />
           <Route path="wirerod/export" element={<UIExportInfo />} />
