@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
 import Sidebar from "./Sidebar";
 import NavHeader from "./NavHeader";
+import ForceChangePassword from "../auth/ForceChangePassword";
 
 const { Footer, Content } = Layout;
 
@@ -11,6 +12,7 @@ const MainLayout = () => {
 
   return (
     <Layout>
+      <ForceChangePassword />
       <Sidebar collapsed={collapsed} />
       <Layout>
         <NavHeader setCollapsed={setCollapsed} collapsed={collapsed} />

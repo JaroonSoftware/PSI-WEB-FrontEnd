@@ -2,16 +2,19 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   LogoutOutlined,
+  KeyOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Button, Popconfirm, Space, Tag } from "antd";
 import { useAuth } from "../../context/auth/AuthContext";
+import ChangePasswordModal from "../auth/ChangePasswordModal";
 import React, { useState, useEffect } from "react";
 const { Header } = Layout;
 
 const NavHeader = ({ collapsed, setCollapsed }) => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const { user, logout } = useAuth();
+  const [openChangePwd, setOpenChangePwd] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -69,6 +72,14 @@ const NavHeader = ({ collapsed, setCollapsed }) => {
             >
               {user?.fullname || user?.username}
             </Tag>
+            <Button
+              size="small"
+              icon={<KeyOutlined />}
+              onClick={() => setOpenChangePwd(true)}
+            >
+              เปลี่ยนรหัสผ่าน
+            </Button>
+
             <Popconfirm
               title="ออกจากระบบ"
               description="ต้องการออกจากระบบใช่หรือไม่?"
@@ -83,6 +94,11 @@ const NavHeader = ({ collapsed, setCollapsed }) => {
           </>
         )}
       </Space>
+
+      <ChangePasswordModal
+        open={openChangePwd}
+        onClose={() => setOpenChangePwd(false)}
+      />
     </Header>
   );
 };

@@ -158,6 +158,7 @@ const UIStockCardAccess = () => {
                     { value: "pcw42", label: "PCW42" },
                     { value: "pcw43", label: "PCW43" },
                     { value: "pcw52", label: "PCW52" },
+                    { value: "pcw70", label: "PCW70" },
                     { value: "pcw72", label: "PCW72" },
                     { value: "pcw92", label: "PCW92" },
                     { value: "crd", label: "CRD" },

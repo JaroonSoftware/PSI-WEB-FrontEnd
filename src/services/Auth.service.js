@@ -9,6 +9,7 @@ const ENDPOINT = {
   LOGIN: `${API_URL}/auth/login`,
   LOGOUT: `${API_URL}/auth/logout`,
   ME: `${API_URL}/auth/me`,
+  CHANGE_PASSWORD: `${API_URL}/auth/change-password`,
 };
 
 const AuthService = {
@@ -25,6 +26,14 @@ const AuthService = {
 
   me: () =>
     axios({ method: METHOD.GET, url: ENDPOINT.ME, withCredentials: true }),
+
+  changePassword: (data) =>
+    axios({
+      method: METHOD.PATCH,
+      url: ENDPOINT.CHANGE_PASSWORD,
+      data,
+      withCredentials: true,
+    }),
 };
 
 export default AuthService;

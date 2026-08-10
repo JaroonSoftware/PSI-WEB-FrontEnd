@@ -23,6 +23,12 @@ export const money2 = (v) => {
   return formatMoney(Number(v), 2);
 };
 
+// เลทราคาแสดงเป็นจำนวนเต็ม (ตัวเดียวกับที่ใช้คิดเงิน)
+export const money0 = (v) => {
+  if (v === null || v === undefined || v === "") return "";
+  return formatMoney(Number(v), 0);
+};
+
 /**
  * คอลัมน์รายงานค่าขนส่ง
  * @param {boolean} compact ใช้สำหรับหน้าพิมพ์ (คอลัมน์แคบลง)
@@ -126,7 +132,7 @@ export const accessColumn = (compact = false) => {
       key: "rate",
       align: "right",
       width: w(105, 70),
-      render: (v) => (v === null || v === undefined ? blank() : money2(v)),
+      render: (v) => (v === null || v === undefined ? blank() : money0(v)),
     },
     {
       title: "ค่าขนส่ง",
