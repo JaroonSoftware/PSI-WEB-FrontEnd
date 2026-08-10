@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Menu, Layout } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import { nav } from "../../nav";
+import { useAuth } from "../../context/auth/AuthContext";
 
 const { Sider } = Layout;
 
 const NavBar = ({ collapsed }) => {
   const location = useLocation();
+  const { user } = useAuth();
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -57,6 +59,7 @@ const NavBar = ({ collapsed }) => {
               width="100%"
               height="auto"
               style={{ borderRadius: "12px" }}
+              alt="avatar"
             />
 
             <div style={{ marginTop: "25px", textAlign: "center" }}>
@@ -67,7 +70,7 @@ const NavBar = ({ collapsed }) => {
                   fontWeight: "bold",
                 }}
               >
-                Chayapat Niropas
+                {user?.fullname || user?.username || "-"}
               </span>
             </div>
             <div style={{ marginTop: "25px", textAlign: "center" }}>
@@ -79,7 +82,7 @@ const NavBar = ({ collapsed }) => {
                   textTransform: "uppercase",
                 }}
               >
-                system admin
+                {user?.position || user?.role || "user"}
               </span>
             </div>
           </div>
@@ -91,6 +94,7 @@ const NavBar = ({ collapsed }) => {
                 width="100%"
                 height="auto"
                 style={{ borderRadius: "12px" }}
+                alt="avatar"
               />
             </div>
           )}
