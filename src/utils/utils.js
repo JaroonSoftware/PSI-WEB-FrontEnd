@@ -1,6 +1,24 @@
 import dayjs from "dayjs";
 
-export const API_URL = process.env.REACT_APP_API_URL;
+/* ===== ที่อยู่ของ Backend API =====
+   ลำดับการเลือก:
+     1) ถ้ากำหนด REACT_APP_API_URL ใน .env ไว้ -> ใช้ค่านั้น
+     2) ถ้าไม่ได้กำหนด -> ใช้ "โฮสต์เดียวกับที่เปิดเว็บอยู่" พอร์ต 5000
+
+   ข้อดีของข้อ 2 : บิลด์ครั้งเดียวใช้ได้ทุกเครื่อง
+     - เปิดที่ http://localhost/psi        -> ยิงไป http://localhost:5000
+     - เปิดที่ http://192.168.0.252/psi    -> ยิงไป http://192.168.0.252:5000
+   ไม่ต้องแก้ .env แล้วบิลด์ใหม่ทุกครั้งที่ย้ายเครื่อง */
+const API_PORT = 5000;
+
+const sameHostApi = () => {
+  if (typeof window === "undefined") return `http://localhost:${API_PORT}`;
+  const { protocol, hostname } = window.location;
+  return `${protocol}//${hostname}:${API_PORT}`;
+};
+
+export const API_URL =
+  (process.env.REACT_APP_API_URL || "").trim() || sameHostApi();
 
 export const ENV = process.env.NODE_ENV;
 
