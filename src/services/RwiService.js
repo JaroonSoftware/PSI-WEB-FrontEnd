@@ -4,6 +4,7 @@ import { API_URL } from "utils/utils";
 
 const ENDPOINT = {
   GET_SALE_DAILY: `${API_URL}/rwi/get-sale-daily`,
+  GET_SALE_DAILY_INVOICE_DETAIL: `${API_URL}/rwi/get-sale-daily/invoice-detail`,
   GET_STOCK: `${API_URL}/rwi/get-stock`,
   GET_STOCK_CARD: `${API_URL}/rwi/get-stockcard`,
   GET_IMPORT_WIREROD: `${API_URL}/rwi/get-import`,
@@ -18,6 +19,15 @@ const RwiService = {
       method: METHOD.POST,
       url: ENDPOINT.GET_SALE_DAILY,
       data: reqData,
+    });
+  },
+
+  getSaleDailyInvoiceDetail: (invNo) => {
+    return axios({
+      method: METHOD.GET,
+      url: `${ENDPOINT.GET_SALE_DAILY_INVOICE_DETAIL}?invNo=${encodeURIComponent(
+        invNo
+      )}`,
     });
   },
 

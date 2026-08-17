@@ -155,7 +155,7 @@ export default function MonthlyFinishPrintPreview() {
                           ? "row-planning"
                           : r.rowType === "diff"
                             ? "row-diff"
-                            : ""
+                            : "row-data"
                     }
                   >
                     <td>{r.product}</td>

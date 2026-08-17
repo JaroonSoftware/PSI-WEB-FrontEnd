@@ -230,6 +230,19 @@ const PCW9_SPECIFICATION = [
   },
 ];
 
+// ภาคของประเทศไทย (ต้องตรงกับ REGION_OPTIONS ใน PSI-FrontEnd เป๊ะ ๆ
+// เพราะค่าที่บันทึกลง mcustom.region1 มาจากฝั่งนั้น)
+export const REGION_OPTIONS = [
+  { value: "ภาคกลาง", label: "ภาคกลาง" },
+  { value: "ภาคตะวันออก", label: "ภาคตะวันออก" },
+  { value: "ภาคเหนือ", label: "ภาคเหนือ" },
+  { value: "ภาคใต้", label: "ภาคใต้" },
+  { value: "ภาคตะวันออกเฉียงเหนือ", label: "ภาคตะวันออกเฉียงเหนือ" },
+  { value: "ภาคตะวันตก", label: "ภาคตะวันตก" },
+];
+
+export const UNSPECIFIED_REGION = "(ยังไม่ได้ระบุ)";
+
 export const getFixedQcRow = (code) => {
   switch (code) {
     case "PCW42":

@@ -1,0 +1,35 @@
+.region-report .report-toolbar,
+.region-report .report-summary,
+.region-report .table-card {
+    border-radius: 12px;
+}
+
+.region-report .ant-empty-description {
+    margin-top: 4px;
+}
+
+/* แถวลูกค้าสลับสี ใช้โทนเดียวกับรายงานยอดขายรายวัน
+   scope ใต้ .region-report เท่านั้น ตารางหน้าอื่นไม่โดน */
+.region-report .region-table .ant-table-thead > tr > th {
+    background-color: #d5f3fb;
+    color: #0b4a5c;
+    text-align: center;
+    font-weight: 700;
+}
+
+.region-report .region-table .ant-table-tbody > tr.region-row-data:nth-child(odd) > td {
+    background-color: #f2fdff;
+}
+
+.region-report .region-table .ant-table-tbody > tr.region-row-data:hover > td {
+    background-color: #cdefff !important;
+}
+
+/* แถบสีขอบซ้ายบอกว่าเป็นหัวกลุ่ม / แถวรวม */
+.region-report .region-table .ant-table-tbody > tr.region-row-head > td:first-child {
+    box-shadow: inset 4px 0 0 #2563eb;
+}
+
+.region-report .region-table .ant-table-tbody > tr.region-row-grand > td:first-child {
+    box-shadow: inset 4px 0 0 #16a34a;
+}

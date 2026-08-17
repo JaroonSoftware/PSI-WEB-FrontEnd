@@ -250,6 +250,15 @@
 #sale-daily .ant-table-tbody > tr.grand-row > td.sum-amount {
   background-color: #e6f59b !important; /* highlight totals within grand row */
 }
+
+/* หัวกลุ่มภาค (ใช้โดยรายงานยอดขายตามภูมิภาค)
+   ต้องอยู่หลังกฎ zebra ด้านบน ไม่งั้น nth-child(odd) จะทับ
+   เพราะ specificity เท่ากัน กฎที่มาทีหลังชนะ */
+#sale-daily .ant-table-tbody > tr.head-row > td {
+  background-color: #dbeafe !important;
+  color: #14346b !important;
+  font-weight: 700;
+}
 .site-navigation-steps.compact .ant-steps-item {
   margin: 0 !important; /* ขวา, ล่าง, ซ้าย */
   padding: 0 !important;

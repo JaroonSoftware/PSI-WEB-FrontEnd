@@ -107,17 +107,43 @@
   width: 20mm !important;
 }
 
-.monthly-finish-print tr.row-actual td,
+/* ลดความอิ่มสีลงให้เท่ากับหน้าจอ + ประหยัดหมึกตอนพิมพ์ */
+.monthly-finish-print tr.row-actual td {
+  background-color: #dbeafe !important;
+  color: #14346b !important;
+  font-weight: 700;
+}
+
 .monthly-finish-print tr.row-diff td {
-  background-color: #0033cc !important;
-  color: #fff !important;
+  background-color: #e8eefb !important;
+  color: #14346b !important;
   font-weight: 700;
 }
 
 .monthly-finish-print tr.row-planning td {
-  background-color: #ffd666 !important;
-  color: #000 !important;
+  background-color: #fef3c7 !important;
+  color: #6b4708 !important;
   font-weight: 700;
+}
+
+/* ===== อ่านง่ายขึ้น: โทนเดียวกับหน้าจอและรายงานยอดขายรายวัน ===== */
+.monthly-finish-print thead th {
+  background-color: #d5f3fb !important;
+  color: #0b4a5c !important;
+}
+
+.monthly-finish-print tr.row-data:nth-child(odd) td {
+  background-color: #e7ffff !important;
+}
+
+.monthly-finish-print tr.row-data td:first-child {
+  background-color: #f0fbff !important;
+  text-align: left;
+}
+
+.monthly-finish-print tr.row-data td:last-child {
+  background-color: #fff4b3 !important;
+  font-weight: 600;
 }
 
 @media print {

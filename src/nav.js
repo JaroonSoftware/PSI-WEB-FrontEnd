@@ -190,6 +190,12 @@ export const nav = [
     label: "ยอดขายลูกค้าทั้งปี",
     path: "/webpsi/customer-yearly-report",
   },
+  {
+    key: "20",
+    icon: <LineChartOutlined className="icon-menubar" />,
+    label: "ยอดขายตามภูมิภาค",
+    path: "/webpsi/sale/region-report",
+  },
   { label: "ภาพรวม", key: "sub1", type: "sub" },
   {
     key: "17",

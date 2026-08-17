@@ -9,6 +9,7 @@ const ENDPOINT = {
   GET_DELIVERY_REMAINING_BY_PO: `${API_URL}/report/delivery-remaining-by-po`,
   GET_FREIGHT_SUMMARY: `${API_URL}/report/freight-summary`,
   GET_CUSTOMER_YEARLY_SALES: `${API_URL}/report/customer-yearly-sales`,
+  GET_SALES_BY_REGION: `${API_URL}/report/sales-by-region`,
 };
 
 const ReportService = {
@@ -17,6 +18,14 @@ const ReportService = {
       method: METHOD.POST,
       url: ENDPOINT.GET_FACTORYREPORT,      
       data: dateQuery,
+    });
+  },
+
+  SalesByRegion: (reqData) => {
+    return axios({
+      method: METHOD.POST,
+      url: ENDPOINT.GET_SALES_BY_REGION,
+      data: reqData,
     });
   },
 

@@ -20,6 +20,10 @@ import UIQcReport from "../../pages/report/UIQcReport";
 import { UICustomerReport, UICustomerReportAccess } from "../../pages/sale/customer-report";
 
 import { UIMonthly, UIMonthlyAccess } from "../../pages/report/monthly";
+import {
+  UISaleRegion,
+  UISaleRegionAccess,
+} from "../../pages/report/sale-region";
 
 // === COMPONENT === //
 import MainLayout from "../../component/layout/MainLayout";
@@ -29,7 +33,11 @@ import NotFound from "../../component/404/404";
 
 import { PrintRouter } from "./print.route";
 
-import { UISaleDaily, UISaleDailyAccess } from "../../pages/sale/sale-daily";
+import {
+  UISaleDaily,
+  UISaleDailyAccess,
+  UISaleDailyDetailAccess,
+} from "../../pages/sale/sale-daily";
 import { UIStockCard, UIStockCardAccess } from "../../pages/report/stockcard";
 import { UIPending, UIPendingAccess } from "../../pages/report/pending";
 import { UIFreightReport, UIFreightReportAccess } from "../../pages/report/freight";
@@ -73,12 +81,16 @@ const Router = () => {
           <Route path="customer-yearly-report" element={<UICustomerYearly />}>
             <Route index element={<UICustomerYearlyAccess />} />
           </Route>
+          <Route path="sale/region-report" element={<UISaleRegion />}>
+            <Route index element={<UISaleRegionAccess />} />
+          </Route>
           <Route path="sale/report-monthly" element={<UIReportSaleMonthly />} />
           <Route path="sale/customer-report" element={<UICustomerReport />}>
             <Route index element={<UICustomerReportAccess />} />
           </Route>
           <Route path="sale/daily-report" element={<UISaleDaily />}>
             <Route index element={<UISaleDailyAccess />} />
+            <Route path=":invNo" element={<UISaleDailyDetailAccess />} />
           </Route>
           <Route path="monthly-report" element={<UIMonthly />}>
             <Route index element={<UIMonthlyAccess />} />

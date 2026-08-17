@@ -9,7 +9,12 @@ export const componentsEditable = {
   body: { row: EditableRow, cell: EditableCell },
 };
 
-export const accessColumn = [
+/* คอลัมน์ของรายงานยอดขายรายวัน
+   ใช้ร่วมกันระหว่างหน้าแสดงผลกับหน้าพิมพ์
+
+   - หน้าแสดงผล: ส่ง onInvoiceClick เข้ามา เลข Invoice จะกดได้
+   - หน้าพิมพ์  : ไม่ต้องส่ง เลข Invoice จะเป็นข้อความธรรมดา (ลิงก์บนกระดาษไม่มีประโยชน์) */
+export const buildAccessColumn = ({ onInvoiceClick } = {}) => [
   {
     title: "ลำดับ",
     key: "index",
@@ -60,6 +65,22 @@ export const accessColumn = [
     align: "center",
     onCell: (record) =>
       record?.sum_amount !== undefined ? { colSpan: 0 } : {},
+    render: (invno, record) => {
+      // แถวรวมไม่มีเลขใบกำกับ และไม่ควรกดได้
+      if (record?.sum_amount !== undefined || !invno) return invno;
+      if (!onInvoiceClick) return invno;
+
+      return (
+        <a
+          onClick={(e) => {
+            e.stopPropagation();
+            onInvoiceClick(invno, record);
+          }}
+        >
+          {invno}
+        </a>
+      );
+    },
   },
   {
     title: "น้ำหนัก",
@@ -98,6 +119,94 @@ export const accessColumn = [
       record?.sum_amount !== undefined
         ? { style: { backgroundColor: "#fff4b3", fontWeight: 600 } }
         : {},
+  },
+];
+
+/* เวอร์ชันสำหรับหน้าพิมพ์ (ไม่มีลิงก์) — คงชื่อเดิมไว้ให้โค้ดเก่าเรียกใช้ได้ */
+export const accessColumn = buildAccessColumn();
+
+/* คอลัมน์ "รายละเอียดลวดที่ขาย" ของใบกำกับหนึ่งใบ
+   แถวรวมจะเว้นคอลัมน์ซ้ายว่างไว้ แล้วใส่คำว่า "รวม"/"รวมทั้งสิ้น"
+   ในคอลัมน์ลักษณะลวด ให้ตรงกับฟอร์มเดิมที่ลูกค้าใช้อยู่ */
+const blankOnSum = (render) => (v, record, idx) =>
+  record?.isSum ? "" : render(v, record, idx);
+
+export const invoiceDetailColumn = [
+  {
+    title: "ลำดับที่",
+    dataIndex: "index",
+    key: "index",
+    align: "center",
+    width: "7%",
+    render: blankOnSum((index) => index + 1),
+  },
+  {
+    title: "ขนาด",
+    dataIndex: "diam",
+    key: "diam",
+    align: "center",
+    render: blankOnSum((v) => formatMoney(v, 2)),
+  },
+  {
+    title: "วันที่ขาย",
+    dataIndex: "gdsdate",
+    key: "gdsdate",
+    align: "center",
+    render: blankOnSum((v) => dateFormat(v)),
+  },
+  {
+    title: "วันที่ผลิต",
+    dataIndex: "pdate",
+    key: "pdate",
+    align: "center",
+    render: blankOnSum((v) => dateFormat(v)),
+  },
+  {
+    title: "Charge No.",
+    dataIndex: "charge_no",
+    key: "charge_no",
+    align: "center",
+    render: blankOnSum((v) => v),
+  },
+  {
+    title: "Coil No.",
+    dataIndex: "coil_no",
+    key: "coil_no",
+    align: "center",
+    render: blankOnSum((v) => v),
+  },
+  {
+    title: "ลักษณะลวด",
+    dataIndex: "pass",
+    key: "pass",
+    align: "center",
+    render: (pass, record) =>
+      record?.isSum ? (
+        <b>{record?.label}</b>
+      ) : pass === "Y" ? (
+        "ลวดดี"
+      ) : (
+        "No Test"
+      ),
+    onCell: (record) =>
+      record?.isSum
+        ? {
+            style: {
+              backgroundColor: record?.isGrand ? "#22c55e" : "#4ade80",
+              color: "#0b3d20",
+            },
+          }
+        : {},
+  },
+  {
+    title: "น้ำหนัก",
+    dataIndex: "weight",
+    key: "weight",
+    align: "right",
+    render: (v, record) =>
+      record?.isSum ? <b>{formatMoney(v, 0)}</b> : formatMoney(v, 0),
+    onCell: (record) =>
+      record?.isSum ? { style: { backgroundColor: "#fff44f" } } : {},
   },
 ];
 

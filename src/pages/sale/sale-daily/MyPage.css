@@ -69,3 +69,23 @@ h4.ant-typography+.ant-form-item.\!m-0
 .saledaily-report .ant-empty-description {
     margin-top: 4px;
 }
+
+.saledaily-report .report-summary {
+    border-radius: 12px;
+}
+
+/* ===== แถวรวม: ให้สีเหมือนหน้าพิมพ์ (สำเนาจาก sale-daily.css)
+   scope ไว้ใต้ .saledaily-report เท่านั้น ไม่กระทบตารางหน้าอื่น ===== */
+.saledaily-report .ant-table-tbody > tr:nth-child(odd) > td {
+    background-color: #e7ffff;
+}
+
+.saledaily-report .ant-table-tbody > tr.sum-row > td {
+    background-color: #c7f3c7 !important;
+    font-weight: 600;
+}
+
+.saledaily-report .ant-table-tbody > tr.grand-row > td {
+    background-color: #9be29b !important;
+    font-weight: 700;
+}

@@ -80,20 +80,67 @@ h4.ant-typography+.ant-form-item.\!m-0
     font-weight: 600;
 }
 
+/* ===== อ่านง่ายขึ้น: ใช้โทนเดียวกับรายงานยอดขายรายวัน =====
+   - แถวข้อมูลสลับสีฟ้าอ่อน
+   - คอลัมน์ TOTAL เน้นสีเหลืองเหมือนช่องยอดรวม
+   scope ไว้ใต้ .monthly-report ทั้งหมด ตารางหน้าอื่นไม่โดน */
+
+/* หัวตาราง */
+.monthly-report .monthly-finish-table .ant-table-thead > tr > th {
+    background-color: #d5f3fb;
+    color: #0b4a5c;
+}
+
+/* แถวข้อมูลสลับสี (ไม่แตะแถว ACTUAL/PLANNING/DIFF ที่มีสีของตัวเองอยู่แล้ว) */
+.monthly-report .monthly-finish-table .ant-table-tbody > tr.monthly-row-data:nth-child(odd) > td {
+    background-color: #e7ffff;
+}
+
+/* คอลัมน์ชื่อสินค้า ให้เด่นแยกจากตัวเลข */
+.monthly-report .monthly-finish-table .ant-table-tbody > tr.monthly-row-data > td:first-child {
+    background-color: #f0fbff;
+    text-align: left;
+}
+
+/* คอลัมน์ TOTAL */
+.monthly-report .monthly-finish-table .ant-table-tbody > tr.monthly-row-data > td:last-child {
+    background-color: #fff4b3;
+    font-weight: 600;
+}
+
+/* ไฮไลต์แถวที่เมาส์ชี้ ให้ไล่สายตาตามแนวนอนได้ง่าย */
+.monthly-report .monthly-finish-table .ant-table-tbody > tr.monthly-row-data:hover > td {
+    background-color: #cdefff !important;
+}
+
+/* น้ำเงินเข้มจัด (#0033cc) อ่านนาน ๆ แล้วล้าตา
+   ลดความอิ่มสีลง ใช้พื้นอ่อน + ตัวอักษรเข้ม + เส้นซ้ายเป็นตัวบอกว่าเป็นแถวสรุป */
 .monthly-report .monthly-row-actual td {
-    background-color: #0033cc !important;
-    color: #ffffff !important;
+    background-color: #dbeafe !important;
+    color: #14346b !important;
     font-weight: 700;
 }
 
 .monthly-report .monthly-row-planning td {
-    background-color: #ffd666 !important;
-    color: #000000 !important;
+    background-color: #fef3c7 !important;
+    color: #6b4708 !important;
     font-weight: 700;
 }
 
 .monthly-report .monthly-row-diff td {
-    background-color: #0033cc !important;
-    color: #ffffff !important;
+    background-color: #e8eefb !important;
+    color: #14346b !important;
     font-weight: 700;
+}
+
+.monthly-report .monthly-row-actual td:first-child {
+    box-shadow: inset 4px 0 0 #2563eb;
+}
+
+.monthly-report .monthly-row-planning td:first-child {
+    box-shadow: inset 4px 0 0 #d97706;
+}
+
+.monthly-report .monthly-row-diff td:first-child {
+    box-shadow: inset 4px 0 0 #64748b;
 }

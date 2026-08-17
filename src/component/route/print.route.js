@@ -2,6 +2,7 @@ import { Route } from "react-router-dom";
 
 import {
   PspPrintPreview,
+  SaleDailyDetailPrintPreview,
   MonthlyFinishPrintPreview,
   StockCardPrintPreview,
   PendingReportPrintPreview,
@@ -11,11 +12,13 @@ import {
   FactoryReportPrintPreview,
   FreightReportPrintPreview,
   CustomerYearlyPrintPreview,
+  SaleRegionPrintPreview,
 } from "../print";
 
 export const PrintRouter = (
   <>
     <Route path="/webpsi/sale/daily-report-print/:product/:date1/:date2?" element={<PspPrintPreview />} />
+    <Route path="/webpsi/sale/daily-report-detail-print/:invNo" element={<SaleDailyDetailPrintPreview />} />
     <Route path="/webpsi/monthly/finish-product-print/:year" element={<MonthlyFinishPrintPreview />} />
     <Route path="/webpsi/stockcard-report-print/:product/:date1/:date2?" element={<StockCardPrintPreview />} />
     <Route path="/webpsi/pending-report-print/:status/:date1/:date2?" element={<PendingReportPrintPreview />} />
@@ -25,5 +28,6 @@ export const PrintRouter = (
     <Route path="/webpsi/factory-report-print/:date" element={<FactoryReportPrintPreview />} />
     <Route path="/webpsi/freight-report-print/:date1/:date2?" element={<FreightReportPrintPreview />} />
     <Route path="/webpsi/customer-yearly-print/:year" element={<CustomerYearlyPrintPreview />} />
+    <Route path="/webpsi/sale/region-report-print/:product/:date1/:date2" element={<SaleRegionPrintPreview />} />
   </>
 );

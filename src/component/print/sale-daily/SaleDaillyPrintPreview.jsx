@@ -7,6 +7,7 @@ import "./sale-daily.css";
 
 import dayjs from "dayjs";
 import { accessColumn } from "./model";
+import { buildSaleDailyRows } from "./transform";
 
 // import ProductSpecificationService from "../../../service/ProductSpecification.service";
 import RwiService from "../../../services/RwiService";
@@ -207,56 +208,8 @@ function SaleDaillyPrintPreview() {
 
       RwiService.getSaleDaily(reqData)
         .then(({ data }) => {
-          const { items } = data;
-
-          // Group by sale date (gdsdate) and compute daily totals
-          const byDate = {};
-          let grandWeight = 0;
-          let grandAmount = 0;
-          items.forEach((item, idx) => {
-            const dkey = item.gdsdate;
-            if (!byDate[dkey]) {
-              byDate[dkey] = {
-                rows: [],
-                totalWeight: 0,
-                totalAmount: 0,
-              };
-            }
-            const weight = Number(item?.tot_unt) || 0;
-            const amount = weight * (Number(item?.u_price) || 0);
-            byDate[dkey].rows.push({
-              index: idx,
-              key: (item.lc_no || "") + "@" + (item.charge_no || idx),
-              ...item,
-            });
-            byDate[dkey].totalWeight += weight;
-            byDate[dkey].totalAmount += Number.isFinite(amount) ? amount : 0;
-            grandWeight += weight;
-            grandAmount += Number.isFinite(amount) ? amount : 0;
-          });
-
-          // Flatten into array with a summary row after each date, then grand total
-          const orderedDates = Object.keys(byDate);
-          const arrayItem = [];
-          orderedDates.forEach((dk) => {
-            arrayItem.push(...byDate[dk].rows);
-            arrayItem.push({
-              key: dk + "#SUM",
-              gdsdate: dk,
-              tot_unt: byDate[dk].totalWeight,
-              sum_amount: byDate[dk].totalAmount,
-            });
-          });
-
-          // Grand total row
-          arrayItem.push({
-            key: "#GRAND_SUM",
-            isGrand: true,
-            tot_unt: grandWeight,
-            sum_amount: grandAmount,
-          });
-
-          setData(arrayItem);
+          const { rows } = buildSaleDailyRows(data?.items ?? []);
+          setData(rows);
         })
         .catch((err) => {
           console.log(err);

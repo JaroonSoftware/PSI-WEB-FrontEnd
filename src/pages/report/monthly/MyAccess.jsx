@@ -242,7 +242,7 @@ const UIMonthlyAccess = () => {
                 if (record?.rowType === "actual") return "monthly-row-actual";
                 if (record?.rowType === "planning") return "monthly-row-planning";
                 if (record?.rowType === "diff") return "monthly-row-diff";
-                return "";
+                return "monthly-row-data";
               }}
             />
           ) : (
