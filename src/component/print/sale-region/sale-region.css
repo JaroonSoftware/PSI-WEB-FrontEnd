@@ -1,0 +1,91 @@
+/* =====================================================================
+   ปรับตารางรายงานยอดขายตามภูมิภาคให้พอดี A4
+
+   ทุกกฎในไฟล์นี้ scope ใต้ .sale-region-print เท่านั้น
+   ซึ่งเป็นคลาสที่ใช้อยู่หน้าเดียวในระบบ จึงไม่กระทบหน้าพิมพ์อื่น
+   ที่ใช้ sale-daily.css ร่วมกัน (ยอดขายรายวัน / รายละเอียดลวด)
+
+   สาเหตุที่ล้น: ตารางมี 7 คอลัมน์ และ antd ใส่ความกว้างเป็น px คงที่
+   ผ่าน <colgroup> รวมกันเกินความกว้างพิมพ์ของ A4 (~19 ซม.)
+   แก้โดยบังคับ table-layout: fixed แล้วกำหนดความกว้างเป็น %
+   ===================================================================== */
+
+/* ---- 1) ยกเลิกความกว้างคงที่ที่ antd ใส่มา ---- */
+.sale-region-print .ant-table {
+  width: 100% !important;
+}
+
+.sale-region-print .ant-table table {
+  table-layout: fixed !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* ปิด scroll แนวนอน ไม่งั้นเนื้อหาส่วนเกินจะโดนตัดหายตอนพิมพ์ */
+.sale-region-print .ant-table-content,
+.sale-region-print .ant-table-body {
+  overflow: visible !important;
+}
+
+/* ---- 2) ความกว้างแต่ละคอลัมน์ (รวม 100%) ----
+   ลำดับ / ภาค-ลูกค้า / ลูกค้า / ใบกำกับ / น้ำหนัก / จำนวนเงิน / สัดส่วน */
+.sale-region-print .ant-table colgroup col:nth-child(1) { width: 6% !important; }
+.sale-region-print .ant-table colgroup col:nth-child(2) { width: 34% !important; }
+.sale-region-print .ant-table colgroup col:nth-child(3) { width: 9% !important; }
+.sale-region-print .ant-table colgroup col:nth-child(4) { width: 10% !important; }
+.sale-region-print .ant-table colgroup col:nth-child(5) { width: 14% !important; }
+.sale-region-print .ant-table colgroup col:nth-child(6) { width: 17% !important; }
+.sale-region-print .ant-table colgroup col:nth-child(7) { width: 10% !important; }
+
+/* ---- 3) ย่อตัวอักษรและระยะขอบให้จุแถวได้มากขึ้นต่อหน้า ----
+   ต้องมี specificity สูงกว่ากฎใน sale-daily.css ที่ตั้ง font-size: 10pt ไว้ */
+.sale-region-print .body-data .ant-table-wrapper .ant-table-cell,
+.sale-region-print .body-data .ant-table-wrapper .ant-table-thead > tr > th,
+.sale-region-print .body-data .ant-table-wrapper .ant-table-tbody > tr > td {
+  font-size: 8pt !important;
+  padding: 2px 4px !important;
+  line-height: 1.25 !important;
+}
+
+/* ชื่อลูกค้ายาว ให้ตัดขึ้นบรรทัดใหม่ ไม่ดันตารางออกนอกหน้า */
+.sale-region-print .ant-table-tbody > tr > td:nth-child(2) {
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+
+/* ตัวเลขห้ามตัดบรรทัด อ่านผิดได้ */
+.sale-region-print .ant-table-tbody > tr > td:nth-child(n + 5) {
+  white-space: nowrap !important;
+}
+
+/* หัวตารางบีบให้อยู่บรรทัดเดียวเท่าที่ทำได้ */
+.sale-region-print .ant-table-thead > tr > th {
+  white-space: nowrap !important;
+  text-align: center !important;
+}
+
+/* ---- 4) ตอนพิมพ์จริง ---- */
+@media print {
+  .sale-region-print .ant-table table {
+    table-layout: fixed !important;
+    width: 100% !important;
+  }
+
+  /* อย่าตัดกลางแถว ตัวเลขจะขาดครึ่ง */
+  .sale-region-print .ant-table-tbody > tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* ซ้ำหัวตารางทุกหน้า เวลาข้อมูลยาวหลายหน้าจะได้รู้ว่าคอลัมน์ไหนคืออะไร */
+  .sale-region-print .ant-table-thead {
+    display: table-header-group !important;
+  }
+
+  /* คงสีพื้นหลังไว้ ไม่งั้นแถวรวมจะกลายเป็นขาวหมด */
+  .sale-region-print,
+  .sale-region-print * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

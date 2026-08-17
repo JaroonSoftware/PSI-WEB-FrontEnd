@@ -5,6 +5,8 @@ import dayjs from "dayjs";
 
 import logo from "../../../assets/image/logopsi.jpg";
 import "../sale-daily/sale-daily.css";
+// ต้อง import หลัง sale-daily.css เพื่อให้กฎที่ specificity เท่ากันของไฟล์นี้ชนะ
+import "./sale-region.css";
 
 import ReportService from "../../../services/Report.service";
 import { regionColumn } from "../../../pages/report/sale-region/model";
@@ -111,14 +113,15 @@ function SaleRegionPrintPreview() {
         }
         columns={regionColumn}
         dataSource={data}
-        scroll={{ x: "max-content" }}
+        /* ไม่ใส่ scroll.x เด็ดขาด — max-content จะดันตารางกว้างเกิน A4
+           ความกว้างคุมด้วย table-layout: fixed ใน sale-region.css แทน */
         pagination={false}
       />
     </div>
   );
 
   const PrintComponent = () => (
-    <div className="sale-daily-page-form" ref={componentRef}>
+    <div className="sale-daily-page-form sale-region-print" ref={componentRef}>
       <table style={{ width: "100%", fontFamily: "inherit" }}>
         <thead>
           <tr>
@@ -159,7 +162,9 @@ function SaleRegionPrintPreview() {
   }, [product, date1, date2, region]);
 
   return (
-    <div className="page-show" id="sale-daily">
+    /* คง id="sale-daily" ไว้เพื่อใช้ layout กระดาษ A4 เดิม
+       แล้วเติมคลาส sale-region-print สำหรับ override เฉพาะหน้านี้ */
+    <div className="page-show sale-region-print" id="sale-daily">
       <div className="title-preview">
         <Button
           className="bn-center bg-blue-400"
