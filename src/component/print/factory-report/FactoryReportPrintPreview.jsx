@@ -134,7 +134,7 @@ function FactoryReportPrintPreview() {
       children: [
         { title: "Daily", dataIndex: "daily", key: "daily", align: "center", render: fmt },
         { title: "Total Act.", dataIndex: "total_act", key: "total_act", align: "center", render: fmt },
-        { title: "Actual", dataIndex: "actual", key: "actual", align: "center", render: fmt },
+        { title: "Previous Month", dataIndex: "actual", key: "actual", align: "center", render: fmt },
       ],
     },
     {

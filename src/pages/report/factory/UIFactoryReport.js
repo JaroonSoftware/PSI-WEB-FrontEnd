@@ -191,7 +191,7 @@ const UIFactoryReport = () => {
           },
         },
         {
-          title: "Actual",
+          title: "Previous Month",
           dataIndex: "actual",
           key: "actual",
           align: "center",
