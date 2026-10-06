@@ -45,7 +45,7 @@ export const accessColumn = (compact = false) => {
       render: (_v, _r, idx) => idx + 1,
     },
     {
-      title: "เลขที่ใบจ่ายสินค้า",
+      title: "เลขที่ใบอนุมัติจ่าย",
       dataIndex: "gdspay",
       key: "gdspay",
       align: "center",
