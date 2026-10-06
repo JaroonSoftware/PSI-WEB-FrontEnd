@@ -46,10 +46,12 @@ export const accessColumn = (compact = false) => {
     },
     {
       title: "เลขที่ใบอนุมัติจ่าย",
-      dataIndex: "gdspay",
-      key: "gdspay",
+      dataIndex: "daNo",
+      key: "daNo",
       align: "center",
       width: w(130, 92),
+      // daNo = bok_no/vol_no (เช่น 069/00940) — ข้อมูลเก่าที่ยังไม่มีให้ตกไปใช้ gdspay
+      render: (v, r) => v || r?.gdspay || "",
     },
     {
       title: "วันที่",
