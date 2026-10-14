@@ -155,8 +155,10 @@ const UIStockCardAccess = () => {
                   onChange={onProductChange}
                   options={[
                     // { value: "all", label: "ทั้งหมด" },
+                    { value: "pcw40", label: "PCW40" },
                     { value: "pcw42", label: "PCW42" },
                     { value: "pcw43", label: "PCW43" },
+                    { value: "pcw50", label: "PCW50" },
                     { value: "pcw52", label: "PCW52" },
                     { value: "pcw70", label: "PCW70" },
                     { value: "pcw72", label: "PCW72" },
