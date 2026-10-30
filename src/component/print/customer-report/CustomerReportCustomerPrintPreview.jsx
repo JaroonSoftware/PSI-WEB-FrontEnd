@@ -58,14 +58,6 @@ function CustomerReportCustomerPrintPreview() {
         key: "name",
       },
       {
-        title: "เครดิต",
-        dataIndex: "total_credit",
-        key: "total_credit",
-        align: "right",
-        width: 120,
-        render: (v) => (v ? Number(v).toLocaleString() : "0"),
-      },
-      {
         title: "ปริมาณ(ตัน)",
         dataIndex: "total_unit",
         key: "total_unit",
@@ -168,7 +160,7 @@ function CustomerReportCustomerPrintPreview() {
           pagination={false}
           summary={() => (
             <Table.Summary.Row className="sum-row">
-              <Table.Summary.Cell colSpan={4} className="text-center">
+              <Table.Summary.Cell colSpan={3} className="text-center">
                 รวม
               </Table.Summary.Cell>
               <Table.Summary.Cell className="text-right">

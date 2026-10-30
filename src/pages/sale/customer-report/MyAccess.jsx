@@ -110,13 +110,6 @@ const UICustomerReportAccess = () => {
       key: "name",
     },
     {
-      title: "เครดิต",
-      dataIndex: "total_credit",
-      key: "total_credit",
-      align: "right",
-      render: (total_credit) => total_credit?.toLocaleString(),
-    },
-    {
       title: "ปริมาณ(ตัน)",
       dataIndex: "total_unit",
       key: "total_unit",
@@ -474,7 +467,6 @@ const UICustomerReportAccess = () => {
                   <Table.Summary.Cell className="text-center" colSpan={1}>
                     รวม
                   </Table.Summary.Cell>
-                  <Table.Summary.Cell colSpan={1}></Table.Summary.Cell>{" "}
                   <Table.Summary.Cell colSpan={1}></Table.Summary.Cell>{" "}
                   <Table.Summary.Cell colSpan={1}></Table.Summary.Cell>
                   <Table.Summary.Cell className="text-right">
